@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         sourceMapIncludeSources : true
       },
       dist : {
-        src  : ['bower_components/jquery/dist/jquery.min.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'app/**/*.js'],
+        src  : ['bower_components/jquery/dist/jquery.min.js', 'app/**/*.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js'],
         dest : 'dist/divegold.min.js'
       }
     }
