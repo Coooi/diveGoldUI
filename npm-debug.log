@@ -1,0 +1,128 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'grunt-contrib-jshint',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose readDependencies using package.json deps
+5 verbose cache add [ 'grunt-contrib-jshint', null ]
+6 verbose cache add name=undefined spec="grunt-contrib-jshint" args=["grunt-contrib-jshint",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'grunt-contrib-jshint',
+7 verbose parsed url   path: 'grunt-contrib-jshint',
+7 verbose parsed url   href: 'grunt-contrib-jshint' }
+8 silly lockFile 0324b488-grunt-contrib-jshint grunt-contrib-jshint
+9 verbose lock grunt-contrib-jshint /Users/avenuecode/.npm/0324b488-grunt-contrib-jshint.lock
+10 silly lockFile 0324b488-grunt-contrib-jshint grunt-contrib-jshint
+11 silly lockFile 0324b488-grunt-contrib-jshint grunt-contrib-jshint
+12 verbose addNamed [ 'grunt-contrib-jshint', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile c28ce841-grunt-contrib-jshint grunt-contrib-jshint@
+15 verbose lock grunt-contrib-jshint@ /Users/avenuecode/.npm/c28ce841-grunt-contrib-jshint.lock
+16 silly addNameRange { name: 'grunt-contrib-jshint', range: '*', hasData: false }
+17 verbose request where is /grunt-contrib-jshint
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 9a69146b1ab91055
+20 verbose url raw /grunt-contrib-jshint
+21 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-contrib-jshint' ]
+22 verbose url resolved https://registry.npmjs.org/grunt-contrib-jshint
+23 verbose request where is https://registry.npmjs.org/grunt-contrib-jshint
+24 info trying registry request attempt 1 at 16:07:45
+25 verbose etag "95TIFFAA9L8OBNG2HW9QCKWCM"
+26 http GET https://registry.npmjs.org/grunt-contrib-jshint
+27 http 200 https://registry.npmjs.org/grunt-contrib-jshint
+28 silly registry.get cb [ 200,
+28 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+28 silly registry.get     etag: '"78YPOE4J8VC0LL7JFRSMJCLCX"',
+28 silly registry.get     'content-type': 'application/json',
+28 silly registry.get     'cache-control': 'max-age=60',
+28 silly registry.get     'content-length': '59088',
+28 silly registry.get     'accept-ranges': 'bytes',
+28 silly registry.get     date: 'Fri, 08 May 2015 19:06:32 GMT',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     age: '49',
+28 silly registry.get     connection: 'keep-alive',
+28 silly registry.get     'x-served-by': 'cache-iad2139-IAD',
+28 silly registry.get     'x-cache': 'HIT',
+28 silly registry.get     'x-cache-hits': '1',
+28 silly registry.get     'x-timer': 'S1431111992.103222,VS0,VE0',
+28 silly registry.get     vary: 'Accept' } ]
+29 silly addNameRange number 2 { name: 'grunt-contrib-jshint', range: '*', hasData: true }
+30 silly addNameRange versions [ 'grunt-contrib-jshint',
+30 silly addNameRange   [ '0.1.0',
+30 silly addNameRange     '0.1.1',
+30 silly addNameRange     '0.2.0',
+30 silly addNameRange     '0.3.0',
+30 silly addNameRange     '0.4.0',
+30 silly addNameRange     '0.4.1',
+30 silly addNameRange     '0.4.2',
+30 silly addNameRange     '0.4.3',
+30 silly addNameRange     '0.5.0',
+30 silly addNameRange     '0.5.1',
+30 silly addNameRange     '0.5.2',
+30 silly addNameRange     '0.5.3',
+30 silly addNameRange     '0.5.4',
+30 silly addNameRange     '0.6.0',
+30 silly addNameRange     '0.6.1',
+30 silly addNameRange     '0.6.2',
+30 silly addNameRange     '0.6.3',
+30 silly addNameRange     '0.6.4',
+30 silly addNameRange     '0.6.5',
+30 silly addNameRange     '0.7.0',
+30 silly addNameRange     '0.7.1',
+30 silly addNameRange     '0.7.2',
+30 silly addNameRange     '0.8.0',
+30 silly addNameRange     '0.9.0',
+30 silly addNameRange     '0.9.1',
+30 silly addNameRange     '0.9.2',
+30 silly addNameRange     '0.10.0',
+30 silly addNameRange     '0.11.0',
+30 silly addNameRange     '0.11.1',
+30 silly addNameRange     '0.11.2',
+30 silly addNameRange     '0.1.1-rc5',
+30 silly addNameRange     '0.1.1-rc6' ] ]
+31 verbose addNamed [ 'grunt-contrib-jshint', '0.11.2' ]
+32 verbose addNamed [ '0.11.2', '0.11.2' ]
+33 silly lockFile 53316110-grunt-contrib-jshint-0-11-2 grunt-contrib-jshint@0.11.2
+34 verbose lock grunt-contrib-jshint@0.11.2 /Users/avenuecode/.npm/53316110-grunt-contrib-jshint-0-11-2.lock
+35 silly lockFile 04ba944b--grunt-contrib-jshint-0-11-2-tgz https://registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz
+36 verbose lock https://registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz /Users/avenuecode/.npm/04ba944b--grunt-contrib-jshint-0-11-2-tgz.lock
+37 verbose addRemoteTarball [ 'https://registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz',
+37 verbose addRemoteTarball   'a7e000427bb007848c1099264860c0485b4741d3' ]
+38 info retry fetch attempt 1 at 16:07:46
+39 verbose fetch to= /var/folders/53/9sblzd594bz0gxrk60d43__w0000gn/T/npm-30148-m1CxUkH7/registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz
+40 http GET https://registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz
+41 http 200 https://registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz
+42 silly lockFile 04ba944b--grunt-contrib-jshint-0-11-2-tgz https://registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz
+43 silly lockFile 04ba944b--grunt-contrib-jshint-0-11-2-tgz https://registry.npmjs.org/grunt-contrib-jshint/-/grunt-contrib-jshint-0.11.2.tgz
+44 silly lockFile 53316110-grunt-contrib-jshint-0-11-2 grunt-contrib-jshint@0.11.2
+45 silly lockFile 53316110-grunt-contrib-jshint-0-11-2 grunt-contrib-jshint@0.11.2
+46 silly lockFile c28ce841-grunt-contrib-jshint grunt-contrib-jshint@
+47 silly lockFile c28ce841-grunt-contrib-jshint grunt-contrib-jshint@
+48 error Error: EACCES, mkdir '/Users/avenuecode/.npm/grunt-contrib-jshint/0.11.2'
+48 error  { [Error: EACCES, mkdir '/Users/avenuecode/.npm/grunt-contrib-jshint/0.11.2']
+48 error   errno: 3,
+48 error   code: 'EACCES',
+48 error   path: '/Users/avenuecode/.npm/grunt-contrib-jshint/0.11.2',
+48 error   parent: 'diveGoldUI' }
+49 error Please try running this command again as root/Administrator.
+50 error System Darwin 13.3.0
+51 error command "node" "/usr/local/bin/npm" "install" "grunt-contrib-jshint" "--save"
+52 error cwd /Users/avenuecode/projects/divegold/diveGoldUI
+53 error node -v v0.10.32
+54 error npm -v 1.4.28
+55 error path /Users/avenuecode/.npm/grunt-contrib-jshint/0.11.2
+56 error code EACCES
+57 error errno 3
+58 error stack Error: EACCES, mkdir '/Users/avenuecode/.npm/grunt-contrib-jshint/0.11.2'
+59 verbose exit [ 3, true ]
