@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>RESERVAS DIVEGOLD</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <title>Divegold - Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../dist/css/divegold.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png">
+
 
 </head>
+
 <!-- JS -->
-<script src="../dist/divegold.min.js"></script>
-<!-- CSS -->
-<link rel="stylesheet" href="../app/css/login.css">
+<script src="../dist/js/divegold.min.js"></script>
 
 <body>
 
@@ -51,7 +52,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Entrar">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-primary" value="Entrar">
                                             </div>
                                         </div>
                                     </div>
@@ -65,7 +66,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <form id="register-form" action="#" method="post" role="form" style="display: none;">
+                                <form id="register-form" action="../app/views/reserva/reservas.html" method="post" role="form" style="display: none;">
                                     <div class="form-group">
                                         <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuário" value="">
                                     </div>

@@ -1,0 +1,54 @@
+.reserva {
+  border-color: #ccc;
+  -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+  padding: 0;
+  margin: 10px;
+}
+
+.divCadastro {
+  margin: 0;
+}
+
+#dadosPessoais {
+
+}
+
+.submitReserva {
+  float: right;
+}
+
+.header {
+  color: #333 !important;
+  background-color: white !important;
+  height: 54px;
+  display: block;
+  text-align: center;
+}
+
+.header img{
+  float: left;
+  margin-right: 13px;
+}
+
+.headerContent {
+  display: inline-block;
+  width: 200px;
+}
+
+.outerCadastro {
+
+}
+
+.headerSection {
+  padding: 8px 2px 8px 10px;
+  border: 1px solid white;
+  border-radius: 22px;
+  margin: 1px 0px 12px 0px;
+  background-color: #EFEFEF;
+}
+
+.headerContent h3{
+  line-height: 2em;
+}

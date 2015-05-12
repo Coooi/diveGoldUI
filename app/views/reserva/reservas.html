@@ -5,21 +5,187 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Reservas Divegold</title>
-
-    <!-- Bootstrap -->
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Divegold - Reserva</title>
     <!-- Login CSS -->
-    <link href="../app/css/login.css" rel="stylesheet">
-
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <link href="../../../dist/css/divegold.min.css" rel="stylesheet">
+    <!-- JS -->
+    <script src="../../../dist/js/divegold.min.js"></script>
+    <!-- Logo -->
+    <link rel="icon" type="image/png" href="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png">
   </head>
+
   <body>
-    <h1>Hello, world!</h1>
+
+<div class="col-md-8 col-sm-6 col-xs-12 reserva">
+
+  <!-- Dados Pessoais -->
+  <div id="dadosPessoais" >
+
+        <div class="outerCadastro">
+
+          <div class="panel panel-default divCadastro">
+
+            <div class="panel-heading header">
+              <div class="headerContent">
+                <img src="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png" width="35" height="35" alt="DiveGold Logo">
+                <h3 class="panel-title">Reserva Divegold</h3>
+              </div>
+            </div>
+           
+            <div class="panel-body">
+
+              <div class="headerSection">
+               <h3 class="panel-title">
+                <i class="glyphicon glyphicon glyphicon-pencil"></i> Dados Cadastrais</h3>
+              </div>
+
+              <form class="form-horizontal row-border" data-toggle="validator" action="#">
+                <div class="form-group">
+                  <label class="col-md-2 control-label">Nome</label>
+                  <div class="col-md-10">
+                    <input type="text" name="regular" class="form-control" data-error="O nome é obrigatório" required>
+                    <div class="help-block with-errors"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 col-xs-2 control-label">CPF</label>
+                  <div class="col-md-10 col-xs-10">
+                    <div class="row">
+                      <div class="col-md-3 col-xs-5">
+                        <input id="cpf" type="text" class="form-control" placeholder="" required>
+                        <div class="help-block with-errors"></div>
+                      </div>
+                      <label class="col-md-1 col-xs-2 control-label">CEP</label>
+                      <div class="col-md-3 col-xs-5">
+                        <input id="cep" type="text" class="form-control" placeholder="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 col-xs-2 control-label">Endereço</label>
+                  <div class="col-md-10">
+                    <input type="text" name="regular" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 col-xs-2 control-label">Número</label>
+                  <div class="col-md-10">
+                    <div class="row">
+                      <div class="col-md-2 col-xs-2">
+                        <input type="text" class="form-control" placeholder="">
+                      </div>
+                      <label class="col-md-3 col-xs-4 control-label">Complemento</label>
+                      <div class="col-lg-7 col-md-3 col-xs-4">
+                        <input type="text" class="form-control" placeholder="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 col-xs-2 control-label">Cidade</label>
+                  <div class="col-md-10 col-xs-10">
+                    <div class="row">
+                      <div class="col-md-8 col-xs-7">
+                        <input type="text" class="form-control" placeholder="">
+                      </div>
+                      <label class="col-md-2 col-xs-1 control-label">UF</label>
+                      <div class="col-md-2 col-sm-3 col-xs-3">
+                        <input id="uf" type="text" class="form-control" placeholder="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 col-sm-4 col-xs-5 control-label">Telefone Fixo</label>
+                  <div class="col-md-10">
+                    <div class="row">
+                      <div class="col-md-4 col-xs-5">
+                        <input type="text" class="form-control cel" placeholder="">
+                      </div>
+                      <label class="col-md-4 col-sm-4 col-xs-5 control-label">Telefone Celular</label>
+                      <div class="col-md-4 col-xs-5">
+                        <input type="text" class="form-control cel col-xs-4" placeholder="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 col-xs-2 control-label">email</label>
+                  <div class="col-md-10 col-xs-12">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input type="email" class="form-control" placeholder="email@dominio.com" data-error="Preencha corretamente o email" required>
+                        <div class="help-block with-errors"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 col-xs-6 control-label">Nível de Mergulho</label>
+                  <div class="col-md-10 col-xs-12">
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- Split button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-primary">Selecione</button>
+                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Recreativo</a></li>
+                            <li><a href="#">Intro-to-Cave</a></li>
+                            <li><a href="#">Cave Diver</a></li>
+                            <li><a href="#">Advanced Cave Diver</a></li>
+                            <li><a href="#">Instructor/Staff</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    
+
+                    <!-- Dados de Mergulho -->
+                  <div id="dadosMergulho" >
+
+                    <div class="headerSection">
+                       <h3 class="panel-title">
+                        <i class="glyphicon glyphicon glyphicon-calendar"></i> Reserva de Mergulhos</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group">
+                          <label class="col-md-2 col-xs-2 control-label">Data</label>
+                          <div class="col-md-3 col-xs-6">
+                            <input id="dataMergulho" type="text" name="regular" class="form-control">
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                    <hr>
+                    <div class="submitReserva">
+                      <button type="submit" class="btn btn-success">
+                          <span class="glyphicon glyphicon-thumbs-up"></span>
+                          Confirmar Reserva
+                      </button>
+                    </div>
+                  </form>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+  <!-- Fim Dados Pessoais -->
+
+
+
+  <!-- Fim Dados de Mergulho -->
+
+
 
 
   </body>
