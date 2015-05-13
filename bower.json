@@ -18,7 +18,8 @@
     "jquery": "~2.1.4",
     "bootstrap": "~3.3.4",
     "jquery-ui": "~1.11.4",
-    "bootstrap-validator": "~0.8.1"
+    "bootstrap-validator": "~0.8.1",
+    "handlebars": "~3.0.3"
   },
   "devDependencies": {
     "bootstrap": "~3.3.4"

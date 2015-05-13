@@ -52,3 +52,19 @@
 .headerContent h3{
   line-height: 2em;
 }
+
+.datasReserva {
+
+}
+
+.datasReserva ul{
+  list-style-type: none;
+}
+
+.btnRemoveData {
+  padding: 5px;
+}
+
+.btnAddData {
+  line-height: 2.3em;
+}
