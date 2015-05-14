@@ -16,7 +16,7 @@
 }
 
 .submitReserva {
-  float: right;
+  
 }
 
 .header {
@@ -61,10 +61,21 @@
   list-style-type: none;
 }
 
-.btnRemoveData {
+.btnRemoveDate {
   padding: 5px;
 }
 
-.btnAddData {
+.btnAddDate {
   line-height: 2.3em;
+}
+
+.gasTypesRow {
+  border: 2px solid grey;
+  margin-left: 0!important;
+  padding: 10px 1px 1px 1px;
+  border-radius: 24px;
+}
+
+.dropdown-menu {
+    min-width: 0px !important;
 }

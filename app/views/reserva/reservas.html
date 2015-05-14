@@ -8,8 +8,10 @@
     <title>Divegold - Reserva</title>
     <!-- Login CSS -->
     <link href="../../../dist/css/divegold.min.css" rel="stylesheet">
-    <!-- JS -->
+    <!-- JS  -->
     <script src="../../../dist/js/divegold.min.js"></script>
+    <!-- <script type="text/javascript" src="../../../app/js/reserva.js"></script> -->
+
     <!-- Logo -->
     <link rel="icon" type="image/png" href="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png">
   </head>
@@ -128,12 +130,12 @@
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <!-- Split button -->
                         <div class="btn-group">
-                          <button type="button" class="btn btn-primary">Selecione</button>
+                          <button id="btnNivelMergulho" type="button" class="btn btn-primary">Selecione</button>
                           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
-                          <ul class="dropdown-menu" role="menu">
+                          <ul id="comboNivelMergulho" class="dropdown-menu" role="menu">
                             <li><a href="#">Recreativo</a></li>
                             <li><a href="#">Intro-to-Cave</a></li>
                             <li><a href="#">Cave Diver</a></li>
@@ -156,50 +158,17 @@
 
                     <div class="panel-body">
                         <div class="form-group row">
-                          <label class="col-md-2 col-xs-2 control-label">Data</label>
-                          <div class="col-md-3 col-xs-6">
+                          <label class="col-md-1 col-xs-2 control-label">Data</label>
+                          <div class="col-md-2 col-xs-6">
                             <input id="dataMergulho" type="text" name="regular" class="form-control">
                           </div>
-                          <div class="col-md-1 col-xs-1 btnAddData">
+                          <div class="col-md-1 col-xs-1 btnAddDate">
                                 <button type="button" class="btn btn-success btn-sm">
                                   <span class="glyphicon glyphicon-plus-sign"></span> Adicionar
                                 </button>
                           </div>
                         </div>
                         <div class="col-md-12 col-xs-12 datasReserva">
-                          <div class="form-group row">
-                            <label class="col-md-2 col-xs-2 control-label"></label>
-                            <div class="col-md-2 col-xs-4">
-                              <input id="dataMergulho" type="text" name="regular" class="form-control" disabled>
-                            </div>
-                            <div class="col-md-1 col-xs-1 btnRemoveData">
-                                <button type="button" class="btn btn-danger btn-xs">
-                                  <span class="glyphicon glyphicon-remove-sign"></span> Remover
-                                </button>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-md-2 col-xs-2 control-label"></label>
-                            <div class="col-md-2 col-xs-4">
-                              <input id="dataMergulho" type="text" name="regular" class="form-control" disabled>
-                            </div>
-                            <div class="col-md-1 col-xs-1 btnRemoveData">
-                                <button type="button" class="btn btn-danger btn-xs">
-                                  <span class="glyphicon glyphicon-remove-sign"></span> Remover
-                                </button>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-md-2 col-xs-2 control-label"></label>
-                            <div class="col-md-2 col-xs-4">
-                              <input id="dataMergulho" type="text" name="regular" class="form-control" disabled>
-                            </div>
-                            <div class="col-md-1 col-xs-1 btnRemoveData">
-                                <button type="button" class="btn btn-danger btn-xs">
-                                  <span class="glyphicon glyphicon-remove-sign"></span> Remover
-                                </button>
-                            </div>
-                          </div>
                         </div>
                     </div>
 
@@ -212,8 +181,9 @@
                        <h3 class="panel-title">
                         <i class="glyphicon glyphicon glyphicon-tint"></i> Escolha de Tanques e Gases</h3>
                     </div>
-
-                    <div class="form-group row col-md-20 col-xs-12">
+                    <div class="gasTypesRowDates">
+              <!--       <div class="form-group row col-md-20 col-xs-12 gasTypesRow">
+                      
                         <label class="col-md-1 col-xs-12 control-label">Data</label>
                         <div class="">
                             <div class="col-md-2 col-xs-5">
@@ -222,32 +192,32 @@
                             </div>
                         </div>
                         <label class="col-md-1 col-xs-12 control-label">Cilindro</label>
-                        <div class="col-md-3 col-xs-12">
-                          <!-- Split button -->
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                         
                           <div class="btn-group">
-                            <button type="button" class="btn btn-primary">Selecione</button>
+                            <button id="btnCilindro" type="button" class="btn btn-primary">Selecione</button>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                               <span class="caret"></span>
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu" role="menu">
-                              <li><a href="#">Cilindro 1</a></li>
-                              <li><a href="#">Cilindro 2</a></li>
-                              <li><a href="#">Cilindro 3</a></li>
-                              <li><a href="#">Cilindro 4</a></li>
+                            <ul id="comboCilindro" class="dropdown-menu" role="menu">
+                              <li><a href="#"> 1</a></li>
+                              <li><a href="#"> 2</a></li>
+                              <li><a href="#"> 3</a></li>
+                              <li><a href="#"> 4</a></li>
                             </ul>
                           </div>
                         </div>
                         <label class="col-md-1 col-xs-12 control-label">Gases</label>
                         <div class="col-md-3 col-xs-12">
-                          <!-- Split button -->
+                          
                           <div class="btn-group">
-                            <button type="button" class="btn btn-primary">Selecione</button>
+                            <button id="btnGases" type="button" class="btn btn-primary">Selecione</button>
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                               <span class="caret"></span>
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu" role="menu">
+                            <ul id="comboGases" class="dropdown-menu" role="menu">
                               <li><a href="#">Gas 1</a></li>
                               <li><a href="#">Gas 2</a></li>
                               <li><a href="#">Gas 3</a></li>
@@ -255,22 +225,24 @@
                             </ul>
                           </div>
                         </div>
+                      
+                    </div>  -->
+                  </div>
 
-                    </div>
 
-
-
+                    <hr>
 
                     <div class="panel-body">
 
+
                         <div class="form-group row">
-                          <label class="col-md-1 col-xs-1 control-label"></label>
+                          
                           <div class="col-md-11 col-xs-11">
-                            <input type="checkbox" value="equipamentos"> Reservar Equipamentos
+                            <input id="checkEquipamentos" type="checkbox" value="equipamentos"> Reservar Equipamentos
                           </div>
                         </div>
 
-                        <div id="equipamentos">
+                        <div id="equipamentos" class="">
                           <div class="form-group row miniHeader">
                             <label class="col-md-5 col-xs-12 row">Selecione os equipamentos desejados:</label>
                           </div>
@@ -373,77 +345,77 @@
                         <hr>
 
 
-                        <div id="pousada">
+                        
 
                         <div class="form-group row">
                           
                           <div class="col-md-11 col-xs-11">
-                            <input type="checkbox" value="equipamentos"> Reservar Pousada
+                            <input id="checkPousada" type="checkbox" value="equipamentos"> Reservar Pousada
                           </div>
                         </div>
-
-                        <div class="form-group row miniHeader">
-                          <label class="col-md-5 col-xs-12 row">Dados necessário para reserva:</label>
-                        </div>
-
-                        <div class="form-group">
-                          <label class="col-md-2 col-xs-12 control-label">Data Entrada</label>
-                          <div class="col-md-10 col-xs-10">
-                            <div class="row">
-                              <div class="col-md-2 col-xs-12">
-                                <input type="text" class="form-control" placeholder="">
-                                <div class="help-block with-errors"></div>
-                              </div>
-                              <label class="col-md-3 col-xs-12 control-label">Data Saída</label>
-                              <div class="col-md-2 col-xs-12">
-                                <input type="text" class="form-control" placeholder="">
-                              </div>
-                            </div>
+                        <div id="pousada" class="">
+                          <div class="form-group row miniHeader">
+                            <label class="col-md-5 col-xs-12 row">Dados necessário para reserva:</label>
                           </div>
-                        </div>
 
-                        <div class="form-group">
-                          <label class="col-md-2 col-xs-6 control-label">Tipo do apartamento</label>
-                          <div class="col-md-10 col-xs-12">
-                            <div class="row">
-                              <div class="col-md-12 col-sm-12 col-xs-12">
-                                <!-- Split button -->
-                                <div class="btn-group">
-                                  <button type="button" class="btn btn-primary">Selecione</button>
-                                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                  </button>
-                                  <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Solteiro</a></li>
-                                    <li><a href="#">Duplo Casal</a></li>
-                                    <li><a href="#">Duplo Solteiro</a></li>
-                                    <li><a href="#">Triplo Casal</a></li>
-                                    <li><a href="#">Triplo Solteiro</a></li>
-                                    <li><a href="#">Quádruplo Casal</a></li>
-                                    <li><a href="#">Quádruplo Solteiro</a></li>
-                                  </ul>
+                          <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Data Entrada</label>
+                            <div class="col-md-10 col-xs-10">
+                              <div class="row">
+                                <div class="col-md-2 col-xs-12">
+                                  <input id="dataEntrada" type="text" class="form-control" placeholder="">
+                                  <div class="help-block with-errors"></div>
+                                </div>
+                                <label class="col-md-3 col-xs-12 control-label">Data Saída</label>
+                                <div class="col-md-2 col-xs-12">
+                                  <input id="dataSaida" type="text" class="form-control" placeholder="">
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div class="form-group">
-                          <label class="col-md-2 control-label">Acompanhante</label>
-                          <div class="col-md-10">
-                            <input type="text" name="regular" class="form-control" placeholder="Nome e sobrenome do acompanhante" data-error="O nome é obrigatório" required>
-                            <div class="help-block with-errors"></div>
+                          <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Tipo do apartamento</label>
+                            <div class="col-md-10 col-xs-12">
+                              <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                  <!-- Split button -->
+                                  <div class="btn-group">
+                                    <button id="btnTipoAp" type="button" class="btn btn-primary">Selecione</button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                      <span class="caret"></span>
+                                      <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul id="comboTipoAp" class="dropdown-menu" role="menu">
+                                      <li><a href="#">Solteiro</a></li>
+                                      <li><a href="#">Duplo Casal</a></li>
+                                      <li><a href="#">Duplo Solteiro</a></li>
+                                      <li><a href="#">Triplo Casal</a></li>
+                                      <li><a href="#">Triplo Solteiro</a></li>
+                                      <li><a href="#">Quádruplo Casal</a></li>
+                                      <li><a href="#">Quádruplo Solteiro</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="form-group">
-                          <label class="col-md-2 col-xs-12 control-label">Observações</label>
-                          <div class="col-md-10 col-xs-12">
-                            <textarea class="form-control" rows="3"></textarea>
-                            <div class="help-block with-errors"></div>
+                          <div class="form-group">
+                            <label class="col-md-2 control-label">Acompanhante</label>
+                            <div class="col-md-10">
+                              <input type="text" name="regular" class="form-control" placeholder="Nome e sobrenome do acompanhante" data-error="O nome é obrigatório" required>
+                              <div class="help-block with-errors"></div>
+                            </div>
                           </div>
-                        </div>
+
+                          <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Observações</label>
+                            <div class="col-md-10 col-xs-12">
+                              <textarea class="form-control" rows="3"></textarea>
+                              <div class="help-block with-errors"></div>
+                            </div>
+                          </div>
 
                         </div>
 
@@ -454,7 +426,7 @@
 
                  <hr>
 
-                  <div class="submitReserva">
+                  <div class="submitReserva text-center">
                     <button type="submit" class="btn btn-success btn-lg">
                         <span class="glyphicon glyphicon-thumbs-up"></span>
                         Confirmar Reserva
