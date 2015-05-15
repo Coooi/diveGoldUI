@@ -1,6 +1,19 @@
 module.exports = function(grunt) {
 
+  var watchFiles = {
+    clientCSS: ['app/css/**/*.css']
+  };
+
   grunt.initConfig({
+    watch: {
+      clientCSS: {
+        files: watchFiles.clientCSS,
+        tasks: ['cssmin'],
+        options: {
+          livereload: true
+        }
+      }
+    },
     jshint: {
       files: ['Gruntfile.js', 'app/js/*.js'],
       options: {
@@ -51,6 +64,26 @@ module.exports = function(grunt) {
           expand: true
         }]
     }
+  },
+  jsbeautifier : {
+      default: {
+        src: ['app/js/**/*.js', 'app/views/**/*.html', 'app/**/*.html'],
+        options : {
+          config: '.jsbeautifier'
+        }
+      },
+      'precommit-hook': {
+        src: ['app/js/**/*.js', 'app/views/**/*.html', 'app/**/*.html'],
+        options : {
+          config: '.jsbeautifier',
+          mode:'VERIFY_ONLY'
+        }
+      }
+  },
+  githooks: {
+      all: {
+        'pre-commit': 'jsbeautifier:precommit-hook'
+      }
   }
       
   });
@@ -59,6 +92,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-jsbeautifier');
+  grunt.loadNpmTasks('grunt-githooks');
 
   grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'copy']);
 
