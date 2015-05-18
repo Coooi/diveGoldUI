@@ -70,10 +70,19 @@
 }
 
 .gasTypesRow {
-  border: 2px solid grey;
+  border: 2px solid rgb(239, 239, 239);
   margin-left: 0!important;
-  padding: 10px 1px 1px 1px;
+  padding: 7px 1px 7px;
   border-radius: 24px;
+  margin-right: 0px!important;
+}
+
+.gasTypesRowSet {
+  border: 2px solid rgb(239, 239, 239);
+  margin-left: 0!important;
+  padding: 7px 1px 7px;
+  border-radius: 24px;
+  margin-right: 0px!important;
 }
 
 .dropdown-menu {

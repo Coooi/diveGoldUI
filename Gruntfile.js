@@ -32,7 +32,9 @@ module.exports = function(grunt) {
       dist : {
         src  : ['bower_components/jquery/dist/jquery.min.js',
                 'bower_components/jquery-ui/jquery-ui.js',
-                '/node_modules/**/*.js', 'app/js/lib/*.js', 'app/js/**/*.js',
+                '/node_modules/**/*.js', 
+                'app/js/lib/*.js', 
+                // 'app/js/**/*.js',
                 'bower_components/bootstrap/dist/js/bootstrap.js',
                 'bower_components/handlebars/handlebars.js',
                 'bower_components/bootstrap-validator/dist/validator.js'],

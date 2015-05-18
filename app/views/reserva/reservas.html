@@ -11,7 +11,7 @@
   <link href="../../../dist/css/divegold.min.css" rel="stylesheet">
   <!-- JS  -->
   <script src="../../../dist/js/divegold.min.js"></script>
-  <!-- <script type="text/javascript" src="../../../app/js/reserva.js"></script> -->
+  <script type="text/javascript" src="../../../app/js/reserva.js"></script>
 
   <!-- Logo -->
   <link rel="icon" type="image/png" href="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png">
@@ -68,19 +68,24 @@
               <div class="form-group">
                 <label class="col-md-2 col-xs-2 control-label">Endereço</label>
                 <div class="col-md-10">
-                  <input type="text" name="regular" class="form-control">
+                  <input id="rua" type="text" name="regular" class="form-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-2 col-xs-2 control-label">Número</label>
-                <div class="col-md-10">
+                
+                <div class="col-md-12">
                   <div class="row">
-                    <div class="col-md-2 col-xs-2">
+                    <label class="col-md-2 col-xs-2 control-label">Número</label>
+                    <div class="col-lg-2 col-md-2 col-xs-2">
+                      <input id="numero" type="text" class="form-control" placeholder="">
+                    </div>
+                    <label class="col-md-2 col-xs-2 control-label">Complemento</label>
+                    <div class="col-lg-2 col-md-2 col-xs-2">
                       <input type="text" class="form-control" placeholder="">
                     </div>
-                    <label class="col-md-3 col-xs-4 control-label">Complemento</label>
-                    <div class="col-lg-7 col-md-3 col-xs-4">
-                      <input type="text" class="form-control" placeholder="">
+                     <label class="col-md-1 col-xs-2 control-label">Bairro</label>
+                    <div class="col-lg-3 col-md-3 col-xs-2">
+                      <input id="bairro" type="text" class="form-control" placeholder="">
                     </div>
                   </div>
                 </div>
@@ -90,7 +95,7 @@
                 <div class="col-md-10 col-xs-10">
                   <div class="row">
                     <div class="col-md-8 col-xs-7">
-                      <input type="text" class="form-control" placeholder="">
+                      <input id="cidade" type="text" class="form-control" placeholder="">
                     </div>
                     <label class="col-md-2 col-xs-1 control-label">UF</label>
                     <div class="col-md-2 col-sm-3 col-xs-3">
@@ -182,17 +187,22 @@
                         <i class="glyphicon glyphicon glyphicon-tint"></i> Escolha de Tanques e Gases</h3>
                   </div>
                   <div class="gasTypesRowDates">
-                    <!--       <div class="form-group row col-md-20 col-xs-12 gasTypesRow">
-                      
+                    <div class="form-group row gasTypesRow">
                         <label class="col-md-1 col-xs-12 control-label">Data</label>
-                        <div class="">
-                            <div class="col-md-2 col-xs-5">
-                              <input type="text" class="form-control" placeholder="" disabled>
-                              <div class="help-block with-errors"></div>
-                            </div>
+                        <div class="col-md-2 col-xs-12">
+                          <div class="btn-group">
+                            <button id="btnDatas" type="button" class="btn btn-primary">Selecione</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                              <span class="caret"></span>
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul id="comboDatas" class="dropdown-menu" role="menu">
+                              <!-- <li><a href="#">Gas 1</a></li> -->
+                            </ul>
+                          </div>
                         </div>
-                        <label class="col-md-1 col-xs-12 control-label">Cilindro</label>
-                        <div class="col-md-3 col-sm-3 col-xs-12">
+                        <label class="col-md-1  col-xs-12 control-label">Cilindro</label>
+                        <div class="col-md-3 col-xs-12">
                          
                           <div class="btn-group">
                             <button id="btnCilindro" type="button" class="btn btn-primary">Selecione</button>
@@ -201,15 +211,17 @@
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul id="comboCilindro" class="dropdown-menu" role="menu">
-                              <li><a href="#"> 1</a></li>
-                              <li><a href="#"> 2</a></li>
-                              <li><a href="#"> 3</a></li>
-                              <li><a href="#"> 4</a></li>
+                              <li><a href="#">Dupla aço</a></li>
+                              <li><a href="#">Side aço 13 lts (par)</a></li>
+                              <li><a href="#">Side AL S80 (par)</a></li>
+                              <li><a href="#">S40 stage</a></li>
+                              <li><a href="#">S80 stage</a></li>
+                              <li><a href="#">Cilindro próprio</a></li>
                             </ul>
                           </div>
                         </div>
                         <label class="col-md-1 col-xs-12 control-label">Gases</label>
-                        <div class="col-md-3 col-xs-12">
+                        <div class="col-md-3  col-xs-12">
                           
                           <div class="btn-group">
                             <button id="btnGases" type="button" class="btn btn-primary">Selecione</button>
@@ -218,15 +230,44 @@
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul id="comboGases" class="dropdown-menu" role="menu">
-                              <li><a href="#">Gas 1</a></li>
-                              <li><a href="#">Gas 2</a></li>
-                              <li><a href="#">Gas 3</a></li>
-                              <li><a href="#">Gas 4</a></li>
+                              <li><a href="#">AR</a></li>
+                              <li><a href="#">EAN 28</a></li>
+                              <li><a href="#">EAN 40</a></li>
+                              <li><a href="#">EAN 50</a></li>
+                              <li><a href="#">Oxigênio puro</a></li>
+                              <li><a href="#">Trimix</a></li>
                             </ul>
                           </div>
                         </div>
-                      
+                        <div class="col-md-1 col-xs-12">
+                          <button type="button" class="btn btn-success btn-sm btnAddTanque" disabled>
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                          </button>
+                        </div>
+                        
+                    </div> 
+
+                   <!--  <div class="form-group row gasTypesRowSet">
+                        <label class="col-md-1 col-xs-12 control-label">Data</label>
+                        <div class="col-md-2 col-xs-12">
+                          <input type="text" name="regular" class="form-control" value="{{date}}" disabled>
+                        </div>
+                        <label class="col-md-1  col-xs-12 control-label">Cilindro</label>
+                        <div class="col-md-3 col-xs-12">
+                          <input type="text" name="regular" class="form-control" value="{{cilindro}}" disabled>
+                        </div>
+                        <label class="col-md-1 col-xs-12 control-label">Gases</label>
+                        <div class="col-md-3  col-xs-12">
+                          <input type="text" name="regular" class="form-control" value="{{gas}}" disabled>
+                        </div>
+                        <div class="col-md-1 col-xs-12">
+                          <button type="button" class="btn btn-danger btn-sm btnRemoveTanque">
+                            <span class="glyphicon glyphicon-remove-sign"></span>
+                          </button>
+                        </div>
                     </div>  -->
+
+
                   </div>
 
 
