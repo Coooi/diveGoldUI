@@ -7,6 +7,16 @@ var applyPhoneMask = function(element){
   }
 };
 
+var applyMasks = function() {
+  $("#cpf").mask("999.999.999-99");
+  $("#cnpj").mask("99.999.999/9999-99");
+  $("#cep").mask("99.999-999");
+  $("#uf").mask("aa");
+  $(".cel").mask("(99) 9999-9999");
+  $(".equipment").mask("9?9");
+};
+
+
 var initEvents = function() {
   var checkEquipamentos = $("#checkEquipamentos"),
       checkPousada = $("#checkPousada"),
@@ -29,14 +39,23 @@ var initEvents = function() {
       btnRemoveDate = $(".btnRemoveDate"),
       self = this;
 
-  $("#cpf").mask("999.999.999-99");
-  cep.mask("99.999-999");
-  $("#uf").mask("aa");
-  $(".cel").mask("(99) 9999-9999");
+  applyMasks();
 
   $("#uf").blur(function(){
     applyPhoneMask($(this));
   });
+
+  $("#cpfRadio").click(function(){
+    $("#cpf").removeAttr('disabled', '');
+    $("#cnpj").attr('disabled', '');
+  });
+
+  $("#cnpjRadio").click(function(){
+    $("#cnpj").removeAttr('disabled', '');
+    $("#cpf").attr('disabled', '');
+  });
+
+  $("#cpfRadio").click();
 
   var enabledAddBtn = function() {
     if ( $('#btnCilindro').text() !== "Selecione" &&
@@ -46,6 +65,44 @@ var initEvents = function() {
     } else {
       btnAddTanque.attr('disabled', '');
     } 
+  };
+
+  var sendPostRequest = function() {
+  // $("#formReserva").submit(function(e){
+
+  //   e.preventDefault();
+
+  //   var data = {}
+  //   var Form = this;
+
+  //   //Gathering the Data
+  //   //and removing undefined keys(buttons)
+  //   $.each(this.elements, function(i, v){
+  //           var input = $(v);
+  //       data[input.attr("name")] = input.val();
+  //       delete data["undefined"];
+  //   });
+
+  //   //Form Validation goes here....
+
+  //   //Save Form Data........
+  //   $.ajax({
+  //       cache: false,
+  //       url : "/teste",
+  //       type: "POST",
+  //       dataType : "json",
+  //       data : JSON.stringify(data),
+  //       context : Form,
+  //       success : function(callback){
+  //           //Where $(this) => context == FORM
+  //           console.log(JSON.parse(callback));
+  //           $(this).html("Success!");
+  //       },
+  //       error : function(){
+  //           $(this).html("Error!");
+  //       }
+  //   });
+  // });
   };
 
   dataMergulhoDP.datepicker({
@@ -114,6 +171,12 @@ var initEvents = function() {
           comboDatas.find("[value='" + dpDate + "']").parent().remove();
 
           btnDatas.text("Selecione");
+          $('#btnCilindro').text("Selecione");
+          $("#btnGases").text("Selecione");
+
+          if ( !comboDatas.find("[value='" + dpDate + "']").length ) {
+            btnAddTanque.attr('disabled', '');
+          }
 
         });
       }
@@ -122,7 +185,7 @@ var initEvents = function() {
   });
 
   btnAddTanque.click(function(e){
-    var template = "<div class='form-group row gasTypesRowSet'><label class='col-md-1 col-xs-12 control-label'>Data</label><div class='col-md-2 col-xs-12'><input type='text' name='regular' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-1  col-xs-12 control-label'>Cilindro</label><div class='col-md-3 col-xs-12'><input type='text' name='regular' class='form-control' value='{{cilindro}}' disabled></div><label class='col-md-1 col-xs-12 control-label'>Gases</label><div class='col-md-3  col-xs-12'><input type='text' name='regular' class='form-control' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12'><button type='button' class='btn btn-danger btn-sm btnRemoveTanque'><span class='glyphicon glyphicon-remove-sign'></span></button></div></div>";
+    var template = "<div class='form-group row gasTypesRowSet well'><label class='col-md-1 col-xs-12 control-label'>Data</label><div class='col-md-2 col-xs-12'><input type='text' name='regular' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-1  col-xs-12 control-label'>Cilindro</label><div class='col-md-3 col-xs-12'><input type='text' name='regular' class='form-control' value='{{cilindro}}' disabled></div><label class='col-md-1 col-xs-12 control-label'>Gases</label><div class='col-md-3  col-xs-12'><input type='text' name='regular' class='form-control' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12'><button type='button' class='btn btn-danger btn-sm btnRemoveTanque'><span class='glyphicon glyphicon-remove-sign'></span></button></div></div>";
     var gasTanqueSet = Handlebars.compile(template);
     var setHtml,
         setDate = $('#btnDatas').text(),
@@ -142,6 +205,10 @@ var initEvents = function() {
           $(this).remove();
         });
     });
+    btnDatas.text("Selecione");
+    $('#btnCilindro').text("Selecione");
+    $("#btnGases").text("Selecione");
+    btnAddTanque.attr('disabled', '');
   });
 
   dataEntradaDP.datepicker({
@@ -223,5 +290,7 @@ var initEvents = function() {
 $(document).ready(function() {
 
   initEvents();
+
+  sendPostRequest();
 
 });
