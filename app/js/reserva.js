@@ -90,21 +90,29 @@ var initEvents = function() {
       dateHtml = dataMergulhoTemplate(diveDate);
       var gasTanqueHtml = gasTanqueRowTemplate(diveDate);
       if (gasTanqueHtml) {
-        comboDatas.append(gasTanqueHtml);
-        comboDatas.find('a').on('click', function(e) {
-            e.preventDefault();
-            btnDatas.text($(this).text());
-            enabledAddBtn();
-        });
+        if ( !comboDatas.find("[value='" + dpDate + "']").length ) {
+          $(".datasReserva").append(dateHtml);
+          comboDatas.append(gasTanqueHtml);
+          comboDatas.find('a').on('click', function(e) {
+              e.preventDefault();
+              btnDatas.text($(this).text());
+              enabledAddBtn();
+          });
+        }
       }
       if (dateHtml) {
-        $(".datasReserva").append(dateHtml);
         $(".btnRemoveDate").last().click(function(e) {
           e.preventDefault();
           $(this).parent().slideUp(300, function() {
             $(this).remove();
           });
+
+          $(".dateSet[value='" + dpDate + "']").parents(".gasTypesRowSet").slideUp(300, function() {
+            $(this).remove();
+          });
+
           comboDatas.find("[value='" + dpDate + "']").parent().remove();
+
           btnDatas.text("Selecione");
 
         });
@@ -114,7 +122,7 @@ var initEvents = function() {
   });
 
   btnAddTanque.click(function(e){
-    var template = "<div class='form-group row gasTypesRowSet'><label class='col-md-1 col-xs-12 control-label'>Data</label><div class='col-md-2 col-xs-12'><input type='text' name='regular' class='form-control' value='{{date}}' disabled></div><label class='col-md-1  col-xs-12 control-label'>Cilindro</label><div class='col-md-3 col-xs-12'><input type='text' name='regular' class='form-control' value='{{cilindro}}' disabled></div><label class='col-md-1 col-xs-12 control-label'>Gases</label><div class='col-md-3  col-xs-12'><input type='text' name='regular' class='form-control' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12'><button type='button' class='btn btn-danger btn-sm btnRemoveTanque' disabled><span class='glyphicon glyphicon-remove-sign'></span></button></div></div>";
+    var template = "<div class='form-group row gasTypesRowSet'><label class='col-md-1 col-xs-12 control-label'>Data</label><div class='col-md-2 col-xs-12'><input type='text' name='regular' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-1  col-xs-12 control-label'>Cilindro</label><div class='col-md-3 col-xs-12'><input type='text' name='regular' class='form-control' value='{{cilindro}}' disabled></div><label class='col-md-1 col-xs-12 control-label'>Gases</label><div class='col-md-3  col-xs-12'><input type='text' name='regular' class='form-control' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12'><button type='button' class='btn btn-danger btn-sm btnRemoveTanque'><span class='glyphicon glyphicon-remove-sign'></span></button></div></div>";
     var gasTanqueSet = Handlebars.compile(template);
     var setHtml,
         setDate = $('#btnDatas').text(),
@@ -128,6 +136,12 @@ var initEvents = function() {
               });
 
     $(".gasTypesRowDates").append(setHtml);
+    $(".btnRemoveTanque").last().click(function(e) {
+      e.preventDefault();
+        $(this).parents('.gasTypesRowSet').slideUp(300, function() {
+          $(this).remove();
+        });
+    });
   });
 
   dataEntradaDP.datepicker({
@@ -159,7 +173,6 @@ var initEvents = function() {
     e.preventDefault();
     if ($(this).prop("checked")) {
       divEquipamentos.slideDown("slow");
-      //$("#equipamentos").removeClass('hidden');
     } else {
       divEquipamentos.slideUp("slow");
     }
@@ -185,8 +198,6 @@ var initEvents = function() {
     $(this).parent().parent().find('#btnGases').text($(this).text());
     enabledAddBtn();
   });
-
-  
 
   cep.blur(function(){
     var cepValue = $(this).val().replace('.', '').replace('-',''); 
