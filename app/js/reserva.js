@@ -16,6 +16,60 @@ var applyMasks = function() {
   $(".equipment").mask("9?9");
 };
 
+var sendPostRequest = function() {
+  $("#formReserva").submit(function(e){
+
+    e.preventDefault();
+
+    var data = {}
+    var Form = this;
+
+    //Gathering the Data
+    //and removing undefined keys(buttons)
+    // $.each(this.elements, function(i, v){
+    //         var input = $(v);
+    //     data[input.attr("name")] = input.val();
+    //     delete data["undefined"];
+    // });
+
+    data.name = $("#userName").val();
+    data.cpf = $("#cpf").val().replace('.', '').replace('-','');
+    data.cnpj = $("#cnpj").val().replace('.', '').replace('-','').replace('/', '');
+    data.cep = $("#cep").val().replace('.', '').replace('-','').replace(' ', '');
+    data.address = $("#rua").val();
+    data.number = $("#numero").val();
+    data.comp = $("#comp").val();
+    data.region = $("#bairro").val();
+    data.city = $("#cidade").val();
+    data.uf = $("#uf").val();
+    data.tel = $("#tel").val();
+    data.cel = $("#cel").val();
+    data.email = $("#email").val();
+    data.diverLevel = ( $("#btnNivelMergulho").text() !== "Selecione" ) ? $("#btnNivelMergulho").text() : "";
+
+
+    //Form Validation goes here....
+
+    //Save Form Data........
+    $.ajax({
+        cache: false,
+        url : "/teste",
+        type: "POST",
+        dataType : "json",
+        data : JSON.stringify(data),
+        context : Form,
+        success : function(callback){
+            //Where $(this) => context == FORM
+            console.log(JSON.parse(callback));
+            $(this).html("Success!");
+        },
+        error : function(){
+            $(this).html("Error!");
+        }
+    });
+  });
+};
+
 
 var initEvents = function() {
   var checkEquipamentos = $("#checkEquipamentos"),
@@ -65,44 +119,6 @@ var initEvents = function() {
     } else {
       btnAddTanque.attr('disabled', '');
     } 
-  };
-
-  var sendPostRequest = function() {
-  // $("#formReserva").submit(function(e){
-
-  //   e.preventDefault();
-
-  //   var data = {}
-  //   var Form = this;
-
-  //   //Gathering the Data
-  //   //and removing undefined keys(buttons)
-  //   $.each(this.elements, function(i, v){
-  //           var input = $(v);
-  //       data[input.attr("name")] = input.val();
-  //       delete data["undefined"];
-  //   });
-
-  //   //Form Validation goes here....
-
-  //   //Save Form Data........
-  //   $.ajax({
-  //       cache: false,
-  //       url : "/teste",
-  //       type: "POST",
-  //       dataType : "json",
-  //       data : JSON.stringify(data),
-  //       context : Form,
-  //       success : function(callback){
-  //           //Where $(this) => context == FORM
-  //           console.log(JSON.parse(callback));
-  //           $(this).html("Success!");
-  //       },
-  //       error : function(){
-  //           $(this).html("Error!");
-  //       }
-  //   });
-  // });
   };
 
   dataMergulhoDP.datepicker({

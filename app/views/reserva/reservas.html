@@ -47,7 +47,7 @@
               <div class="form-group">
                 <label class="col-md-2 control-label">Nome</label>
                 <div class="col-md-10">
-                  <input type="text" name="name" class="form-control" data-error="O nome é obrigatório" required>
+                  <input id="userName" type="text" name="name" class="form-control" data-error="O nome é obrigatório" required>
                   <div class="help-block with-errors"></div>
                 </div>
               </div>
@@ -57,7 +57,7 @@
                 <div class="col-md-10 col-xs-12">
                   <div class="row">
                     <div class="col-md-3 col-xs-12">
-                      <input id="cpf" type="text" name="cpf" class="form-control" placeholder="" required>
+                      <input id="cpf" type="text" name="cpf" class="form-control" placeholder="">
                       <div class="help-block with-errors"></div>
                     </div>
                     <label class="col-md-1 col-xs-12 control-label"><input id="cnpjRadio" type="radio" name="cpfCnpjRadio"> CNPJ</label>
@@ -91,7 +91,7 @@
                     </div>
                     <label class="col-md-2 col-xs-12 control-label">Complemento</label>
                     <div class="col-lg-2 col-md-2 col-xs-12">
-                      <input type="text" class="form-control" name="comp" placeholder="">
+                      <input id="comp" type="text" class="form-control" name="comp" placeholder="">
                     </div>
                      <label class="col-md-1 col-xs-2 control-label">Bairro</label>
                     <div class="col-lg-3 col-md-3 col-xs-12">
@@ -105,7 +105,7 @@
                 <div class="col-md-10 col-xs-10">
                   <div class="row">
                     <div class="col-md-8 col-xs-7">
-                      <input id="cidade" type="text" name="city" class="form-control" placeholder="">
+                      <input id="cidade" type="text" name="city" class="form-control" placeholder="" required>
                     </div>
                     <label class="col-md-2 col-xs-1 control-label">UF</label>
                     <div class="col-md-2 col-sm-3 col-xs-3">
@@ -119,11 +119,11 @@
                 <div class="col-md-10">
                   <div class="row">
                     <div class="col-md-4 col-xs-5">
-                      <input type="text" class="form-control cel" placeholder="">
+                      <input id="tel" type="text" class="form-control cel" name="tel" placeholder="">
                     </div>
                     <label class="col-md-4 col-sm-4 col-xs-5 control-label">Telefone Celular</label>
                     <div class="col-md-4 col-xs-5">
-                      <input type="text" class="form-control cel col-xs-4" placeholder="">
+                      <input id="cel" type="text" class="form-control cel col-xs-4" name="cel" placeholder="">
                     </div>
                   </div>
                 </div>
@@ -133,7 +133,7 @@
                 <div class="col-md-10 col-xs-12">
                   <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                      <input class="form-control" placeholder="email@dominio.com">
+                      <input id="email" class="form-control" type="email" placeholder="email@dominio.com" name="email" data-error="Email inválido" required>
                       <div class="help-block with-errors"></div>
                     </div>
                   </div>
@@ -295,7 +295,7 @@
 
                     <div id="equipamentos" class="">
                       <div class="form-group row miniHeader">
-                        <label class="col-md-5 col-xs-12 row">Selecione os equipamentos desejados:</label>
+                        <label class="col-md-5 col-xs-12 row">Selecione os equipamentos desejados (Qtd.):</label>
                       </div>
 
 
@@ -451,7 +451,7 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="col-md-2 control-label">Acompanhante</label>
+                        <label class="col-md-2 control-label">Nome responsável pela Reserva</label>
                         <div class="col-md-10">
                           <input type="text" name="regular" class="form-control" placeholder="Nome e sobrenome do acompanhante" data-error="O nome é obrigatório" required>
                           <div class="help-block with-errors"></div>
@@ -475,7 +475,7 @@
                 <hr>
 
                 <div class="submitReserva text-center">
-                  <button type="" class="btn btn-success btn-lg">
+                  <button type="submit" class="btn btn-success btn-lg">
                     <span class="glyphicon glyphicon-thumbs-up"></span> Confirmar Reserva
                   </button>
                 </div>
