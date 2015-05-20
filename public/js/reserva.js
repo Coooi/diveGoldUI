@@ -1,5 +1,5 @@
 var getAvailableDates = function() {
-    $.getJSON("http://0.0.0.0:8081/operation.json", function(data){
+    $.getJSON("http://0.0.0.0:8080/operation.json", function(data){
       var dateArray = [];
       $.each(data.operations, function() {
         var datePattern = new Date(this.date);
@@ -75,7 +75,7 @@ var populateAparts = function() {
        templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
        apItemTemplate = Handlebars.compile(templateItem);
 
-  $.getJSON("http://0.0.0.0:8081/apartype.json", function(data){
+  $.getJSON("http://0.0.0.0:8080/apartype.json", function(data){
       $.each(data.innApartTypes, function() {
         var itemHtml = apItemTemplate(this);
         $("#comboTipoAp").append(itemHtml);
@@ -93,7 +93,7 @@ var populateGases = function() {
        templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
        gasItemTemplate = Handlebars.compile(templateItem);
 
-  $.getJSON("http://0.0.0.0:8081/gastype.json", function(data){
+  $.getJSON("http://0.0.0.0:8080/gastype.json", function(data){
       $.each(data.gasTypes, function() {
         var itemHtml = gasItemTemplate(this);
         $("#comboGases").append(itemHtml);
@@ -110,7 +110,7 @@ var populateTanks = function() {
        templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
        tankItemTemplate = Handlebars.compile(templateItem);
 
-  $.getJSON("http://0.0.0.0:8081/tanktype.json", function(data){
+  $.getJSON("http://0.0.0.0:8080/tanktype.json", function(data){
       $.each(data.tankTypes, function() {
         var itemHtml = tankItemTemplate(this);
         $("#comboCilindro").append(itemHtml);
@@ -140,7 +140,7 @@ var populateCombos = function() {
        templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
        dataMergulhoTemplate = Handlebars.compile(templateItem);
 
-   $.getJSON("http://0.0.0.0:8081/divertype.json", function(data){
+   $.getJSON("http://0.0.0.0:8080/divertype.json", function(data){
       $.each(data.diverTypes, function() {
         var itemHtml = dataMergulhoTemplate(this);
         $("#comboNivelMergulho").append(itemHtml);
