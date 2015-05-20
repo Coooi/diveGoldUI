@@ -16,12 +16,104 @@ var applyMasks = function() {
   $(".equipment").mask("9?9");
 };
 
+var populateCombosTimeout = function( msg ){
+  console.log(msg);
+  $.unblockUI();
+  alert(msg);
+};
+
+var populateAparts = function() {
+  var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
+       templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
+       apItemTemplate = Handlebars.compile(templateItem);
+
+  $.getJSON("http://0.0.0.0:8081/apartype.json", function(data){
+      $.each(data.innApartTypes, function() {
+        var itemHtml = apItemTemplate(this);
+        $("#comboTipoAp").append(itemHtml);
+      });
+
+      $.unblockUI();
+  }).fail(function(){
+      populateCombosTimeout('Não foi possível localizar os tipos de acomodacoes.');
+  });
+};
+
+var populateGases = function() {
+  var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
+       templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
+       gasItemTemplate = Handlebars.compile(templateItem);
+
+  $.getJSON("http://0.0.0.0:8081/gastype.json", function(data){
+      $.each(data.gasTypes, function() {
+        var itemHtml = gasItemTemplate(this);
+        $("#comboGases").append(itemHtml);
+      });
+      populateAparts();
+  }).fail(function(){
+      populateCombosTimeout('Não foi possível localizar os tipos de gases.');
+      populateAparts();
+  });
+};
+
+var populateTanks = function() {
+  var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
+       templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
+       tankItemTemplate = Handlebars.compile(templateItem);
+
+  $.getJSON("http://0.0.0.0:8081/tanktype.json", function(data){
+      $.each(data.tankTypes, function() {
+        var itemHtml = tankItemTemplate(this);
+        $("#comboCilindro").append(itemHtml);
+      });
+      populateGases();
+  }).fail(function(){
+      populateCombosTimeout('Não foi possível localizar os tipos de cilindros.');
+      populateGases();
+  });
+};
+
+var populateCombos = function() {
+  // $.blockUI({ message: 'Carregando informações' });
+  $.blockUI({
+    message: 'Carregando informações de cadastro',
+    css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: 0.5, 
+            color: '#fff' 
+        } });
+
+   var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
+       templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
+       dataMergulhoTemplate = Handlebars.compile(templateItem);
+
+   $.getJSON("http://0.0.0.0:8081/divertype.json", function(data){
+      $.each(data.diverTypes, function() {
+        var itemHtml = dataMergulhoTemplate(this);
+        $("#comboNivelMergulho").append(itemHtml);
+      });      
+      populateTanks();
+    }).fail(function(){
+        populateCombosTimeout('Não foi possível localizar os niveis de mergulhador.');
+        populateTanks();
+    });
+};
+
 var sendPostRequest = function() {
   $("#formReserva").submit(function(e){
 
+
+   if ( $('.datasReserva input').length === 0 ){
+      //erro
+   }
+
     e.preventDefault();
 
-    var data = {}
+    var data = {};
     var Form = this;
 
     //Gathering the Data
@@ -37,11 +129,11 @@ var sendPostRequest = function() {
     data.cnpj = $("#cnpj").val().replace('.', '').replace('-','').replace('/', '');
     data.cep = $("#cep").val().replace('.', '').replace('-','').replace(' ', '');
     data.address = $("#rua").val();
+    data.city = $("#cidade").val();
+    data.uf = $("#uf").val();
     data.number = $("#numero").val();
     data.comp = $("#comp").val();
     data.region = $("#bairro").val();
-    data.city = $("#cidade").val();
-    data.uf = $("#uf").val();
     data.tel = $("#tel").val();
     data.cel = $("#cel").val();
     data.email = $("#email").val();
@@ -143,7 +235,7 @@ var initEvents = function() {
   });
 
   btnAddDate.click(function(e) {
-    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-2 col-xs-5'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
+    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-5'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
     var template2 = "<li><a href='#' value={{date}}>{{date}}</a></li>";
     
 
@@ -201,7 +293,7 @@ var initEvents = function() {
   });
 
   btnAddTanque.click(function(e){
-    var template = "<div class='form-group row gasTypesRowSet well'><label class='col-md-1 col-xs-12 control-label'>Data</label><div class='col-md-2 col-xs-12'><input type='text' name='regular' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-1  col-xs-12 control-label'>Cilindro</label><div class='col-md-3 col-xs-12'><input type='text' name='regular' class='form-control' value='{{cilindro}}' disabled></div><label class='col-md-1 col-xs-12 control-label'>Gases</label><div class='col-md-3  col-xs-12'><input type='text' name='regular' class='form-control' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12'><button type='button' class='btn btn-danger btn-sm btnRemoveTanque'><span class='glyphicon glyphicon-remove-sign'></span></button></div></div>";
+    var template = "<div class='form-group row gasTypesRowSet well'><label class='col-md-1 col-xs-12 control-label tankLabel'>Data</label><div class='col-md-2 col-xs-12 dateDropdown'><input type='text' name='regular' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-1  col-xs-12 control-label tankLabel'>Cilindro</label><div class='col-md-3 col-xs-12 tankDropdown'><input type='text' name='regular' class='form-control' value='{{cilindro}}' disabled></div><label class='col-md-1 col-xs-12 control-label tankLabel'>Gases</label><div class='col-md-3  col-xs-12 gasDropdown'><input type='text' name='regular' class='form-control' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12 divRemoveTank'><button type='button' class='btn btn-danger btn-sm btnRemoveTanque btn-xs'><span class='glyphicon glyphicon-remove-sign'></span></button></div></div>";
     var gasTanqueSet = Handlebars.compile(template);
     var setHtml,
         setDate = $('#btnDatas').text(),
@@ -306,6 +398,8 @@ var initEvents = function() {
 $(document).ready(function() {
 
   initEvents();
+
+  populateCombos();
 
   sendPostRequest();
 

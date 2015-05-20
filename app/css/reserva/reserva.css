@@ -86,5 +86,34 @@
 }
 
 .dropdown-menu {
-    min-width: 0px !important;
+  min-width: 0px !important;
+}
+
+.dateDropdown {
+  width: 141px;
+  padding-left: 0;
+}
+
+.tankDropdown {
+  width: 195px;
+  padding-left: 0;
+}
+
+.tankLabel {
+  padding-left: 0;
+}
+
+.gasDropdown {
+  width: 151px;
+  padding-right: 10px;
+  padding-left: 0;
+}
+
+.divRemoveTank {
+  line-height: 2.2;
+  padding-left: 0;
+}
+
+.divAddTank {
+  padding-left: 0;
 }

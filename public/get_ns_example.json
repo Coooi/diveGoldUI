@@ -1,0 +1,18 @@
+{
+    "retorno": {
+        "notasservico": [
+            {
+                "notaservico": {
+                    "serie": "1",
+                    "numero": "000003",
+                    "numeroNFSe": null,
+                    "situacao": "Rejeitada",
+                    "contato": "Organisys Software",
+                    "dataEmissao": "2009-09-25",
+                    "valorNota": "0.00"
+                    "linkNFSe": "http://linkexemplo.com.br/nfse"
+                }
+            }
+        ]
+    }
+}

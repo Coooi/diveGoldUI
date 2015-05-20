@@ -37,8 +37,9 @@ module.exports = function(grunt) {
                 // 'app/js/**/*.js',
                 'bower_components/bootstrap/dist/js/bootstrap.js',
                 'bower_components/handlebars/handlebars.js',
+                'bower_components/blockui/jquery.blockUI.js',
                 'bower_components/bootstrap-validator/dist/validator.js'],
-        dest : 'dist/js/divegold.min.js'
+        dest : 'public/js/divegold.min.js'
       }
     },
     cssmin: {
@@ -49,7 +50,7 @@ module.exports = function(grunt) {
       },
       dist : {
         src  : ['bower_components/bootstrap/dist/**/*.css', 'app/css/**/*.css'],
-        dest : 'dist/css/divegold.min.css'
+        dest : 'public/css/divegold.min.css'
       }
     },
     copy: {
@@ -57,12 +58,12 @@ module.exports = function(grunt) {
         files: [{
           cwd: 'bower_components/bootstrap/dist/fonts/',
           src: '**',
-          dest: 'dist/fonts',
+          dest: 'public/fonts',
           expand: true
         },{
           cwd: 'bower_components/jquery-ui/themes/base/images',
           src: '**',
-          dest: 'dist/css/images',
+          dest: 'public/css/images',
           expand: true
         }]
     }

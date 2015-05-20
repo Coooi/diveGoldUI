@@ -1,0 +1,25 @@
+{
+    "retorno": {
+        "produtos": [
+            {
+                "produto": {
+                    "codigo": "CAD00011",
+                    "descricao": "CADEIRA XYZ F5",
+                    "unidade": "",
+                    "preco": "100.0000000000",
+                    "precoCusto": "85.0000000000",
+                    "pesoLiq": "1.000",
+                    "pesoBruto": "1.000",
+                    "estoqueMinimo": "0.00",
+                    "estoqueMaximo": null,
+                    "gtin": "",
+                    "gtinEmbalagem": "",
+                    "descricaoComplementar": "CADEIRA",
+                    "larguraProduto": "10",
+                    "alturaProduto": "89",
+                    "profundidadeProduto": "67"
+                }
+            }
+        ]
+    }
+}
