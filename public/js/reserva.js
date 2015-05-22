@@ -23,6 +23,18 @@ var enabledAddBtn = function() {
   }
 };
 
+var getLongDate = function(stringDate) {
+  var longDate;
+  if (stringDate) {
+    var dateArray = stringDate.split("/"),
+      dateFormat;
+
+    dateFormat = dateArray[1] + "-" + dateArray[0] + "-" + dateArray[2];
+    longDate = new Date(dateFormat).getTime();
+  }
+  return longDate;
+};
+
 var getDiveDates = function() {
   $("#dataMergulho").datepicker({
 
@@ -187,22 +199,39 @@ var sendPostRequest = function() {
     e.preventDefault();
 
     if ($('.datasReserva input').length === 0) {
-      configTimeout("Favor escolher pelo menos uma data de mergulho.");
+      configTimeout("Favor escolher pelo menos uma data de mergulho");
       return;
     }
 
     if ($('.gasTypesRowSet').length === 0) {
-      configTimeout("Favor escolher pelo menos um tanque e um gas.");
+      configTimeout("Favor escolher pelo menos um tanque e um gas");
       return;
     }
+    if ($("#btnNivelMergulho").text() === "Selecione") {
+      configTimeout("Favor escolher o nível do mergulhador");
+      return;
+    }
+
+    $.blockUI({
+      message: 'Processando sua reserva...',
+      css: {
+        border: 'none',
+        padding: '15px',
+        backgroundColor: '#000',
+        '-webkit-border-radius': '10px',
+        '-moz-border-radius': '10px',
+        opacity: 0.5,
+        color: '#fff'
+      }
+    });
 
     var reservation = {};
     var Form = this;
 
     reservation.userInfo = {};
     reservation.userInfo.name = $("#userName").val();
-    reservation.userInfo.cpf = $("#cpf").val().replace('.', '').replace('-', '');
-    reservation.userInfo.cnpj = $("#cnpj").val().replace('.', '').replace('-', '').replace('/', '');
+    reservation.userInfo.cpf = $("#cpf").val().replace('.', '').replace('-', '').replace('.', '');
+    reservation.userInfo.cnpj = $("#cnpj").val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
     reservation.userInfo.cep = $("#cep").val().replace('.', '').replace('-', '').replace(' ', '');
     reservation.userInfo.address = $("#rua").val();
     reservation.userInfo.city = $("#cidade").val();
@@ -210,8 +239,8 @@ var sendPostRequest = function() {
     reservation.userInfo.number = $("#numero").val();
     reservation.userInfo.comp = $("#comp").val();
     reservation.userInfo.region = $("#bairro").val();
-    reservation.userInfo.tel = $("#tel").val();
-    reservation.userInfo.cel = $("#cel").val();
+    reservation.userInfo.tel = $("#tel").val().replace('-', '').replace(' ', '').replace('(', '').replace(')', '');
+    reservation.userInfo.cel = $("#cel").val().replace('-', '').replace(' ', '').replace('(', '').replace(')', '');
     reservation.userInfo.email = $("#email").val();
     reservation.userInfo.diverLevel = ($("#btnNivelMergulho").text() !== "Selecione") ? $("#btnNivelMergulho").text() : "";
     reservation.gearInfo = {};
@@ -223,7 +252,7 @@ var sendPostRequest = function() {
       item.opId = "1";
       $.each($(this).find('input'), function(i, v) {
         if ($(this).hasClass('dateSet')) {
-          item[$(this).attr("name")] = $(this).val();
+          item[$(this).attr("name")] = getLongDate($(this).val());
         } else {
           item[$(this).attr("name")] = $(this).attr("typeId");
         }
@@ -239,36 +268,29 @@ var sendPostRequest = function() {
     });
 
     reservation.innInfo.needed = $("#checkPousada").is(':checked');
-
-    // "innInfo": {
-    //   "needed": true,
-    //   "": 1431572400000,
-    //   "": 1432177200000,
-    //   "reservationName": "Nome usado na reserva",
-    //   "comments": "descrever horario de chegara entre outras informacoes"
-    // }
-
-    // "{"name":"asdfsadfdasf","cpf":"123123.12312","cnpj":"",
-    // "cep":"31744143","address":"Rua das Fragatas ","city":"Belo Horizonte","uf":"MG",
-    // "number":"123","comp":"123 ","region":"Vila Cloris","tel":"(31) 3131-3131","cel":"(23) 2323-2323",
-    // "email":"asdfdsa@sdf.com","diverLevel":"Recreativo",
-    // "gearDesc":[{"asaSimples":"1"},{"asaDupla":"2_"},{"adaptadorSimples":""},{"coleteSidemount":""},
-    // {"reguladoresDupla":""},{"reguladorStage":""},{"reguladoresSide":""},{"rigsStage":""},{"lanternaPrimaria":""},
-    // {"scooter":""},{"rebreather":""}]}"
+    if (reservation.innInfo.needed) {
+      reservation.innInfo.dateIn = getLongDate($("#dataEntrada").val());
+      reservation.innInfo.dateOut = getLongDate($("#dataSaida").val());
+      reservation.innInfo.apType = ($("#btnTipoAp").text() !== "Selecione") ? $("#btnTipoAp").text() : "";
+      reservation.innInfo.reservationName = $("#nomeReserva").val();
+      reservation.innInfo.comments = $("#observacoes").val();
+    }
 
     $.ajax({
       cache: false,
-      url: "/teste",
+      url: "/rest/reservation/new/",
       type: "POST",
       dataType: "json",
       data: JSON.stringify(reservation),
       context: Form,
       success: function(callback) {
         console.log(JSON.parse(callback));
-        $(this).html("Success!");
+        $.unblockUI();
+        alertify.success('Reserva efetuada com sucesso!');
+        $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
       },
       error: function() {
-        $(this).html("Error!");
+        configTimeout("Ocorreu um erro ao enviar a reserva.");
       }
     });
   });
@@ -305,11 +327,15 @@ var initEvents = function() {
   $("#cpfRadio").click(function() {
     $("#cpf").removeAttr('disabled', '');
     $("#cnpj").attr('disabled', '');
+    $("#cpf").attr('required', '');
+    $("#cnpj").removeAttr('required', '');
   });
 
   $("#cnpjRadio").click(function() {
     $("#cnpj").removeAttr('disabled', '');
     $("#cpf").attr('disabled', '');
+    $("#cnpj").attr('required', '');
+    $("#cpf").removeAttr('disabled', '');
   });
 
   $("#cpfRadio").click();
