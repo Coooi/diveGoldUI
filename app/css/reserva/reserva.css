@@ -37,8 +37,8 @@
   width: 200px;
 }
 
-.outerCadastro {
-
+.center {
+  max-width: 75%;
 }
 
 .headerSection {
