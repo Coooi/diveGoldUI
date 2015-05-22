@@ -26,13 +26,12 @@ module.exports = function(grunt) {
       options : {
         sourceMap : true,
         beautify: true,
-        // exceptionsFiles: [ 'app/js/reserva.js' ],
         sourceMapIncludeSources : true
       },
       dist : {
         src  : ['bower_components/jquery/dist/jquery.min.js',
                 'bower_components/jquery-ui/jquery-ui.js',
-                '/node_modules/**/*.js', 
+                'bower_components/alertify.js/lib/alertify.js',
                 'app/js/lib/*.js', 
                 // 'app/js/**/*.js',
                 'bower_components/bootstrap/dist/js/bootstrap.js',
@@ -49,7 +48,7 @@ module.exports = function(grunt) {
         sourceMapIncludeSources : true
       },
       dist : {
-        src  : ['bower_components/bootstrap/dist/**/*.css', 'app/css/**/*.css'],
+        src  : ['bower_components/bootstrap/dist/**/*.css', 'app/css/**/*.css', '/node_modules/**/*.css', 'bower_components/alertify.js/**/*.css'],
         dest : 'public/css/divegold.min.css'
       }
     },
@@ -64,6 +63,11 @@ module.exports = function(grunt) {
           cwd: 'bower_components/jquery-ui/themes/base/images',
           src: '**',
           dest: 'public/css/images',
+          expand: true
+        },{
+          cwd: 'app/js/',
+          src: 'reserva.js',
+          dest: 'public/js/',
           expand: true
         }]
     }
@@ -98,6 +102,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsbeautifier');
   grunt.loadNpmTasks('grunt-githooks');
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'copy']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'copy', 'jsbeautifier']);
 
 };

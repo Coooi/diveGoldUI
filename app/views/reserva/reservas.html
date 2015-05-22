@@ -53,14 +53,16 @@
               </div>
 
               <div class="form-group">
-                <label class="col-md-2 col-xs-2 control-label"><input id="cpfRadio" type="radio" name="cpfCnpjRadio"> CPF</label> 
+                <label class="col-md-2 col-xs-2 control-label">
+                  <input id="cpfRadio" type="radio" name="cpfCnpjRadio"> CPF</label>
                 <div class="col-md-10 col-xs-12">
                   <div class="row">
                     <div class="col-md-3 col-xs-12">
                       <input id="cpf" type="text" name="cpf" class="form-control" placeholder="">
                       <div class="help-block with-errors"></div>
                     </div>
-                    <label class="col-md-1 col-xs-12 control-label"><input id="cnpjRadio" type="radio" name="cpfCnpjRadio"> CNPJ</label>
+                    <label class="col-md-1 col-xs-12 control-label">
+                      <input id="cnpjRadio" type="radio" name="cpfCnpjRadio"> CNPJ</label>
                     <div class="col-md-3 col-xs-12">
                       <input id="cnpj" type="text" name="cnpj" class="form-control" placeholder="">
                     </div>
@@ -70,8 +72,8 @@
 
               <div class="form-group">
                 <label class="col-md-2 col-xs-2 control-label">CEP</label>
-                    <div class="col-md-2 col-xs-5">
-                      <input id="cep" type="text" name="cep" class="form-control" placeholder="">
+                <div class="col-md-2 col-xs-5">
+                  <input id="cep" type="text" name="cep" class="form-control" placeholder="">
                 </div>
               </div>
 
@@ -82,7 +84,7 @@
                 </div>
               </div>
               <div class="form-group">
-                
+
                 <div class="col-md-12">
                   <div class="row">
                     <label class="col-md-2 col-xs-12 control-label">Número</label>
@@ -93,7 +95,7 @@
                     <div class="col-lg-2 col-md-2 col-xs-12">
                       <input id="comp" type="text" class="form-control" name="comp" placeholder="">
                     </div>
-                     <label class="col-md-1 col-xs-2 control-label">Bairro</label>
+                    <label class="col-md-1 col-xs-2 control-label">Bairro</label>
                     <div class="col-lg-3 col-md-3 col-xs-12">
                       <input id="bairro" type="text" name="region" class="form-control" placeholder="">
                     </div>
@@ -198,66 +200,66 @@
                   </div>
                   <div class="gasTypesRowDates">
                     <div class="form-group row gasTypesRow">
-                        <label class="col-md-1 col-xs-12 control-label tankLabel">Data</label>
-                        <div class="col-md-3 col-xs-12 dateDropdown">
-                          <div class="btn-group">
-                            <button id="btnDatas" type="button" class="btn btn-primary">Selecione</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                              <span class="caret"></span>
-                              <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul id="comboDatas" class="dropdown-menu" role="menu">
-                              <!-- <li><a href="#">Gas 1</a></li> -->
-                            </ul>
-                          </div>
-                        </div>
-                        <label class="col-md-1  col-xs-12 control-label tankLabel">Cilindro</label>
-                        <div class="col-md-3 col-xs-12 tankDropdown">
-                         
-                          <div class="btn-group">
-                            <button id="btnCilindro" type="button" class="btn btn-primary">Selecione</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                              <span class="caret"></span>
-                              <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul id="comboCilindro" class="dropdown-menu" role="menu">
-                              <li><a href="#">Dupla aço</a></li>
-                              <li><a href="#">Side aço 13 lts (par)</a></li>
-                              <li><a href="#">Side AL S80 (par)</a></li>
-                              <li><a href="#">S40 stage</a></li>
-                              <li><a href="#">S80 stage</a></li>
-                              <li><a href="#">Cilindro próprio</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <label class="col-md-1 col-xs-12 control-label tankLabel">Gases</label>
-                        <div class="col-md-3  col-xs-12 gasDropdown">
-                          
-                          <div class="btn-group">
-                            <button id="btnGases" type="button" class="btn btn-primary">Selecione</button>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                              <span class="caret"></span>
-                              <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul id="comboGases" class="dropdown-menu" role="menu">
-                              <li><a href="#">AR</a></li>
-                              <li><a href="#">EAN 28</a></li>
-                              <li><a href="#">EAN 40</a></li>
-                              <li><a href="#">EAN 50</a></li>
-                              <li><a href="#">Oxigênio puro</a></li>
-                              <li><a href="#">Trimix</a></li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="col-md-1 col-xs-12 divAddTank">
-                          <button type="button" class="btn btn-success btn-sm btnAddTanque" disabled>
-                            <span class="glyphicon glyphicon-plus-sign"></span>
+                      <label class="col-md-1 col-xs-12 control-label tankLabel">Data</label>
+                      <div class="col-md-3 col-xs-12 dateDropdown">
+                        <div class="btn-group">
+                          <button id="btnDatas" type="button" class="btn btn-primary">Selecione</button>
+                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
                           </button>
+                          <ul id="comboDatas" class="dropdown-menu" role="menu">
+                            <!-- <li><a href="#">Gas 1</a></li> -->
+                          </ul>
                         </div>
-                        
-                    </div> 
+                      </div>
+                      <label class="col-md-1  col-xs-12 control-label tankLabel">Cilindro</label>
+                      <div class="col-md-3 col-xs-12 tankDropdown">
 
-                   <!--  <div class="form-group row gasTypesRowSet">
+                        <div class="btn-group">
+                          <button id="btnCilindro" type="button" class="btn btn-primary">Selecione</button>
+                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul id="comboCilindro" class="dropdown-menu" role="menu">
+                            <li><a href="#">Dupla aço</a></li>
+                            <li><a href="#">Side aço 13 lts (par)</a></li>
+                            <li><a href="#">Side AL S80 (par)</a></li>
+                            <li><a href="#">S40 stage</a></li>
+                            <li><a href="#">S80 stage</a></li>
+                            <li><a href="#">Cilindro próprio</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <label class="col-md-1 col-xs-12 control-label tankLabel">Gases</label>
+                      <div class="col-md-3  col-xs-12 gasDropdown">
+
+                        <div class="btn-group">
+                          <button id="btnGases" type="button" class="btn btn-primary">Selecione</button>
+                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul id="comboGases" class="dropdown-menu" role="menu">
+                            <li><a href="#">AR</a></li>
+                            <li><a href="#">EAN 28</a></li>
+                            <li><a href="#">EAN 40</a></li>
+                            <li><a href="#">EAN 50</a></li>
+                            <li><a href="#">Oxigênio puro</a></li>
+                            <li><a href="#">Trimix</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-md-1 col-xs-12 divAddTank">
+                        <button type="button" class="btn btn-success btn-sm btnAddTanque" disabled>
+                          <span class="glyphicon glyphicon-plus-sign"></span>
+                        </button>
+                      </div>
+
+                    </div>
+
+                    <!--  <div class="form-group row gasTypesRowSet">
                         <label class="col-md-1 col-xs-12 control-label">Data</label>
                         <div class="col-md-2 col-xs-12">
                           <input type="text" name="regular" class="form-control" value="{{date}}" disabled>

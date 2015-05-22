@@ -24,6 +24,8 @@
   },
   "devDependencies": {
     "bootstrap": "~3.3.4",
-    "blockui": "*"
+    "blockui": "*",
+    "notify.js": "~1.2.5",
+    "alertify.js": "~0.3.11"
   }
 }
