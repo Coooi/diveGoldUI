@@ -243,8 +243,8 @@ var sendPostRequest = function() {
     reservation.userInfo.cel = $("#cel").val().replace('-', '').replace(' ', '').replace('(', '').replace(')', '');
     reservation.userInfo.email = $("#email").val();
     reservation.userInfo.diverLevel = ($("#btnNivelMergulho").text() !== "Selecione") ? $("#btnNivelMergulho").text() : "";
-    reservation.gearInfo = {};
     reservation.tankInfo = [];
+    reservation.gearInfo = {};
     reservation.innInfo = {};
 
     $.each($('.gasTypesRowSet'), function(i, v) {
