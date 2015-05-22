@@ -39,6 +39,8 @@
 
 .center {
   max-width: 75%;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .headerSection {

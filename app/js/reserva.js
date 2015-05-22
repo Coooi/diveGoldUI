@@ -198,17 +198,16 @@ var sendPostRequest = function() {
 
     e.preventDefault();
 
+    if ($("#btnNivelMergulho").text() === "Selecione") {
+      configTimeout("Favor escolher o nível do mergulhador");
+      return;
+    }
     if ($('.datasReserva input').length === 0) {
       configTimeout("Favor escolher pelo menos uma data de mergulho");
       return;
     }
-
     if ($('.gasTypesRowSet').length === 0) {
       configTimeout("Favor escolher pelo menos um tanque e um gas");
-      return;
-    }
-    if ($("#btnNivelMergulho").text() === "Selecione") {
-      configTimeout("Favor escolher o nível do mergulhador");
       return;
     }
 
