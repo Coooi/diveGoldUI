@@ -198,23 +198,26 @@ var sendPostRequest = function() {
 
     e.preventDefault();
 
+    var error = {},
+      diveDates = [];
+
     if ($("#btnNivelMergulho").text() === "Selecione") {
       configTimeout("Favor escolher o nível do mergulhador");
       return;
     }
+
     if ($('.datasReserva input').length === 0) {
       configTimeout("Favor escolher pelo menos uma data de mergulho");
       return;
     }
+
+    $.each($('.datasReserva input'), function(i, v) {
+      diveDates.push($(this).val());
+    });
+
     if ($('.gasTypesRowSet').length === 0) {
       configTimeout("Favor escolher pelo menos um tanque e um gas");
       return;
-    }
-    if ($("#checkPousada").is(':checked')) {
-      if ($('#dataEntrada').length === 0 || $('#dataSaida').length === 0) {
-        configTimeout("Favor escolher pelo menos uma data de mergulho");
-        return;
-      }
     }
 
     $.blockUI({
@@ -257,13 +260,23 @@ var sendPostRequest = function() {
       item.opId = "1";
       $.each($(this).find('input'), function(i, v) {
         if ($(this).hasClass('dateSet')) {
-          item[$(this).attr("name")] = getLongDate($(this).val());
+          if ($(this).val().indexOf(diveDates) > -1) {
+            item[$(this).attr("name")] = getLongDate($(this).val());
+          } else {
+            error.msg = "Favor escolher pelo menos um tanque por dia.";
+            return false;
+          }
         } else {
           item[$(this).attr("name")] = $(this).attr("typeId");
         }
       });
       reservation.tankInfo.push(item);
     });
+
+    if (error.msg) {
+      configTimeout(error.msg);
+      return;
+    }
 
     if ($('.equipment').length) reservation.gearInfo.needed = $("#checkEquipamentos").is(':checked');
 
@@ -283,7 +296,7 @@ var sendPostRequest = function() {
     console.log(JSON.stringify(reservation));
     $.ajax({
       cache: false,
-      url: "/rest/reservation/new/",
+      url: "http://ec2-54-207-110-27.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/reservation/add/",
       type: "POST",
       dataType: "json",
       data: JSON.stringify(reservation),
@@ -346,6 +359,12 @@ var initEvents = function() {
   $("#cpfRadio").click();
 
   btnAddDate.click(function(e) {
+
+    if ($('#dataMergulho').val().indexOf('/') === -1) {
+      configTimeout("Data de mergulho inválida");
+      return;
+    }
+
     var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-5'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
     var template2 = "<li><a href='#' value={{date}}>{{date}}</a></li>";
 
