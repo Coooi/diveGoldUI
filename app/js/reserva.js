@@ -263,7 +263,7 @@ var sendPostRequest = function() {
           if ($(this).val().indexOf(diveDates) > -1) {
             item[$(this).attr("name")] = getLongDate($(this).val());
           } else {
-            error.msg = "Favor escolher pelo menos um tanque por dia.";
+            error.msg = "Favor escolhar pelo menos um tanque para cada data de mergulho.";
             return false;
           }
         } else {
