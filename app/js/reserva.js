@@ -198,8 +198,7 @@ var sendPostRequest = function() {
 
     e.preventDefault();
 
-    var error = {},
-      diveDates = [];
+    var error = {};
 
     if ($("#btnNivelMergulho").text() === "Selecione") {
       configTimeout("Favor escolher o nível do mergulhador");
@@ -211,12 +210,8 @@ var sendPostRequest = function() {
       return;
     }
 
-    $.each($('.datasReserva input'), function(i, v) {
-      diveDates.push($(this).val());
-    });
-
     if ($('.gasTypesRowSet').length === 0) {
-      configTimeout("Favor escolher pelo menos um tanque e um gas");
+      configTimeout("Favor escolher pelo menos um tanque e um gas por data");
       return;
     }
 
@@ -260,12 +255,12 @@ var sendPostRequest = function() {
       item.opId = "1";
       $.each($(this).find('input'), function(i, v) {
         if ($(this).hasClass('dateSet')) {
-          if ($(this).val().indexOf(diveDates) > -1) {
-            item[$(this).attr("name")] = getLongDate($(this).val());
-          } else {
-            error.msg = "Favor escolhar pelo menos um tanque para cada data de mergulho.";
-            return false;
-          }
+          //if ($(this).val().indexOf(diveDates) > -1) {
+          item[$(this).attr("name")] = getLongDate($(this).val());
+          //} else {
+          // error.msg = "Favor escolhar pelo menos um tanque para cada data de mergulho.";
+          //return false;
+          // }
         } else {
           item[$(this).attr("name")] = $(this).attr("typeId");
         }
@@ -273,10 +268,10 @@ var sendPostRequest = function() {
       reservation.tankInfo.push(item);
     });
 
-    if (error.msg) {
-      configTimeout(error.msg);
-      return;
-    }
+    // if (error.msg) {
+    //   configTimeout(error.msg);
+    //   return;
+    // }
 
     if ($('.equipment').length) reservation.gearInfo.needed = $("#checkEquipamentos").is(':checked');
 
@@ -498,6 +493,10 @@ var initEvents = function() {
     }
   }
 
+  $.each($('.datasReserva input'), function(i, v) {
+    diveDates.push($(this).val());
+  });
+
   divEquipamentos.hide();
   divPousada.hide();
 
@@ -541,7 +540,8 @@ var initEvents = function() {
 };
 
 $(document).ready(function() {
-  var datelist = [];
+  var datelist = [],
+    diveDates = [];
 
   initEvents();
 });
