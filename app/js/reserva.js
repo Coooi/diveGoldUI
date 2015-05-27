@@ -1,5 +1,5 @@
 var getAvailableDates = function() { //teste
-  $.getJSON("http://localhost:8080/operation.json", function(data) {
+  $.getJSON("http://ec2-54-207-110-27.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/operation/", function(data) {
     var dateArray = [];
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
@@ -91,11 +91,11 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
+  var url = 'http://ec2-54-207-110-27.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/serrinha/apartype/',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
-  $.getJSON("http://localhost:8080/apartype.json", function(data) {
+  $.getJSON(url, function(data) {
     $.each(data.innApartTypes, function() {
       var itemHtml = apItemTemplate(this);
       $("#comboTipoAp").append(itemHtml);
@@ -114,11 +114,11 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
+  var url = 'http://ec2-54-207-110-27.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/gastype/',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
-  $.getJSON("http://localhost:8080/gastype.json", function(data) {
+  $.getJSON(url, function(data) {
     $.each(data.gasTypes, function() {
       var itemHtml = gasItemTemplate(this);
       $("#comboGases").append(itemHtml);
@@ -137,11 +137,11 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
+  var url = 'http://ec2-54-207-110-27.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/tanktype/',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
-  $.getJSON("http://localhost:8080/tanktype.json", function(data) {
+  $.getJSON(url, function(data) {
     $.each(data.tankTypes, function() {
       var itemHtml = tankItemTemplate(this);
       $("#comboCilindro").append(itemHtml);
@@ -173,11 +173,11 @@ var populateCombos = function() {
     }
   });
 
-  var url = 'http:54.207.110.27:8080/divegold-webservice/rest/',
-    templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
+  var url = 'http://ec2-54-207-110-27.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/divertype/',
+    templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 
-  $.getJSON("http://localhost:8080/divertype.json", function(data) {
+  $.getJSON(url, function(data) {
     $.each(data.diverTypes, function() {
       var itemHtml = dataMergulhoTemplate(this);
       $("#comboNivelMergulho").append(itemHtml);
@@ -209,6 +209,12 @@ var sendPostRequest = function() {
     if ($('.gasTypesRowSet').length === 0) {
       configTimeout("Favor escolher pelo menos um tanque e um gas");
       return;
+    }
+    if ($("#checkPousada").is(':checked')) {
+      if ($('#dataEntrada').length === 0 || $('#dataSaida').length === 0) {
+        configTimeout("Favor escolher pelo menos uma data de mergulho");
+        return;
+      }
     }
 
     $.blockUI({
@@ -274,7 +280,7 @@ var sendPostRequest = function() {
       reservation.innInfo.reservationName = $("#nomeReserva").val();
       reservation.innInfo.comments = $("#observacoes").val();
     }
-
+    console.log(JSON.stringify(reservation));
     $.ajax({
       cache: false,
       url: "/rest/reservation/new/",
@@ -334,7 +340,7 @@ var initEvents = function() {
     $("#cnpj").removeAttr('disabled', '');
     $("#cpf").attr('disabled', '');
     $("#cnpj").attr('required', '');
-    $("#cpf").removeAttr('disabled', '');
+    $("#cpf").removeAttr('required', '');
   });
 
   $("#cpfRadio").click();
@@ -511,13 +517,12 @@ var initEvents = function() {
       });
     }
   });
+  populateCombos();
+  sendPostRequest();
 };
 
 $(document).ready(function() {
   var datelist = [];
 
   initEvents();
-  populateCombos();
-  sendPostRequest();
-
 });

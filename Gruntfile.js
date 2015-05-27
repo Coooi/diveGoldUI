@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 'bower_components/jquery-ui/jquery-ui.js',
                 'bower_components/alertify.js/lib/alertify.js',
                 'app/js/lib/*.js', 
-                // 'app/js/**/*.js',
+                'app/js/**/*.js',
                 'bower_components/bootstrap/dist/js/bootstrap.js',
                 'bower_components/handlebars/handlebars.js',
                 'bower_components/blockui/jquery.blockUI.js',
@@ -65,9 +65,14 @@ module.exports = function(grunt) {
           dest: 'public/css/images',
           expand: true
         },{
-          cwd: 'app/js/',
-          src: 'reserva.js',
-          dest: 'public/js/',
+          cwd: 'app/views/reserva/',
+          src: 'reservas.html',
+          dest: 'public/',
+          expand: true
+        },{
+          cwd: 'app/',
+          src: 'login.html',
+          dest: 'public/',
           expand: true
         }]
     }
