@@ -297,7 +297,7 @@ var sendPostRequest = function() {
       data: JSON.stringify(reservation),
       context: Form,
       success: function(callback) {
-        console.log(JSON.parse(callback));
+        //console.log(JSON.parse(callback));
         $.unblockUI();
         alertify.success('Reserva efetuada com sucesso!');
         $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
@@ -360,7 +360,7 @@ var initEvents = function() {
       return;
     }
 
-    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-5'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
+    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-6'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
     var template2 = "<li><a href='#' value={{date}}>{{date}}</a></li>";
 
     var dataMergulhoTemplate = Handlebars.compile(template1);
