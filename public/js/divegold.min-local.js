@@ -9736,10 +9736,10 @@ var getAvailableDates = function() {
         applyPhoneMask($(this));
     }), $("#cpfRadio").click(function() {
         $("#cpf").removeAttr("disabled", ""), $("#cnpj").attr("disabled", ""), $("#cpf").attr("required", ""), 
-        $("#cnpj").removeAttr("required", "");
+        $("#cnpj").removeAttr("required", ""), $("#cnpj").val(""), $("#cpf").focus();
     }), $("#cnpjRadio").click(function() {
         $("#cnpj").removeAttr("disabled", ""), $("#cpf").attr("disabled", ""), $("#cnpj").attr("required", ""), 
-        $("#cpf").removeAttr("required", "");
+        $("#cpf").removeAttr("required", ""), $("#cpf").val(""), $("#cnpj").focus();
     }), $("#cpfRadio").click(), d.click(function(a) {
         if (-1 === $("#dataMergulho").val().indexOf("/")) return void configTimeout("Data de mergulho inválida");
         var b, c, d = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-6'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>", f = "<li><a href='#' value={{date}}>{{date}}</a></li>", g = Handlebars.compile(d), j = Handlebars.compile(f), k = e.val();
