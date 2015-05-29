@@ -342,6 +342,8 @@ var initEvents = function() {
     $("#cnpj").attr('disabled', '');
     $("#cpf").attr('required', '');
     $("#cnpj").removeAttr('required', '');
+    $("#cnpj").val('');
+    $("#cpf").focus();
   });
 
   $("#cnpjRadio").click(function() {
@@ -349,6 +351,8 @@ var initEvents = function() {
     $("#cpf").attr('disabled', '');
     $("#cnpj").attr('required', '');
     $("#cpf").removeAttr('required', '');
+    $("#cpf").val('');
+    $("#cnpj").focus();
   });
 
   $("#cpfRadio").click();
