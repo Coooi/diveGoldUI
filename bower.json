@@ -26,6 +26,8 @@
     "bootstrap": "~3.3.4",
     "blockui": "*",
     "notify.js": "~1.2.5",
-    "alertify.js": "~0.3.11"
+    "alertify.js": "~0.3.11",
+    "sweetalert": "~1.0.1",
+    "atabix-sweetalert": "v0.3.1"
   }
 }

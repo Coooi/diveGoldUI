@@ -43,7 +43,7 @@
 
 @media only screen and (min-device-width: 500px) {
     .center {
-      max-width: 75%;
+      max-width: 90%;
       padding-left: 0px;
       padding-right: 0px;
   }
@@ -146,6 +146,6 @@
   padding-left: 0;
 }
 
-.divAddTank {
-  padding-left: 0;
+.bottom{
+  margin-bottom: 5px;
 }
