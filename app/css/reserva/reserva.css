@@ -71,6 +71,19 @@
   .gasTypesRowSet {
     padding-left: 13px !important;
   }
+
+  .btnRemoveTanque {
+    margin-top: 3px;
+    width: 100px;
+  }
+
+  .divRemoveTank {
+    text-align: center;
+  }
+
+  .gasTypesRow {
+    text-align: center;
+  }
 }
 
 .headerSection {
@@ -148,4 +161,13 @@
 
 .bottom{
   margin-bottom: 5px;
+}
+
+.info{
+  float: right;
+  padding-right: 5px;
+}
+
+.tooltip-inner {
+  white-space:pre-wrap;
 }
