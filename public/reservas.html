@@ -39,7 +39,9 @@
 
               <div class="headerSection">
                 <h3 class="panel-title">
-                <i class="glyphicon glyphicon glyphicon-pencil"></i> Dados Cadastrais</h3>
+                  <i class="glyphicon glyphicon glyphicon-pencil"></i> Dados Cadastrais
+                  <i class="glyphicon info glyphicon-info-sign" data-toggle="tooltip" data-placement="left" title="Informe seus dados cadastrais. Caso tenha se cadastrado previamente, basta inserir o seu CPF e atualizar os demais campos cadastrais com as informações atuais. Lembre-se que o seu email e telefone(s) são as formas de contato utilizadas pela DIVEGOLD."></i>
+                </h3>
               </div>
 
               <form id="formReserva" class="form-horizontal row-border" data-toggle="validator" action="#">
@@ -66,8 +68,7 @@
                 <div class="form-group">
                   <label class="col-md-2 control-label">Nome</label>
                   <div class="col-md-10">
-                    <input id="userName" type="text" name="name" class="form-control" data-error="O nome é obrigatório" required>
-                    <div class="help-block with-errors"></div>
+                    <input id="userName" type="text" name="username" class="form-control">
                   </div>
                 </div>
 
@@ -104,27 +105,27 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-md-2 col-xs-2 control-label">Cidade</label>
-                  <div class="col-md-10 col-xs-10">
+                  <label class="col-md-2 col-xs-12 control-label">Cidade</label>
+                  <div class="col-md-10 col-xs-12">
                     <div class="row">
-                      <div class="col-md-8 col-xs-7">
-                        <input id="cidade" type="text" name="city" class="form-control" placeholder="" required>
+                      <div class="col-md-8 col-xs-12">
+                        <input id="cidade" type="text" name="city" class="form-control" placeholder="">
                       </div>
-                      <label class="col-md-2 col-xs-1 control-label">UF</label>
-                      <div class="col-md-2 col-sm-3 col-xs-3">
+                      <label class="col-md-2 col-xs-12 control-label">UF</label>
+                      <div class="col-md-2 col-sm-3 col-xs-4">
                         <input id="uf" type="text" name="uf" class="form-control" placeholder="">
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-md-2 col-sm-4 col-xs-5 control-label">Telefone Fixo</label>
+                  <label class="col-md-2 col-sm-4 col-xs-12 control-label">Telefone Fixo</label>
                   <div class="col-md-10">
                     <div class="row">
                       <div class="col-md-4 col-xs-7">
                         <input id="tel" type="text" class="form-control cel" name="tel" placeholder="">
                       </div>
-                      <label class="col-md-4 col-sm-4 col-xs-5 control-label">Telefone Celular</label>
+                      <label class="col-md-4 col-sm-4 col-xs-12 control-label">Telefone Celular</label>
                       <div class="col-md-4 col-xs-7">
                         <input id="cel" type="text" class="form-control cel col-xs-4" name="cel" placeholder="">
                       </div>
@@ -132,18 +133,17 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-md-2 col-xs-2 control-label">email</label>
+                  <label class="col-md-2 col-xs-12 control-label">email</label>
                   <div class="col-md-10 col-xs-12">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
-                        <input id="email" class="form-control" type="email" placeholder="email@dominio.com" name="email" data-error="Email inválido" required>
-                        <div class="help-block with-errors"></div>
+                        <input id="email" class="form-control" type="email" placeholder="email@dominio.com" name="email">
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-md-2 col-xs-6 control-label">Nível do Mergulhador </label>
+                  <label class="col-md-2 col-xs-12 control-label">Nível do Mergulhador <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Informe seu maior nível de certificação. Você deverá apresentar seu certificado na data do mergulho."></i></label>
                   <div class="col-md-10 col-xs-12">
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -167,7 +167,9 @@
 
                   <div class="headerSection">
                     <h3 class="panel-title">
-                        <i class="glyphicon glyphicon glyphicon-calendar"></i> Datas de Mergulhos</h3>
+                        <i class="glyphicon glyphicon glyphicon-calendar"></i> Datas de Mergulhos
+                        <i class="glyphicon info glyphicon-info-sign" data-toggle="tooltip" data-placement="left" title="Selecione as datas desejadas. Suas escolhas estão sujeitas à disponibilidade de lugares na Mina da Passagem."></i>
+                    </h3>
                   </div>
 
                   <div class="panel-body">
@@ -193,7 +195,7 @@
                     <div class="headerSection">
                       <h3 class="panel-title">
                         <i class="glyphicon glyphicon-tint"></i> Escolha de Tanques e Gases 
-                        <i class="glyphicon info glyphicon-info-sign" data-toggle="tooltip" data-placement="left" title="TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE "></i>
+                        <i class="glyphicon info glyphicon-info-sign" data-toggle="tooltip" data-placement="left" title="Em caso de dúvidas favor entrar em contato com a DIVEGOLD."></i>
                       </h3>
                     </div>
                     <div class="gasTypesRowDates">
@@ -300,7 +302,8 @@
                         </div> -->
 
                     <div class="form-group">
-                      <label class="col-md-2 col-xs-12 control-label">Observações da reserva</label>
+                      <label class="col-md-2 col-xs-12 control-label">Observações da reserva <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Preencha com informações complementares e observações sobre sua reserva, como por exemplo: horário de chegada, necessidades especiais, locais desejados para mergulho, etc. A DIVEGOLD fará o possível para atender suas solicitações."></i></label>
+
                       <div class="col-md-10 col-xs-12">
                         <textarea id="obsReserva" class="form-control" rows="3"></textarea>
                         <div class="help-block with-errors"></div>
@@ -314,6 +317,7 @@
 
                         <div class="col-md-11 col-xs-11">
                           <input id="checkEquipamentos" type="checkbox" value="equipamentos"> Reservar Equipamentos
+                          <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Informe a quantidade desejada de cada equipamento. Suas escolhas estão sujeitas à disponibilidade de estoque."></i>
                         </div>
                       </div>
 
@@ -432,19 +436,17 @@
                         </div>
 
                         <div class="form-group">
+                          <label class="col-md-2 col-xs-12 control-label">Data Entrada</label>
+                          <div class="col-md-2 col-xs-12">
+                            <input id="dataEntrada" name="dataEntrada" type="text" class="form-control" placeholder="" data-error="A data de entrada é obrigatória">
+                            <div class="help-block with-errors"></div>
+                          </div>
+                        </div>
 
-                          <div class="col-md-10 col-xs-10">
-                            <div class="row">
-                              <label class="col-md-3 col-xs-12 control-label">Data Entrada</label>
-                              <div class="col-md-3 col-xs-12">
-                                <input id="dataEntrada" type="text" class="form-control" placeholder="" data-error="A data de entrada é obrigatória" required>
-                                <div class="help-block with-errors"></div>
-                              </div>
-                              <label class="col-md-2 col-xs-12 control-label">Data Saída</label>
-                              <div class="col-md-3 col-xs-12">
-                                <input id="dataSaida" type="text" class="form-control" placeholder="" data-error="A data de saída é obrigatória" required>
-                              </div>
-                            </div>
+                        <div class="form-group">
+                          <label class="col-md-2 col-xs-12 control-label">Data Saída</label>
+                          <div class="col-md-2 col-xs-12">
+                            <input id="dataSaida" name="dataSaida" type="text" class="form-control" placeholder="" data-error="A data de saída é obrigatória">
                           </div>
                         </div>
 
@@ -471,8 +473,7 @@
                         <div class="form-group">
                           <label class="col-md-2 col-xs-12 control-label">Responsável</label>
                           <div class="col-md-10 col-xs-12">
-                            <input id="nomeReserva" type="text" name="regular" class="form-control" placeholder="Nome e sobrenome do responsável pela reserva" data-error="O nome é obrigatório" required>
-                            <div class="help-block with-errors"></div>
+                            <input id="nomeReserva" type="text" name="responsavel" class="form-control" placeholder="Nome e sobrenome do responsável pela reserva">
                           </div>
                           <label class="col-md-2 col-xs-12 control-label">Mergulhador?</label>
                           <div class="col-md-6 col-xs-12">
@@ -484,7 +485,7 @@
                         <div class="form-group acomp1" style="display: none;">
                           <label class="col-md-2 col-xs-12 control-label">Acompanhante 1</label>
                           <div class="col-md-10 col-xs-12">
-                            <input id="acomp1" type="text" name="regular" class="form-control" placeholder="Nome e sobrenome do acompanhante" data-error="O nome é obrigatório" required>
+                            <input id="acomp1" type="text" name="acomp1" class="form-control" placeholder="Nome e sobrenome do acompanhante" data-error="O nome é obrigatório">
                             <div class="help-block with-errors"></div>
                           </div>
                           <label class="col-md-2 col-xs-12 control-label">Mergulhador?</label>
@@ -497,7 +498,7 @@
                         <div class="form-group acomp2" style="display: none;">
                           <label class="col-md-2 col-xs-12 control-label">Acompanhante 2</label>
                           <div class="col-md-10 col-xs-12">
-                            <input id="acomp2" type="text" name="regular" class="form-control" placeholder="Nome e sobrenome do segundo acompanhante" data-error="O nome é obrigatório" required>
+                            <input id="acomp2" type="text" name="acomp2" class="form-control" placeholder="Nome e sobrenome do segundo acompanhante" data-error="O nome é obrigatório">
                             <div class="help-block with-errors"></div>
                           </div>
                           <label class="col-md-2 col-xs-12 control-label">Mergulhador?</label>
@@ -511,7 +512,7 @@
                         <div class="form-group acomp3" style="display: none;">
                           <label class="col-md-2 col-xs-12 control-label">Acompanhante 3</label>
                           <div class="col-md-10 col-xs-12">
-                            <input id="acomp3" type="text" name="regular" class="form-control" placeholder="Nome e sobrenome do terceiro acompanhante" data-error="O nome é obrigatório" required>
+                            <input id="acomp3" type="text" name="acomp3" class="form-control" placeholder="Nome e sobrenome do terceiro acompanhante" data-error="O nome é obrigatório">
                             <div class="help-block with-errors"></div>
                           </div>
                           <label class="col-md-2 col-xs-12 control-label">Mergulhador?</label>
@@ -538,7 +539,7 @@
                   <hr>
 
                   <div class="submitReserva text-center">
-                    <button type="submit" class="btn btn-success btn-lg">
+                    <button type="submit" class="btn btn-success btn-lg" id="btnConfirmar" disabled="disabled">
                       <span class="glyphicon glyphicon-thumbs-up"></span> Confirmar Reserva
                     </button>
                   </div>

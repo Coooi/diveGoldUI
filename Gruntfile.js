@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                 'bower_components/bootstrap/dist/js/bootstrap.js',
                 'bower_components/handlebars/handlebars.js',
                 'bower_components/blockui/jquery.blockUI.js',
-                'bower_components/bootstrap-validator/dist/validator.js',
+                'bower_components/bootstrapValidator/dist/js/bootstrapValidator.min.js',
                 'bower_components/sweetalert/dist/sweetalert-dev.js'],
         dest : 'public/js/divegold.min.js'
       }

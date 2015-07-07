@@ -170,4 +170,10 @@
 
 .tooltip-inner {
   white-space:pre-wrap;
+  max-width: 300px;
+  width: 200px; 
+}
+
+.sweet-alert button:hover {
+  background-color: rgb(43, 151, 200) !important;
 }

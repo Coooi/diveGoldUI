@@ -26,6 +26,7 @@ var clearUserInfo = function() {
   $("#cel").val("");
   $("#email").val("");
   $("#btnNivelMergulho").text("Selecione");
+  $('#formReserva').bootstrapValidator('resetForm', true);
 };
 
 var enabledAddBtn = function() {
@@ -246,6 +247,79 @@ var populateCombos = function() {
   });
 };
 
+var applyValidator = function() {
+  $('#formReserva').bootstrapValidator({
+    message: 'Valor inválido',
+    feedbackIcons: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+      username: {
+        message: 'Nome inválido.',
+        validators: {
+          notEmpty: {
+            message: 'O nome é obrigatório!'
+          }
+        }
+      },
+      email: {
+        validators: {
+          notEmpty: {
+            message: 'O endereço de email é obrigatório!'
+          },
+          emailAddress: {
+            message: 'Este não é um email válido!'
+          }
+        }
+      },
+      dataEntrada: {
+        validators: {
+          notEmpty: {
+            message: 'Data inválida'
+          }
+        }
+      },
+      dataSaida: {
+        validators: {
+          notEmpty: {
+            message: 'Data inválida'
+          }
+        }
+      },
+      responsavel: {
+        validators: {
+          notEmpty: {
+            message: 'O nome do responsável é obrigatório!'
+          },
+        }
+      },
+      acomp1: {
+        validators: {
+          notEmpty: {
+            message: 'O nome do acompanhante é obrigatório!'
+          }
+        }
+      },
+      acomp2: {
+        validators: {
+          notEmpty: {
+            message: 'O nome do acompanhante é obrigatório!'
+          }
+        }
+      },
+      acomp3: {
+        validators: {
+          notEmpty: {
+            message: 'O nome do acompanhante é obrigatório!'
+          }
+        }
+      },
+    }
+  });
+};
+
 var beforePost = function() {
   $("#formReserva").submit(function(e) {
 
@@ -336,17 +410,14 @@ var sendPostRequest = function(e) {
     reservation.tankInfo.push(item);
   });
 
-  // if (error.msg) {
-  //   configTimeout(error.msg);
-  //   return;
-  // }
+  reservation.gearInfo.needed = $("#checkEquipamentos").is(':checked');
 
-  if ($('.equipment').length) reservation.gearInfo.needed = $("#checkEquipamentos").is(':checked');
-
-  $.each($('.equipment'), function(i, v) {
-    if ($(this).val())
-      reservation.gearInfo[$(this).attr("name")] = $(this).val();
-  });
+  if (reservation.gearInfo.needed) {
+    $.each($('.equipment'), function(i, v) {
+      if ($(this).val())
+        reservation.gearInfo[$(this).attr("name")] = $(this).val();
+    });
+  }
 
   reservation.innInfo.needed = $("#checkPousada").is(':checked');
   if (reservation.innInfo.needed) {
@@ -354,7 +425,26 @@ var sendPostRequest = function(e) {
     reservation.innInfo.dateOut = getLongDate($("#dataSaida").val());
     reservation.innInfo.apType = ($("#btnTipoAp").text() !== "Selecione") ? $("#btnTipoAp").text() : "";
     reservation.innInfo.reservationName = $("#nomeReserva").val();
+    reservation.innInfo.guests = [];
+    if ($("#acomp1").val()) {
+      var acomp = {};
+
+      acomp.name = $("#acomp1").val();
+      acomp.diver = $("#firstDiverYes").is(":checked");
+      reservation.innInfo.guests.push(acomp);
+      if ($("#acomp2").val()) {
+        acomp.name = $("#acomp2").val();
+        acomp.diver = $("#secondDiverYes").is(":checked");
+        reservation.innInfo.guests.push(acomp);
+        if ($("#acomp3").val()) {
+          acomp.name = $("#acomp3").val();
+          acomp.diver = $("#thirdDiverYes").is(":checked");
+          reservation.innInfo.guests.push(acomp);
+        }
+      }
+    }
     reservation.innInfo.comments = $("#observacoes").val();
+
   }
   console.log(JSON.stringify(reservation));
   $.ajax({
@@ -410,8 +500,6 @@ var initEvents = function() {
     if ($("#firstAccess").text() === "true") {
       $("#cpf").removeAttr('disabled', '');
       $("#cnpj").attr('disabled', '');
-      $("#cpf").attr('required', '');
-      $("#cnpj").removeAttr('required', '');
       $("#cnpj").val('');
       $("#cpf").focus();
       $("#firstAccess").text("false");
@@ -421,8 +509,6 @@ var initEvents = function() {
         clearUserInfo();
         $("#cpf").removeAttr('disabled', '');
         $("#cnpj").attr('disabled', '');
-        $("#cpf").attr('required', '');
-        $("#cnpj").removeAttr('required', '');
         $("#cnpj").val('');
         $("#cpf").focus();
       } else {
@@ -716,6 +802,7 @@ var initEvents = function() {
 
   populateCombos();
   beforePost();
+  applyValidator();
 };
 
 $(document).ready(function() {
