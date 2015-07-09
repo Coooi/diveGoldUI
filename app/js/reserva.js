@@ -316,6 +316,18 @@ var applyValidator = function() {
           }
         }
       },
+      cep: {
+        validators: {
+          notEmpty: {
+            message: 'O CEP é obrigatório!'
+          },
+          stringLength: {
+            message: 'Post content must be less than 120 characters',
+            min: 10,
+            max: 10
+          }
+        }
+      }
     }
   });
 };

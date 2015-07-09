@@ -164,7 +164,6 @@
 }
 
 .info{
-  float: right;
   padding-right: 5px;
 }
 
@@ -176,4 +175,8 @@
 
 .sweet-alert button:hover {
   background-color: rgb(43, 151, 200) !important;
+}
+
+.bold {
+  font-weight: 700;
 }
