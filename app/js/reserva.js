@@ -251,6 +251,14 @@ var beforePost = function() {
 
     e.preventDefault();
 
+    if (!$("#userName").val()) {
+      configTimeout("O nome é obrigatório");
+      return;
+    }
+    if (!$("#cep").val() || $("#cep").val().length !== 10) {
+      configTimeout("O CEP é obrigatório");
+      return;
+    }
     if ($("#btnNivelMergulho").text() === "Selecione") {
       configTimeout("Favor escolher o nível do mergulhador");
       return;
@@ -262,6 +270,25 @@ var beforePost = function() {
     if ($('.gasTypesRowSet').length === 0) {
       configTimeout("Favor escolher pelo menos um tanque e um gas por data");
       return;
+    }
+
+    if ($("#checkEquipamentos").is(':checked')) {
+      if (!$("#dataEntrada").val() || !$("#dataSaida").val()) {
+        configTimeout("As datas de entrada e saída da pousada são obrigatórias");
+        return;
+      }
+      if ($("#btnTipoAp").text() === "Selecione") {
+        configTimeout("O tipo da acomodação é obrigatório");
+        return;
+      }
+      if (!$("#nomeReserva").val()) {
+        configTimeout("O nome do responsável pela reserva é obrigatório");
+        return;
+      }
+      if (!$("#acomp1").val() || !$("#acomp2").val() || !$("#acomp3").val()) {
+        configTimeout("Os nomes de todos os acompanhantes são obrigatórios");
+        return;
+      }
     }
 
     swal({
@@ -666,7 +693,7 @@ var initEvents = function() {
     $("#userName").val(data.userInfo.name);
     $("#cep").val(data.userInfo.cep);
     $("#rua").val(data.userInfo.address);
-    $("#numero").val(data.userInfo.num);
+    $("#numero").val(data.userInfo.number);
     $("#comp").val(data.userInfo.comp);
     $("#bairro").val(data.userInfo.region);
     $("#cidade").val(data.userInfo.city);
