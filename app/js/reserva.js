@@ -309,7 +309,7 @@ var sendPostRequest = function(e) {
   reservation.userInfo.tel = $("#tel").val().replace('-', '').replace(' ', '').replace('(', '').replace(')', '');
   reservation.userInfo.cel = $("#cel").val().replace('-', '').replace(' ', '').replace('(', '').replace(')', '');
   reservation.userInfo.email = $("#email").val();
-  reservation.userInfo.diverLevel = ($("#btnNivelMergulho").text() !== "Selecione") ? $("#btnNivelMergulho").text() : "";
+  reservation.userInfo.diverType = ($("#btnNivelMergulho").text() !== "Selecione") ? $("#btnNivelMergulho").text() : "";
   reservation.diveDates = [];
   reservation.tankInfo = [];
   reservation.reservationComments = $("#obsReserva").val();
