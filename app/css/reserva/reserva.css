@@ -19,6 +19,10 @@
   
 }
 
+#btnAddDate {
+  margin: 0 !important;
+}
+
 .header {
   color: #333 !important;
   background-color: white !important;
@@ -188,4 +192,8 @@
 
 .form-control {
   background-color: rgb(233, 233, 233) !important;
+}
+
+.btnRemoveDate button {
+ margin: 0;
 }
