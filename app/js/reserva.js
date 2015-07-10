@@ -26,7 +26,6 @@ var clearUserInfo = function() {
   $("#cel").val("");
   $("#email").val("");
   $("#btnNivelMergulho").text("Selecione");
-  $('#formReserva').bootstrapValidator('resetForm', true);
 };
 
 var enabledAddBtn = function() {
@@ -244,91 +243,6 @@ var populateCombos = function() {
   }).fail(function() {
     configTimeout('Não foi possível localizar os niveis de mergulhador.');
     populateTanks();
-  });
-};
-
-var applyValidator = function() {
-  $('#formReserva').bootstrapValidator({
-    message: 'Valor inválido',
-    feedbackIcons: {
-      valid: 'glyphicon glyphicon-ok',
-      invalid: 'glyphicon glyphicon-remove',
-      validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-      username: {
-        message: 'Nome inválido.',
-        validators: {
-          notEmpty: {
-            message: 'O nome é obrigatório!'
-          }
-        }
-      },
-      email: {
-        validators: {
-          notEmpty: {
-            message: 'O endereço de email é obrigatório!'
-          },
-          emailAddress: {
-            message: 'Este não é um email válido!'
-          }
-        }
-      },
-      dataEntrada: {
-        validators: {
-          notEmpty: {
-            message: 'Data inválida'
-          }
-        }
-      },
-      dataSaida: {
-        validators: {
-          notEmpty: {
-            message: 'Data inválida'
-          }
-        }
-      },
-      responsavel: {
-        validators: {
-          notEmpty: {
-            message: 'O nome do responsável é obrigatório!'
-          },
-        }
-      },
-      acomp1: {
-        validators: {
-          notEmpty: {
-            message: 'O nome do acompanhante é obrigatório!'
-          }
-        }
-      },
-      acomp2: {
-        validators: {
-          notEmpty: {
-            message: 'O nome do acompanhante é obrigatório!'
-          }
-        }
-      },
-      acomp3: {
-        validators: {
-          notEmpty: {
-            message: 'O nome do acompanhante é obrigatório!'
-          }
-        }
-      },
-      cep: {
-        validators: {
-          notEmpty: {
-            message: 'O CEP é obrigatório!'
-          },
-          stringLength: {
-            message: 'Post content must be less than 120 characters',
-            min: 10,
-            max: 10
-          }
-        }
-      }
-    }
   });
 };
 
@@ -814,7 +728,6 @@ var initEvents = function() {
 
   populateCombos();
   beforePost();
-  applyValidator();
 };
 
 $(document).ready(function() {

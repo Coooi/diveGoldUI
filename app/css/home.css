@@ -1,0 +1,17 @@
+.dgTitle {
+  padding-left: 6px;
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+.dgLogo {
+  margin-top: -5px;
+  margin-right: 5px;
+  float: left;
+}
+
+.navbar .navbar-nav {
+  color: black;
+  font-weight: 500;
+  font-size: 15px !important;
+}

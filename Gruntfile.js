@@ -31,13 +31,13 @@ module.exports = function(grunt) {
       dist : {
         src  : ['bower_components/jquery/dist/jquery.min.js',
                 'bower_components/jquery-ui/jquery-ui.js',
-                'bower_components/alertify.js/lib/alertify.js',
                 'app/js/lib/*.js', 
                 'app/js/**/*.js',
                 'bower_components/bootstrap/dist/js/bootstrap.js',
                 'bower_components/handlebars/handlebars.js',
                 'bower_components/blockui/jquery.blockUI.js',
-                'bower_components/bootstrapValidator/dist/js/bootstrapValidator.min.js',
+                'bower_components/bootstrap-material-design/dist/js/material.min.js',
+                'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
                 'bower_components/sweetalert/dist/sweetalert-dev.js'],
         dest : 'public/js/divegold.min.js'
       }
@@ -49,7 +49,13 @@ module.exports = function(grunt) {
         sourceMapIncludeSources : true
       },
       dist : {
-        src  : ['bower_components/bootstrap/dist/**/*.css', 'app/css/**/*.css', '/node_modules/**/*.css', 'bower_components/sweetalert/dist/sweetalert.css'],
+        src  : ['bower_components/bootstrap/dist/**/*.css',
+                'app/css/**/*.css',
+                '/node_modules/**/*.css',
+                'bower_components/bootstrap-material-design/dist/css/material.min.css',
+                'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+                'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+                'bower_components/sweetalert/dist/sweetalert.css'],
         dest : 'public/css/divegold.min.css'
       }
     },
@@ -61,6 +67,11 @@ module.exports = function(grunt) {
           dest: 'public/fonts',
           expand: true
         },{
+          cwd: 'bower_components/bootstrap-material-design/dist/fonts/',
+          src: '**',
+          dest: 'public/fonts',
+          expand: true
+        },{
           cwd: 'bower_components/jquery-ui/themes/base/images',
           src: '**',
           dest: 'public/css/images',
@@ -68,6 +79,11 @@ module.exports = function(grunt) {
         },{
           cwd: 'app/views/reserva/',
           src: 'reservas.html',
+          dest: 'public/',
+          expand: true
+        },{
+          cwd: 'app/views/',
+          src: 'home.html',
           dest: 'public/',
           expand: true
         },{
