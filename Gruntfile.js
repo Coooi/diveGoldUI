@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 'bower_components/jquery-ui/jquery-ui.js',
                 'app/js/lib/*.js', 
                 'app/js/**/*.js',
-                'bower_components/bootstrap/dist/js/bootstrap.js',
+                'bower_components/bootstrap/dist/js/bootstrap.min.js',
                 'bower_components/handlebars/handlebars.js',
                 'bower_components/blockui/jquery.blockUI.js',
                 'bower_components/bootstrap-material-design/dist/js/material.min.js',

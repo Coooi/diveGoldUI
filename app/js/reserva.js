@@ -375,7 +375,7 @@ var sendPostRequest = function(e) {
   console.log(JSON.stringify(reservation));
   $.ajax({
     cache: false,
-    url: "http://ec2-54-207-110-27.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/reservation/add/",
+    url: "http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/reservation/add/",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(reservation),
