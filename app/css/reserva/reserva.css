@@ -181,3 +181,11 @@
 .bold {
   font-weight: 700;
 }
+
+.form-group .form-control:focus, .form-group-default .form-control:focus {
+  background-image: linear-gradient(#03A9F4,#03A9F4),linear-gradient(#d2d2d2,#d2d2d2) !important;
+}
+
+.form-control {
+  background-color: rgb(233, 233, 233) !important;
+}
