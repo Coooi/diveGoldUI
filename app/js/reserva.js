@@ -264,6 +264,18 @@ var beforePost = function() {
       configTimeout("O CEP é obrigatório");
       return;
     }
+    if (!$("#cel").val()) {
+      configTimeout("Favor fornecer o número do telefone celular para contato");
+      return;
+    }
+    if (!$("#email").val()) {
+      configTimeout("O campo de email é obrigatório");
+      return;
+    }
+    if ($("#email").val().indexOf("@") === -1) {
+      configTimeout("O email fornecido é inválido");
+      return;
+    }
     if ($("#btnNivelMergulho").text() === "Selecione") {
       configTimeout("Favor escolher o nível do mergulhador");
       return;
@@ -386,17 +398,17 @@ var sendPostRequest = function(e) {
     reservation.innInfo.apType = ($("#btnTipoAp").text() !== "Selecione") ? $("#btnTipoAp").text() : "";
     reservation.innInfo.reservationName = $("#nomeReserva").val();
     reservation.innInfo.guests = [];
-    if ($("#acomp1").val()) {
+    if ($("#acomp1").val() && $("#acomp1").is(":visible")) {
       var acomp = {};
 
       acomp.name = $("#acomp1").val();
       acomp.diver = $("#firstDiverYes").is(":checked");
       reservation.innInfo.guests.push(acomp);
-      if ($("#acomp2").val()) {
+      if ($("#acomp2").val() && $("#acomp2").is(":visible")) {
         acomp.name = $("#acomp2").val();
         acomp.diver = $("#secondDiverYes").is(":checked");
         reservation.innInfo.guests.push(acomp);
-        if ($("#acomp3").val()) {
+        if ($("#acomp3").val() && $("#acomp3").is(":visible")) {
           acomp.name = $("#acomp3").val();
           acomp.diver = $("#thirdDiverYes").is(":checked");
           reservation.innInfo.guests.push(acomp);
@@ -545,6 +557,7 @@ var initEvents = function() {
           });
 
           comboDatas.find("[value='" + dpDate + "']").parent().remove();
+          comboDatasFim.find("[value='" + dpDate + "']").parent().remove();
 
           btnDatas.text("Selecione");
           btnDatasFim.text("Selecione");
@@ -562,7 +575,7 @@ var initEvents = function() {
   });
 
   btnAddTanque.click(function(e) {
-    var template = "<div class='form-group row gasTypesRowSet well'><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data inicial de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateIn' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2  col-xs-12 control-label'>Cilindro</label><div class='col-md-2 col-xs-11'><input type='text' name='tankType' typeId='{{cilindroId}}' class='form-control' value='{{cilindro}}' disabled></div></div><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data final de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateOut' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2 col-xs-12 control-label'>Gases</label><div class='col-md-2  col-xs-11'><input type='text' name='gasType' class='form-control' typeId='{{gasId}}' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12 divRemoveTank'><button type='button' class='btn btn-danger btn-raised btnRemoveTanque btn-xs btn-fab mdi-navigation-cancel'></button></div></div></div>";
+    var template = "<div class='form-group row gasTypesRowSet well'><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data inicial de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateIn' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2  col-xs-12 control-label'>Cilindro</label><div class='col-md-2 col-xs-11'><input type='text' name='tankType' typeId='{{cilindroId}}' class='form-control' value='{{cilindro}}' disabled></div></div><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data final de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateOut' class='form-control dateSet' value='{{dateFim}}' disabled></div><label class='col-md-2 col-xs-12 control-label'>Gases</label><div class='col-md-2  col-xs-11'><input type='text' name='gasType' class='form-control' typeId='{{gasId}}' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12 divRemoveTank'><button type='button' class='btn btn-danger btn-raised btnRemoveTanque btn-xs btn-fab mdi-navigation-cancel'></button></div></div></div>";
     var gasTanqueSet = Handlebars.compile(template);
     var setHtml,
       setDate = $('#btnDatas').text(),
