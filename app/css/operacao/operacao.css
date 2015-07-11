@@ -1,0 +1,25 @@
+.divInputs {
+  display: inline-block;
+  width: 310px;
+}
+
+.inputOp {
+  margin: 5px;
+}
+
+#opDate {
+  text-align: center;
+}
+
+#opName {
+  text-align: center;
+}
+
+.opPanel {
+  display: inline-block;
+  width: 70%;
+}
+
+.panel-primary>.panel-heading {
+  background-image: linear-gradient(to bottom,#1F1F1F 0,#1F1F1F 100%);
+}

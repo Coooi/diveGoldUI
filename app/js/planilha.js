@@ -35,7 +35,7 @@ var getOperations = function() {
 var generate = function() {
   // $.ajax({
   //   cache: false,
-  //   url: "http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/reservation/add/",
+  //   url: "http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/reservation/btnGenerate/",
   //   type: "POST",
   //   dataType: "json",
   //   data: JSON.stringify(reservation),
