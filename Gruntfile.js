@@ -82,6 +82,11 @@ module.exports = function(grunt) {
           dest: 'public/',
           expand: true
         },{
+          cwd: 'app/views/planilha/',
+          src: 'planilha.html',
+          dest: 'public/',
+          expand: true
+        },{
           cwd: 'app/views/',
           src: 'home.html',
           dest: 'public/',

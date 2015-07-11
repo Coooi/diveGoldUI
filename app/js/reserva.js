@@ -251,6 +251,11 @@ var beforePost = function() {
 
     e.preventDefault();
 
+    if (!$('#cpf').val().replace('.', '').replace('-', '').replace('.', '').trim() && !$('#cnpj').val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '').trim()) {
+      configTimeout("Favor informar pelo menos o CPF ou CNPJ");
+      return;
+    }
+
     if (!$("#userName").val()) {
       configTimeout("O nome é obrigatório");
       return;
@@ -272,7 +277,7 @@ var beforePost = function() {
       return;
     }
 
-    if ($("#checkEquipamentos").is(':checked')) {
+    if ($("#checkPousada").is(':checked')) {
       if (!$("#dataEntrada").val() || !$("#dataSaida").val()) {
         configTimeout("As datas de entrada e saída da pousada são obrigatórias");
         return;
@@ -285,7 +290,9 @@ var beforePost = function() {
         configTimeout("O nome do responsável pela reserva é obrigatório");
         return;
       }
-      if (!$("#acomp1").val() || !$("#acomp2").val() || !$("#acomp3").val()) {
+      if (($("#acomp1").is(":visible") && !$("#acomp1").val()) ||
+        ($("#acomp2").is(":visible") && !$("#acomp2").val()) ||
+        ($("#acomp3").is(":visible") && !$("#acomp3").val())) {
         configTimeout("Os nomes de todos os acompanhantes são obrigatórios");
         return;
       }
@@ -477,8 +484,6 @@ var initEvents = function() {
       clearUserInfo();
       $("#cnpj").removeAttr('disabled', '');
       $("#cpf").attr('disabled', '');
-      $("#cnpj").attr('required', '');
-      $("#cpf").removeAttr('required', '');
       $("#cpf").val('');
       $("#cnpj").focus();
     } else {
@@ -495,7 +500,7 @@ var initEvents = function() {
       return;
     }
 
-    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-6'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
+    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-6'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-raised btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
     var template2 = "<li><a href='#' value={{date}}>{{date}}</a></li>";
 
     var dataMergulhoTemplate = Handlebars.compile(template1);
@@ -557,7 +562,7 @@ var initEvents = function() {
   });
 
   btnAddTanque.click(function(e) {
-    var template = "<div class='form-group row gasTypesRowSet well'><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data inicial de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateIn' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2  col-xs-12 control-label'>Cilindro</label><div class='col-md-2 col-xs-11'><input type='text' name='tankType' typeId='{{cilindroId}}' class='form-control' value='{{cilindro}}' disabled></div></div><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data final de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateOut' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2 col-xs-12 control-label'>Gases</label><div class='col-md-2  col-xs-11'><input type='text' name='gasType' class='form-control' typeId='{{gasId}}' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12 divRemoveTank'><button type='button' class='btn btn-danger btn-sm btnRemoveTanque btn-xs'><span class='glyphicon glyphicon-remove-sign'></span></button></div></div></div>";
+    var template = "<div class='form-group row gasTypesRowSet well'><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data inicial de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateIn' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2  col-xs-12 control-label'>Cilindro</label><div class='col-md-2 col-xs-11'><input type='text' name='tankType' typeId='{{cilindroId}}' class='form-control' value='{{cilindro}}' disabled></div></div><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data final de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateOut' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2 col-xs-12 control-label'>Gases</label><div class='col-md-2  col-xs-11'><input type='text' name='gasType' class='form-control' typeId='{{gasId}}' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12 divRemoveTank'><button type='button' class='btn btn-danger btn-raised btnRemoveTanque btn-xs btn-fab mdi-navigation-cancel'></button></div></div></div>";
     var gasTanqueSet = Handlebars.compile(template);
     var setHtml,
       setDate = $('#btnDatas').text(),
@@ -653,6 +658,9 @@ var initEvents = function() {
     if ($(this).prop("checked")) {
       divEquipamentos.slideDown("slow");
     } else {
+      $.each($('.equipment'), function(i, v) {
+        $(this).val("");
+      });
       divEquipamentos.slideUp("slow");
     }
   });
@@ -758,8 +766,9 @@ var initEvents = function() {
 };
 
 $(document).ready(function() {
-  var datelist = [],
-    diveDates = [];
-
-  initEvents();
+  if (window.location.href.indexOf("/reservas") !== -1) {
+    var datelist = [],
+      diveDates = [];
+    initEvents();
+  }
 });

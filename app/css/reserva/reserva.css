@@ -45,12 +45,29 @@
   
 }
 
+.btnRemoveTanque {
+  width: 35px !important;
+  height: 35px !important;
+  padding: 0 !important;
+  font-size: 19px !important;
+}
+
+.gasTypesRowSet {
+  padding-bottom: 6px !important;
+}
+
 @media only screen and (min-device-width: 500px) {
     .center {
       max-width: 90%;
       padding-left: 0px;
       padding-right: 0px;
-  }
+    }
+
+    .divRemoveTank {
+      padding-left: 0;
+      float: right;
+      width: 45px;
+    }
 }
 
 @media only screen and (max-device-width: 500px) {
@@ -72,17 +89,23 @@
     margin-top: 3px;
   }
 
+  .btnAddDate{
+    text-align: center;
+  }
+
   .gasTypesRowSet {
     padding-left: 13px !important;
   }
 
   .btnRemoveTanque {
-    margin-top: 3px;
-    width: 100px;
+    margin-top: 10px !important;
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 25px !important;
   }
 
   .divRemoveTank {
-    text-align: center;
+    text-align: center !important;
   }
 
   .gasTypesRow {
@@ -159,11 +182,6 @@
   padding-left: 0;
 }
 
-.divRemoveTank {
-  line-height: 2.2;
-  padding-left: 0;
-}
-
 .bottom{
   margin-bottom: 5px;
 }
@@ -196,4 +214,8 @@
 
 .btnRemoveDate button {
  margin: 0;
+}
+
+.btn-group, .btn-group-vertical {
+  margin: 5px 1px !important;
 }
