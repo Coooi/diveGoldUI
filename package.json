@@ -27,10 +27,13 @@
     "type": "git",
     "url": "https://github.com/Coooi/diveGoldUI.git"
   },
+  "scripts": {
+    "start": "http-server -c-1 -p3000"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Coooi/diveGoldUI/issues"
   },
-  "homepage": "https://github.com/Coooi/diveGoldUI"
+  "homepage": "https://github.com/Coooi/diveGoldUI/home.html"
 }
