@@ -779,7 +779,7 @@ var initEvents = function() {
 };
 
 $(document).ready(function() {
-  if (window.location.href.indexOf("/reservas") !== -1) {
+  if (window.location.href.indexOf("/reserva") !== -1) {
     var datelist = [],
       diveDates = [];
     initEvents();
