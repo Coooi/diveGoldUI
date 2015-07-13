@@ -28,7 +28,7 @@
     "url": "https://github.com/Coooi/diveGoldUI.git"
   },
   "scripts": {
-    "start": "http-server -c-1 -p3000"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
