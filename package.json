@@ -21,9 +21,6 @@
     "grunt-jsbeautifier": "^0.2.10",
     "jshint": "latest"
   },
-  "scripts": {
-    "start": "node index.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Coooi/diveGoldUI.git"
