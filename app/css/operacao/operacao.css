@@ -16,8 +16,11 @@
 }
 
 .opPanel {
-  display: inline-block;
-  width: 70%;
+
+}
+
+.panel-heading {
+  text-align: center;
 }
 
 .panel-primary>.panel-heading {
