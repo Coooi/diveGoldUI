@@ -26,3 +26,33 @@
 .panel-primary>.panel-heading {
   background-image: linear-gradient(to bottom,#1F1F1F 0,#1F1F1F 100%);
 }
+
+.cell {
+  padding: 8px;
+  height: 50px;
+  line-height: 2.2;
+  text-overflow: ellipsis;
+  border: 1px solid;
+  font-weight: 500;
+}
+
+.btnRemoveOp {
+  margin: 0 !important;
+  float: right;
+}
+
+@media only screen and (max-device-width: 500px) {
+
+}
+
+.lineOpItem {
+
+}
+
+.pdRight{
+  padding-right: 0;
+}
+
+.pdLeft{
+  padding-left: 0;
+}

@@ -97,6 +97,11 @@ module.exports = function(grunt) {
           dest: 'public/',
           expand: true
         },{
+          cwd: 'app/js/templates/',
+          src: '**',
+          dest: 'public/js/templates/',
+          expand: true
+        },{
           cwd: 'app/views/',
           src: 'home.html',
           dest: 'public/',
