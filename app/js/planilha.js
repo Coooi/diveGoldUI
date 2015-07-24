@@ -11,7 +11,7 @@ var getOperations = function() {
       color: '#fff'
     }
   });
-  $.getJSON("//surerussolutions.com:8080/divegold-webservice/rest/operation/", function(data) {
+  $.getJSON("//surerussolutions.com/divegold-webservice/rest/operation/", function(data) {
     var dateArray = [],
       templateItem = "<option value='{{id}}'>{{date}} - {{desc}}</option>",
       opTemplate = Handlebars.compile(templateItem);
