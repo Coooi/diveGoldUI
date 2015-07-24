@@ -1,5 +1,5 @@
 var getAvailableDates = function() { //teste
-  $.getJSON("http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/operation/", function(data) {
+  $.getJSON("//surerussolutions.com:8080/divegold-webservice/rest/operation/", function(data) {
     var dateArray = [];
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
@@ -124,7 +124,7 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = 'http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/serrinha/apartype/',
+  var url = '//surerussolutions.com:8080/divegold-webservice/rest/serrinha/apartype/',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
@@ -167,7 +167,7 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = 'http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/gastype/',
+  var url = '//surerussolutions.com:8080/divegold-webservice/rest/gastype/',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
@@ -190,7 +190,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/tanktype/',
+  var url = '//surerussolutions.com:8080/divegold-webservice/rest/tanktype/',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
@@ -226,7 +226,7 @@ var populateCombos = function() {
     }
   });
 
-  var url = 'http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/divertype/',
+  var url = '//surerussolutions.com:8080/divegold-webservice/rest/divertype/',
     templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 
@@ -421,7 +421,7 @@ var sendPostRequest = function(e) {
   console.log(JSON.stringify(reservation));
   $.ajax({
     cache: false,
-    url: "http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/reservation/add/",
+    url: "//surerussolutions.com:8080/divegold-webservice/rest/reservation/add/",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(reservation),
@@ -749,7 +749,7 @@ var initEvents = function() {
     var cpfValue = $(this).val().replace('.', '').replace('-', '').replace('.', '');
 
     if (cpfValue) {
-      var url = 'http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/client/type=0&value=' + cpfValue + '/';
+      var url = '//surerussolutions.com:8080/divegold-webservice/rest/client/type=0&value=' + cpfValue + '/';
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {
@@ -762,7 +762,7 @@ var initEvents = function() {
     var cnpjValue = $(this).val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
 
     if (cnpjValue) {
-      var url = 'http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/client/type=1&value=' + cnpjValue + '/';
+      var url = '//surerussolutions.com:8080/divegold-webservice/rest/client/type=1&value=' + cnpjValue + '/';
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {

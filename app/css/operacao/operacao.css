@@ -5,6 +5,7 @@
 
 .inputOp {
   margin: 5px;
+  height: 40px !important;
 }
 
 #opDate {
@@ -15,8 +16,8 @@
   text-align: center;
 }
 
-.opPanel {
-
+.ui-datepicker {
+    width: 310px;
 }
 
 .panel-heading {
