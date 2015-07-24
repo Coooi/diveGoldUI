@@ -263,7 +263,7 @@ getOperations = function() {
             color: "#fff"
         }
     });
-    $.getJSON("//surerussolutions.com:8080/divegold-webservice/rest/operation/", function(a) {
+    $.getJSON("//surerussolutions.com/divegold-webservice/rest/operation/", function(a) {
         var b = [], c = "<option value='{{id}}'>{{date}} - {{desc}}</option>", d = Handlebars.compile(c);
         $.each(a.operations, function() {
             var a, b = "", c = {}, e = new Date(this.date);
@@ -296,7 +296,7 @@ $(document).ready(function() {
 });
 
 getAvailableDates = function() {
-    $.getJSON("//surerussolutions.com:8080/divegold-webservice/rest/operation/", function(a) {
+    $.getJSON("//surerussolutions.com/divegold-webservice/rest/operation/", function(a) {
         var b = [];
         $.each(a.operations, function() {
             var a = new Date(this.date);
@@ -401,7 +401,7 @@ configTimeout = function(a) {
 };
 
 populateAparts = function() {
-    var a = "//surerussolutions.com:8080/divegold-webservice/rest/serrinha/apartype/", b = "<li><a href='#' value={{type}}>{{type}}</a></li>";
+    var a = "//surerussolutions.com/divegold-webservice/rest/serrinha/apartype/", b = "<li><a href='#' value={{type}}>{{type}}</a></li>";
     apItemTemplate = Handlebars.compile(b);
     $.getJSON(a, function(a) {
         $.each(a.innApartTypes, function() {
@@ -441,7 +441,7 @@ populateAparts = function() {
 };
 
 populateGases = function() {
-    var a = "//surerussolutions.com:8080/divegold-webservice/rest/gastype/", b = "<li><a href='#' value={{id}}>{{type}}</a></li>";
+    var a = "//surerussolutions.com/divegold-webservice/rest/gastype/", b = "<li><a href='#' value={{id}}>{{type}}</a></li>";
     gasItemTemplate = Handlebars.compile(b);
     $.getJSON(a, function(a) {
         $.each(a.gasTypes, function() {
@@ -462,7 +462,7 @@ populateGases = function() {
 };
 
 populateTanks = function() {
-    var a = "//surerussolutions.com:8080/divegold-webservice/rest/tanktype/", b = "<li><a href='#' value={{id}}>{{type}}</a></li>";
+    var a = "//surerussolutions.com/divegold-webservice/rest/tanktype/", b = "<li><a href='#' value={{id}}>{{type}}</a></li>";
     tankItemTemplate = Handlebars.compile(b);
     $.getJSON(a, function(a) {
         $.each(a.tankTypes, function() {
@@ -495,7 +495,7 @@ populateCombos = function() {
             color: "#fff"
         }
     });
-    var a = "//surerussolutions.com:8080/divegold-webservice/rest/divertype/", b = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
+    var a = "//surerussolutions.com/divegold-webservice/rest/divertype/", b = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
     dataMergulhoTemplate = Handlebars.compile(b);
     $.getJSON(a, function(a) {
         $.each(a.diverTypes, function() {
@@ -662,7 +662,7 @@ sendPostRequest = function(a) {
     console.log(JSON.stringify(c));
     $.ajax({
         cache: false,
-        url: "//surerussolutions.com:8080/divegold-webservice/rest/reservation/add/",
+        url: "//surerussolutions.com/divegold-webservice/rest/reservation/add/",
         type: "POST",
         dataType: "json",
         data: JSON.stringify(c),
@@ -891,7 +891,7 @@ initEvents = function() {
     $("#cpf").blur(function() {
         var a, b = $(this).val().replace(".", "").replace("-", "").replace(".", "");
         if (b) {
-            a = "//surerussolutions.com:8080/divegold-webservice/rest/client/type=0&value=" + b + "/";
+            a = "//surerussolutions.com/divegold-webservice/rest/client/type=0&value=" + b + "/";
             $.getJSON(a, function(a) {
                 x(a);
             }).fail(function() {
@@ -902,7 +902,7 @@ initEvents = function() {
     $("#cnpj").blur(function() {
         var a, b = $(this).val().replace(".", "").replace("-", "").replace("/", "").replace("_", "").replace(".", "");
         if (b) {
-            a = "//surerussolutions.com:8080/divegold-webservice/rest/client/type=1&value=" + b + "/";
+            a = "//surerussolutions.com/divegold-webservice/rest/client/type=1&value=" + b + "/";
             $.getJSON(a, function(a) {
                 x(a);
             }).fail(function() {
