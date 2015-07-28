@@ -19,6 +19,45 @@ var initOperacoes = function() {
     //$(".ui-datepicker").css('width', $("#opDate").width());
   }
 
+  $.getJSON("https://surerussolutions.com/divegold-webservice/operation", function(data) {
+
+    $('#opTable').dynatable({
+      writers: {
+        'date': function(record) {
+          record.parsedDate = record.date;
+          return moment(record.date).format('DD/MM/YYYY');
+        },
+        'status': function(record) {
+          record.parsedStatus = record.status;
+          return (record.status) ? "Confirmada" : "Em aberto";
+        },
+        'delete': function(record) {
+          return "<button class='btn btn-danger btn-xs btn-raised btnRemoveOp'><span class='mdi-content-clear'></span></button>";
+        }
+      },
+      inputs: {
+        recordCountPageBoundTemplate: '{pageLowerBound} a {pageUpperBound} de',
+        recordCountPageUnboundedTemplate: '{recordsShown} de',
+        recordCountTotalTemplate: '{recordsQueryCount} {collectionName}',
+        recordCountFilteredTemplate: ' (filtrado {recordsTotal} operações)',
+        recordCountTextTemplate: '{text} {pageTemplate} {totalTemplate} {filteredTemplate}',
+        perPageText: 'Mostrar: ',
+        processingText: 'Processando...',
+        paginationPrev: 'Anterior',
+        paginationNext: 'Próximo',
+        recordCountText: 'Exibindo '
+      },
+      features: {
+        paginate: true
+      },
+      dataset: {
+        records: data.operations
+      }
+    });
+  }).fail(function() {
+
+  });
+
   $("#btnAdicionarOp").click(function() {
     var operation = {};
     operation.date = $("#opDate").val();
@@ -67,7 +106,38 @@ var addOperation = function(operation) {
 };
 
 var saveOperations = function() {
-  sweetAlert('Operações salvas com sucesso!', '', 'success');
+  var dynatable = $('#opTable').data('dynatable'),
+    tableOperations = dynatable.settings.dataset.originalRecords,
+    data = {};
+
+  var operation = {};
+
+  operation.id = 0;
+  operation.type = {};
+  operation.type.id = 1;
+  operation.type.desc = "Livre - Mina da Passagem";
+  operation.desc = "TESTE";
+  operation.date = new Date().getTime();
+  operation.status = 0;
+
+  console.log(JSON.stringify(operation));
+
+  $.ajax({
+    cache: false,
+    url: "//surerussolutions.com/divegold-webservice/operation/add",
+    type: "POST",
+    dataType: "json",
+    data: JSON.stringify(operation),
+    success: function(callback) {
+      //console.log(JSON.parse(callback));
+      $.unblockUI();
+      sweetAlert('Operações salvas com sucesso!', '', 'success');
+    },
+    error: function() {
+      configTimeout("Ocorreu um erro ao enviar ao salvar as operações.");
+    }
+  });
+
 };
 
 $(document).ready(function() {

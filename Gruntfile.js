@@ -25,32 +25,18 @@ module.exports = function(grunt) {
     uglify : {
       options : {
         sourceMap : true,
-        beautify: true,
-        sourceMapIncludeSources : true,
-        compress: {
-            sequences: false,
-            properties: false,
-            dead_code: true,
-            drop_debugger: true,
-            unsafe: false,
-            conditionals: false,
-            comparisons: false,
-            evaluate: false,
-            booleans: false,
-            loops: false,
-            unused: false,
-            hoist_funs: false,
-            hoist_vars: true,
-            if_return: false,
-            join_vars: true,
-            cascade: false,
-            warnings: false,
-            side_effects: false
-        }
+        sourceMapIncludeSources : true
       },
-      dist : {
-        src  : ['app/js/**/*.js'],
-        dest : 'public/js/divegold.js'
+      minVendor: {
+         src:  ['bower_components/dynatable/jquery.dynatable.js',
+                'bower_components/blockui/jquery.blockUI.js',
+                'bower_components/modernizr/modernizr.js',
+                'app/js/lib/*.js'],
+         dest: 'dist/js/vendor.js'
+      },
+      minJs: {
+         src:  ['app/js/**/*.js'],
+         dest: 'public/js/divegold.js'
       }
     },
     cssmin: {
@@ -66,6 +52,7 @@ module.exports = function(grunt) {
                 'bower_components/bootstrap-material-design/dist/css/material.min.css',
                 'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
                 'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+                'bower_components/dynatable/jquery.dynatable.css',
                 'bower_components/sweetalert/dist/sweetalert.css'],
         dest : 'public/css/divegold.min.css'
       }
@@ -146,15 +133,13 @@ module.exports = function(grunt) {
                 'bower_components/jquery-ui/jquery-ui.min.js',
                 'bower_components/bootstrap/dist/js/bootstrap.min.js',
                 'bower_components/handlebars/handlebars.min.js',
-                'bower_components/blockui/jquery.blockUI.js',
                 'bower_components/bootstrap-material-design/dist/js/material.min.js',
                 'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
-                'bower_components/modernizr/modernizr.js',
                 'bower_components/moment/min/moment.min.js',
                 'bower_components/sweetalert/dist/sweetalert.min.js',
-                'app/js/lib/*.js',
-                'public/js/divegold.js'],
-        dest: 'public/js/divegold.min.js'
+                'bower_components/sweetalert/dist/sweetalert.min.js',
+                'dist/js/vendor.js'],
+        dest: 'public/js/vendor.min.js'
       }
     }
       

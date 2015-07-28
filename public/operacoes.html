@@ -10,7 +10,8 @@
   <!-- Login CSS -->
   <link href="css/divegold.min.css" rel="stylesheet">
   <!-- JS  -->
-  <script src="js/divegold.min.js"></script>
+  <script src="js/vendor.min.js"></script>
+  <script src="js/divegold.js"></script>
   <!-- <script type="text/javascript" src="js/reserva.js"></script> -->
 
   <!-- Logo -->
@@ -70,6 +71,19 @@
     <div class="panel panel-primary opPanel">
       <div class="panel-heading">
         <h3 class="panel-title">Operações cadastradas</h3>
+      </div>
+
+      <div class="tableContainer">
+        <table id="opTable" class="table table-bordered">
+          <thead>
+            <th data-dynatable-column="date" data-dynatable-sorts="parsedDate">Data</th>
+            <th data-dynatable-column="desc">Operação</th>
+            <th data-dynatable-column="status" data-dynatable-sorts="parsedStatus">Situação</th>
+            <th data-dynatable-column="delete" class=".deleteColumn" data-dynatable-no-sort="status">Excluir</th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
 
       <!-- <div class="row lineOpItem">

@@ -57,3 +57,19 @@
 .pdLeft{
   padding-left: 0;
 }
+
+.dynatable-active-page:hover, th a, th a:hover {
+  color: black!important;
+}
+
+.tableContainer {
+  padding: 8px;
+}
+
+#opTable>thead {
+  background-color: lightgray;
+}
+
+caption, th {
+  text-align: center;
+}
