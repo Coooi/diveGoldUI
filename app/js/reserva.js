@@ -691,7 +691,7 @@ var initEvents = function() {
     var cepValue = $(this).val().replace('.', '').replace('-', '');
 
     if (cepValue) {
-      var url = 'http://cep.correiocontrol.com.br/' + cepValue + '.json';
+      var url = '//cep.correiocontrol.com.br/' + cepValue + '.json';
 
       $.getJSON(url, function(data) {
         $("#rua").val(data.logradouro);
