@@ -33,11 +33,12 @@ module.exports = function(grunt) {
                 'bower_components/modernizr/modernizr.js',
                 'app/js/lib/*.js'],
          dest: 'dist/js/vendor.js'
-      },
-      minJs: {
-         src:  ['app/js/*.js'],
-         dest: 'public/js/divegold.js'
       }
+      // ,
+      // minJs: {
+      //    src:  ['app/js/*.js'],
+      //    dest: 'public/js/divegold.js'
+      // }
     },
     cssmin: {
       options: {
@@ -69,6 +70,10 @@ module.exports = function(grunt) {
                 'bower_components/sweetalert/dist/sweetalert.min.js',
                 'dist/js/vendor.js'],
         dest: 'public/js/vendor.min.js'
+      },
+      minJs: {
+         src:  ['app/js/*.js'],
+         dest: 'public/js/divegold.js'
       }
     },
     copy: {

@@ -1,5 +1,5 @@
 var getAvailableDates = function() { //teste
-  $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status=0", function(data) {
+  $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/0", function(data) {
     var dateArray = [];
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
@@ -749,7 +749,7 @@ var initEvents = function() {
     var cpfValue = $(this).val().replace('.', '').replace('-', '').replace('.', '');
 
     if (cpfValue) {
-      var url = 'http://surerussolutions.com/divegold-webservice/client/type=0&value=' + cpfValue + '/';
+      var url = 'http://surerussolutions.com/divegold-webservice/client/type=0&value=' + cpfValue;
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {
@@ -762,7 +762,7 @@ var initEvents = function() {
     var cnpjValue = $(this).val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
 
     if (cnpjValue) {
-      var url = 'http://surerussolutions.com/divegold-webservice/client/type=1&value=' + cnpjValue + '/';
+      var url = 'http://surerussolutions.com/divegold-webservice/client/type=1&value=' + cnpjValue;
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {

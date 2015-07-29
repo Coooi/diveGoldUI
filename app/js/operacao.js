@@ -1,6 +1,7 @@
 var initOperacoes = function() {
-
-  if (!Modernizr.touch) {
+  var isFirefox = typeof InstallTrigger !== 'undefined',
+    hasDatePicker = false;
+  if (!Modernizr.touch || isFirefox) {
     $("#opDate").attr('type', 'text').datepicker({
       dateFormat: 'dd/mm/yy',
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -16,7 +17,7 @@ var initOperacoes = function() {
         $(".ui-datepicker").css('width', $("#opDate").width());
       }
     });
-    //$(".ui-datepicker").css('width', $("#opDate").width());
+    hasDatePicker = true;
   }
 
   $.getJSON("http://surerussolutions.com/divegold-webservice/operation", function(data) {
@@ -69,11 +70,11 @@ var initOperacoes = function() {
 
     dateValue = $("#opDate").val();
     dateArray = dateValue.split("/");
-    dateValue = dateArray[1] + '-' + dateArray[0] + '-' + dateArray[2];
+    if (hasDatePicker) {
+      dateValue = dateArray[1] + '-' + dateArray[0] + '-' + dateArray[2];
+    }
     operation.date = new Date(dateValue).getTime();
-
     operation.desc = $("#opName").val();
-
     addOperation(operation);
 
     $("#opDate").val("");
@@ -88,17 +89,9 @@ var deleteOp = function(buttonTag) {
     var operation = {},
       dynatable = $('#opTable').data('dynatable');
 
-    operation.id = $(buttonTag).data("id");
-    operation.type = {};
-    operation.type.id = 1;
-    operation.type.desc = "Livre - Mina da Passagem";
-    operation.desc = "TESTE-DELETE";
-    operation.date = new Date().getTime();
-    operation.status = 0;
-
     $.ajax({
       cache: false,
-      url: "http://surerussolutions.com/divegold-webservice/operation/delete",
+      url: "http://surerussolutions.com/divegold-webservice/operation/delete/" + $(buttonTag).data("id"),
       type: "POST",
       dataType: "json",
       data: JSON.stringify(operation),
@@ -123,7 +116,7 @@ var deleteOp = function(buttonTag) {
 };
 
 var addOperation = function(operation) {
-  if (!operation) {
+  if (!operation || !operation.desc || !operation.date) {
     configTimeout("Os campos de data e nome da operação são obrigatórios.");
     return;
   }
