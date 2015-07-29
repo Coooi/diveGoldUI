@@ -35,7 +35,7 @@ module.exports = function(grunt) {
          dest: 'dist/js/vendor.js'
       },
       minJs: {
-         src:  ['app/js/**/*.js'],
+         src:  ['app/js/*.js'],
          dest: 'public/js/divegold.js'
       }
     },
@@ -55,6 +55,20 @@ module.exports = function(grunt) {
                 'bower_components/dynatable/jquery.dynatable.css',
                 'bower_components/sweetalert/dist/sweetalert.css'],
         dest : 'public/css/divegold.min.css'
+      }
+    },
+    concat: {
+      vendorMin: {
+        src  : ['bower_components/jquery/dist/jquery.min.js',
+                'bower_components/jquery-ui/jquery-ui.min.js',
+                'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                'bower_components/handlebars/handlebars.min.js',
+                'bower_components/bootstrap-material-design/dist/js/material.min.js',
+                'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
+                'bower_components/moment/min/moment.min.js',
+                'bower_components/sweetalert/dist/sweetalert.min.js',
+                'dist/js/vendor.js'],
+        dest: 'public/js/vendor.min.js'
       }
     },
     copy: {
@@ -100,9 +114,14 @@ module.exports = function(grunt) {
           dest: 'public/',
           expand: true
         },{
+          cwd: 'dist/js/',
+          src: 'vendor.js.map',
+          dest: 'public/js',
+          expand: true
+        },{
           cwd: 'app/',
           src: 'login.html',
-          dest: 'public/',
+          dest: 'public',
           expand: true
         }]
     }
@@ -113,30 +132,8 @@ module.exports = function(grunt) {
         options : {
           config: '.jsbeautifier'
         }
-      },
-      'precommit-hook': {
-        src: ['app/js/**/*.js', 'app/views/**/*.html', 'app/**/*.html'],
-        options : {
-          config: '.jsbeautifier',
-          mode:'VERIFY_ONLY'
-        }
       }
-  },
-  concat: {
-      dist: {
-        src  : ['bower_components/jquery/dist/jquery.min.js',
-                'bower_components/jquery-ui/jquery-ui.min.js',
-                'bower_components/bootstrap/dist/js/bootstrap.min.js',
-                'bower_components/handlebars/handlebars.min.js',
-                'bower_components/bootstrap-material-design/dist/js/material.min.js',
-                'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
-                'bower_components/moment/min/moment.min.js',
-                'bower_components/sweetalert/dist/sweetalert.min.js',
-                'dist/js/vendor.js'],
-        dest: 'public/js/vendor.min.js'
-      }
-    }
-      
+  }
   });
 
   grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -147,6 +144,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-githooks');
   grunt.loadNpmTasks('grunt-contrib-concat');
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'copy', 'jsbeautifier', 'concat']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy' ]);
 
 };

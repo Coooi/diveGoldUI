@@ -1,5 +1,5 @@
 var getAvailableDates = function() { //teste
-  $.getJSON("//surerussolutions.com/divegold-webservice/operation/status=0", function(data) {
+  $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status=0", function(data) {
     var dateArray = [];
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
@@ -124,7 +124,7 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = '//surerussolutions.com/divegold-webservice/serrinha/apartype',
+  var url = 'http://surerussolutions.com/divegold-webservice/serrinha/apartype',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
@@ -167,7 +167,7 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = '//surerussolutions.com/divegold-webservice/gastype',
+  var url = 'http://surerussolutions.com/divegold-webservice/gastype',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
@@ -190,7 +190,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = '//surerussolutions.com/divegold-webservice/tanktype',
+  var url = 'http://surerussolutions.com/divegold-webservice/tanktype',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
@@ -226,7 +226,7 @@ var populateCombos = function() {
     }
   });
 
-  var url = '//surerussolutions.com/divegold-webservice/divertype',
+  var url = 'http://surerussolutions.com/divegold-webservice/divertype',
     templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 
@@ -421,7 +421,7 @@ var sendPostRequest = function(e) {
   console.log(JSON.stringify(reservation));
   $.ajax({
     cache: false,
-    url: "//surerussolutions.com/divegold-webservice/reservation/add",
+    url: "http://surerussolutions.com/divegold-webservice/reservation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(reservation),
@@ -691,7 +691,7 @@ var initEvents = function() {
     var cepValue = $(this).val().replace('.', '').replace('-', '');
 
     if (cepValue) {
-      var url = '//cep.correiocontrol.com.br/' + cepValue + '.json';
+      var url = 'http://cep.correiocontrol.com.br/' + cepValue + '.json';
 
       $.getJSON(url, function(data) {
         $("#rua").val(data.logradouro);
@@ -749,7 +749,7 @@ var initEvents = function() {
     var cpfValue = $(this).val().replace('.', '').replace('-', '').replace('.', '');
 
     if (cpfValue) {
-      var url = '//surerussolutions.com/divegold-webservice/client/type=0&value=' + cpfValue + '/';
+      var url = 'http://surerussolutions.com/divegold-webservice/client/type=0&value=' + cpfValue + '/';
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {
@@ -762,7 +762,7 @@ var initEvents = function() {
     var cnpjValue = $(this).val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
 
     if (cnpjValue) {
-      var url = '//surerussolutions.com/divegold-webservice/client/type=1&value=' + cnpjValue + '/';
+      var url = 'http://surerussolutions.com/divegold-webservice/client/type=1&value=' + cnpjValue + '/';
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {

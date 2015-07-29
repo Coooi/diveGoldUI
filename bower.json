@@ -16,21 +16,18 @@
   ],
   "dependencies": {
     "jquery": "~2.1.4",
+    "blockui": "*",
     "bootstrap": "~3.3.4",
     "jquery-ui": "~1.11.4",
     "bootstrap-validator": "~0.8.1",
     "handlebars": "~3.0.3",
     "bootstrap-material-design": "~0.3.0",
     "modernizr": "~2.8.3",
-    "moment": "~2.10.3"
+    "moment": "~2.10.3",
+    "sweetalert": "~1.0.1",
+    "dynatable": "~0.3.1"
   },
   "devDependencies": {
-    "bootstrap": "~3.3.4",
-    "blockui": "*",
-    "sweetalert": "~1.0.1",
-    "atabix-sweetalert": "v0.3.1",
-    "bootstrapValidator": "~0.5.3",
-    "bootstrap-material-design": "~0.3.0",
-    "dynatable": "~0.3.1"
+
   }
 }

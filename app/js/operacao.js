@@ -19,7 +19,7 @@ var initOperacoes = function() {
     //$(".ui-datepicker").css('width', $("#opDate").width());
   }
 
-  $.getJSON("https://surerussolutions.com/divegold-webservice/operation", function(data) {
+  $.getJSON("http://surerussolutions.com/divegold-webservice/operation", function(data) {
 
     $('#opTable').dynatable({
       writers: {
@@ -98,7 +98,7 @@ var deleteOp = function(buttonTag) {
 
     $.ajax({
       cache: false,
-      url: "//surerussolutions.com/divegold-webservice/operation/delete",
+      url: "http://surerussolutions.com/divegold-webservice/operation/delete",
       type: "POST",
       dataType: "json",
       data: JSON.stringify(operation),
@@ -154,7 +154,7 @@ var saveOperations = function(data) {
 
   $.ajax({
     cache: false,
-    url: "//surerussolutions.com/divegold-webservice/operation/add",
+    url: "http://surerussolutions.com/divegold-webservice/operation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(operation),
