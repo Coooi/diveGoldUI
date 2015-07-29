@@ -32,7 +32,7 @@ var initOperacoes = function() {
           return (record.status) ? "Confirmada" : "Em aberto";
         },
         'delete': function(record) {
-          return "<button class='btn btn-danger btn-xs btn-raised btnRemoveOp'><span class='mdi-content-clear'></span></button>";
+          return "<button data-id='" + record.id + "' class='btn btn-danger btn-xs btn-raised btnRemoveOp'><span class='mdi-content-clear'></span></button>";
         }
       },
       inputs: {
@@ -56,6 +56,10 @@ var initOperacoes = function() {
     });
   }).fail(function() {
 
+  });
+
+  $(".tableContainer").on("click", "button", function(e) {
+    console.log(e.currentTarget);
   });
 
   $("#btnAdicionarOp").click(function() {
