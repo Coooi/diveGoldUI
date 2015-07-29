@@ -29,7 +29,6 @@ app.get('/planilha', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/planilha.html'));
 });
 
-
 app.use('/css', express.static(path.join(__dirname, '/public/css')));
 app.use('/js', express.static(path.join(__dirname, '/public/js')));
 app.use('/fonts', express.static(path.join(__dirname, '/public/fonts')));

@@ -59,21 +59,21 @@ var initOperacoes = function() {
   });
 
   $("#btnAdicionarOp").click(function() {
-    var operation = {};
-    operation.date = $("#opDate").val();
-    if (Modernizr.touch) {
-      operation.date = moment(operation.date).format('DD-MM-YYYY');
+    var operation = {},
+      dateValue,
+      dateArray;
 
-    }
-    operation.name = $("#opName").val();
+    dateValue = $("#opDate").val();
+    dateArray = dateValue.split("/");
+    dateValue = dateArray[1] + '-' + dateArray[0] + '-' + dateArray[2];
+    operation.date = new Date(dateValue).getTime();
+
+    operation.desc = $("#opName").val();
+
     addOperation(operation);
 
     $("#opDate").val("");
     $("#opName").val("");
-  });
-
-  $("#btnSaveOperations").click(function() {
-    saveOperations();
   });
 
 };
@@ -93,22 +93,17 @@ var bindDeleteButton = function(element) {
 };
 
 var addOperation = function(operation) {
-  if (!$("#opDate").val() || !$("#opName").val()) {
+  if (!operation) {
     configTimeout("Os campos de data e nome da operação são obrigatórios.");
     return;
   }
 
-  $.get('js/templates/lineItemOp.hbs', function(data) {
-    var lineItemOp = Handlebars.compile(data);
-    $('.opPanel').append(lineItemOp(operation));
-    bindDeleteButton($(".btnRemoveOp").last());
-  }, 'html');
+  saveOperations(operation);
 };
 
-var saveOperations = function() {
+var saveOperations = function(data) {
   var dynatable = $('#opTable').data('dynatable'),
-    tableOperations = dynatable.settings.dataset.originalRecords,
-    data = {};
+    tableOperations = dynatable.settings.dataset.originalRecords;
 
   var operation = {};
 
@@ -116,8 +111,8 @@ var saveOperations = function() {
   operation.type = {};
   operation.type.id = 1;
   operation.type.desc = "Livre - Mina da Passagem";
-  operation.desc = "TESTE";
-  operation.date = new Date().getTime();
+  operation.desc = data.desc;
+  operation.date = data.date;
   operation.status = 0;
 
   console.log(JSON.stringify(operation));
@@ -131,6 +126,9 @@ var saveOperations = function() {
     success: function(callback) {
       //console.log(JSON.parse(callback));
       $.unblockUI();
+      console.log(callback);
+      dynatable.settings.dataset.originalRecords.push(callback);
+      dynatable.process();
       sweetAlert('Operações salvas com sucesso!', '', 'success');
     },
     error: function() {

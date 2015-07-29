@@ -73,3 +73,15 @@
 caption, th {
   text-align: center;
 }
+
+.deleteColumn {
+  width: 72px;
+}
+
+.statusColumn {
+  width: 126px;
+}
+
+.dateColumn {
+  width: 100px;
+}

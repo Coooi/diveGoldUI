@@ -120,7 +120,7 @@ module.exports = function(grunt) {
         }
       },
       'precommit-hook': {
-        src: ['app/js/**/*.js', 'app/views/**/*.html', 'app/**/*.html'],
+        src: ['app/js/*.js', 'app/views/**/*.html', 'app/**/*.html'],
         options : {
           config: '.jsbeautifier',
           mode:'VERIFY_ONLY'
