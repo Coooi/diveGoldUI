@@ -59,7 +59,7 @@ var initOperacoes = function() {
   });
 
   $(".tableContainer").on("click", "button", function(e) {
-    console.log(e.currentTarget);
+    deleteOp(e.currentTarget);
   });
 
   $("#btnAdicionarOp").click(function() {
@@ -82,18 +82,44 @@ var initOperacoes = function() {
 
 };
 
-var bindDeleteButton = function(element) {
-  element.last().click(function(e) {
+var deleteOp = function(buttonTag) {
+  var r = confirm("Tem certeza que deseja remover esta operação?");
+  if (r === true) {
+    var operation = {},
+      dynatable = $('#opTable').data('dynatable');
+
+    operation.id = $(buttonTag).data("id");
+    operation.type = {};
+    operation.type.id = 1;
+    operation.type.desc = "Livre - Mina da Passagem";
+    operation.desc = "TESTE-DELETE";
+    operation.date = new Date().getTime();
+    operation.status = 0;
+
+    $.ajax({
+      cache: false,
+      url: "//surerussolutions.com/divegold-webservice/operation/delete",
+      type: "POST",
+      dataType: "json",
+      data: JSON.stringify(operation),
+      success: function(callback) {
+        sweetAlert('Operação removida com sucesso!', '', 'success');
+        dynatable.settings.dataset.originalRecords = $.grep(dynatable.settings.dataset.originalRecords,
+          function(op, index) {
+            if (op.id === operation.id) {
+              return false;
+            }
+            return true;
+          });
+        dynatable.process();
+      },
+      error: function(xhr, textStatus, error) {
+        configTimeout("Ocorreu um erro ao tentar excluir esta operação.");
+      }
+    });
+  } else {
     e.preventDefault();
-    var r = confirm("Tem certeza que deseja remover esta operação?");
-    if (r === true) {
-      $(this).parents(".lineOpItem").slideUp(300, function() {
-        $(this).remove();
-      });
-    } else {
-      e.preventDefault();
-    }
-  });
+  }
 };
 
 var addOperation = function(operation) {
@@ -107,9 +133,14 @@ var addOperation = function(operation) {
 
 var saveOperations = function(data) {
   var dynatable = $('#opTable').data('dynatable'),
-    tableOperations = dynatable.settings.dataset.originalRecords;
+    tableOperations,
+    operation = {};
 
-  var operation = {};
+  if (!dynatable.settings) {
+    return;
+  }
+
+  tableOperations = dynatable.settings.dataset.originalRecords;
 
   operation.id = 0;
   operation.type = {};
@@ -128,14 +159,13 @@ var saveOperations = function(data) {
     dataType: "json",
     data: JSON.stringify(operation),
     success: function(callback) {
-      //console.log(JSON.parse(callback));
-      $.unblockUI();
       console.log(callback);
       dynatable.settings.dataset.originalRecords.push(callback);
       dynatable.process();
       sweetAlert('Operações salvas com sucesso!', '', 'success');
     },
     error: function() {
+      $.unblockUI();
       configTimeout("Ocorreu um erro ao enviar ao salvar as operações.");
     }
   });

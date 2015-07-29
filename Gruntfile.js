@@ -95,11 +95,6 @@ module.exports = function(grunt) {
           dest: 'public/',
           expand: true
         },{
-          cwd: 'app/js/templates/',
-          src: '**',
-          dest: 'public/js/templates/',
-          expand: true
-        },{
           cwd: 'app/views/',
           src: 'home.html',
           dest: 'public/',
@@ -120,7 +115,7 @@ module.exports = function(grunt) {
         }
       },
       'precommit-hook': {
-        src: ['app/js/*.js', 'app/views/**/*.html', 'app/**/*.html'],
+        src: ['app/js/**/*.js', 'app/views/**/*.html', 'app/**/*.html'],
         options : {
           config: '.jsbeautifier',
           mode:'VERIFY_ONLY'
