@@ -83,7 +83,7 @@ var initOperacoes = function() {
 };
 
 var deleteOp = function(buttonTag) {
-  var r = confirm("Tem certeza que deseja remover esta operação?");
+  var r = confirm("Tem certeza que deseja remover esta operação? Ao remover uma operação, todas as reservas feitas por clientes serão removidas.");
   if (r === true) {
     var operation = {},
       dynatable = $('#opTable').data('dynatable');

@@ -132,7 +132,6 @@ module.exports = function(grunt) {
                 'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
                 'bower_components/moment/min/moment.min.js',
                 'bower_components/sweetalert/dist/sweetalert.min.js',
-                'bower_components/sweetalert/dist/sweetalert.min.js',
                 'dist/js/vendor.js'],
         dest: 'public/js/vendor.min.js'
       }
