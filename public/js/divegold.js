@@ -92,9 +92,10 @@ var initOperacoes = function() {
     dateValue = $("#opDate").val();
     dateArray = dateValue.split("/");
     if (hasDatePicker) {
-      dateValue = dateArray[1] + '-' + dateArray[0] + '-' + dateArray[2];
+      operation.date = new Date(dateArray[2], dateArray[1], dateArray[0]).getTime();
+    } else {
+      operation.date = new Date(dateValue).getTime();
     }
-    operation.date = new Date(dateValue).getTime();
     operation.desc = $("#opName").val();
     addOperation(operation);
 
@@ -110,9 +111,10 @@ var deleteOp = function(buttonTag) {
     var operation = {},
       dynatable = $('#opTable').data('dynatable');
 
+    operation.id = $(buttonTag).data("id");
     $.ajax({
       cache: false,
-      url: "http://surerussolutions.com/divegold-webservice/operation/delete/" + $(buttonTag).data("id"),
+      url: "http://surerussolutions.com/divegold-webservice/operation/delete/" + operation.id,
       type: "POST",
       dataType: "json",
       data: JSON.stringify(operation),
