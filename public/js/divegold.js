@@ -81,7 +81,7 @@ var initOperacoes = function() {
   });
 
   $(".tableContainer").on("click", "button", function(e) {
-    deleteOp(e.currentTarget);
+    deleteOp(e.currentTarget, e);
   });
 
   $("#btnAdicionarOp").click(function() {
@@ -107,9 +107,17 @@ var initOperacoes = function() {
 
 };
 
-var deleteOp = function(buttonTag) {
-  var r = confirm("Tem certeza que deseja remover esta operação? Ao remover uma operação, todas as reservas feitas por clientes serão removidas.");
-  if (r === true) {
+var deleteOp = function(buttonTag, e) {
+
+  swal({
+    title: "Tem certeza que deseja remover esta operação?",
+    text: "Ao remover uma operação, todas as reservas feitas por clientes serão removidas.",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "rgb(44, 161, 44)",
+    confirmButtonText: "Sim"
+  }, function() {
+    e.preventDefault();
     var operation = {},
       dynatable = $('#opTable').data('dynatable');
 
@@ -135,9 +143,7 @@ var deleteOp = function(buttonTag) {
         configTimeout("Ocorreu um erro ao tentar excluir esta operação.");
       }
     });
-  } else {
-    e.preventDefault();
-  }
+  });
 };
 
 var addOperation = function(operation) {
