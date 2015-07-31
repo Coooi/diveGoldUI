@@ -92,7 +92,7 @@ var initOperacoes = function() {
     dateValue = $("#opDate").val();
     dateArray = dateValue.split("/");
     if (hasDatePicker) {
-      operation.date = new Date(dateArray[2], dateArray[1], dateArray[0]).getTime();
+      operation.date = new Date(dateArray[2], dateArray[1] - 1, dateArray[0]).getTime();
     } else {
       operation.date = new Date(dateValue).getTime();
     }
