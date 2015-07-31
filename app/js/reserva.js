@@ -44,7 +44,7 @@ var getLongDate = function(stringDate) {
     var dateArray = stringDate.split("/"),
       dateFormat;
 
-    dateFormat = dateArray[1] + "-" + dateArray[0] + "-" + dateArray[2];
+    dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
     longDate = new Date(dateFormat).getTime();
   }
   return longDate;

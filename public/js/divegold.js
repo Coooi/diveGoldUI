@@ -90,11 +90,13 @@ var initOperacoes = function() {
       dateArray;
 
     dateValue = $("#opDate").val();
-    dateArray = dateValue.split("/");
+
     if (hasDatePicker) {
+      dateArray = dateValue.split("/");
       operation.date = new Date(dateArray[2], dateArray[1] - 1, dateArray[0]).getTime();
     } else {
-      operation.date = new Date(dateValue).getTime();
+      dateArray = dateValue.split("-");
+      operation.date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2]).getTime();
     }
     operation.desc = $("#opName").val();
     addOperation(operation);
@@ -308,7 +310,7 @@ var getLongDate = function(stringDate) {
     var dateArray = stringDate.split("/"),
       dateFormat;
 
-    dateFormat = dateArray[1] + "-" + dateArray[0] + "-" + dateArray[2];
+    dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
     longDate = new Date(dateFormat).getTime();
   }
   return longDate;
