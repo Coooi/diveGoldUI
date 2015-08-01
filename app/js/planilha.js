@@ -12,6 +12,11 @@ var getOperations = function() {
     }
   });
   $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/1", function(data) {
+    if (!data.operations) {
+      configTimeout("Não existem operações para geração de planilhas.");
+      return;
+    }
+
     var dateArray = [],
       templateItem = "<option value='{{id}}'>{{date}} - {{desc}}</option>",
       opTemplate = Handlebars.compile(templateItem);
@@ -33,23 +38,17 @@ var getOperations = function() {
 };
 
 var generate = function() {
-  // $.ajax({
-  //   cache: false,
-  //   url: "http://ec2-54-232-198-208.sa-east-1.compute.amazonaws.com:8080/divegold-webservice/rest/reservation/btnGenerate/",
-  //   type: "POST",
-  //   dataType: "json",
-  //   data: JSON.stringify(reservation),
-  //   context: Form,
-  //   success: function(callback) {
-  //     //console.log(JSON.parse(callback));
-  //     $.unblockUI();
-  //     sweetAlert('Solicitação de reserva realizada com sucesso!', 'Você receberá um email com o resumo da sua solicitação. Lembramos que sua reserva ainda não está confirmada e está sujeita à disponibilidade. Você receberá outro email quando sua reserva forma confirmada pela DIVEGOLD', 'success');
-  //     $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
-  //   },
-  //   error: function() {
-  //     configTimeout("Ocorreu um erro ao enviar a reserva.");
-  //   }
-  // });
+  var operationId = $(".comboOperacoes").val();
+  if (operationId) {
+    $.getJSON("http://surerussolutions.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
+      sweetAlert(data.msg, '', 'success');
+    }).fail(function(data) {
+      var error = JSON.parse(data.responseText);
+      configTimeout(error.msg);
+    });
+  } else {
+    configTimeout("Favor escolha uma operação.");
+  }
 };
 
 var initPlanilha = function() {
