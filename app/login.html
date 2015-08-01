@@ -8,11 +8,12 @@
   <link href="css/divegold.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png">
 
+  <!-- JS  -->
+  <script type="text/javascript" src="js/vendor.min.js"></script>
+  <script type="text/javascript" src="js/divegold.js"></script>
 
 </head>
 
-<!-- JS -->
-<script src="js/divegold.min.js"></script>
 
 <body>
 
@@ -25,27 +26,17 @@
         <div class="row loginBody">
           <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-login">
-              <div class="panel-heading">
-                <div class="row">
-                  <div class="col-xs-6">
-                    <a href="#" class="active" id="login-form-link">Login</a>
-                  </div>
-                  <div class="col-xs-6">
-                    <a href="#" id="register-form-link">Cadastrar</a>
-                  </div>
-                </div>
-                <hr>
-              </div>
+
               <div class="panel-body">
                 <div class="row">
                   <div class="col-lg-12">
-                    <form id="login-form" action="../app/views/reserva/reservas.html" data-toggle="validator" method="post" role="form" style="display: block;">
+                    <form id="login-form" action="/operacoes" data-toggle="validator" method="post" role="form" style="display: block;">
                       <div class="form-group">
-                        <input type="email" name="username" id="username" tabindex="1" class="form-control" placeholder="Email" data-error="Email inválido" required>
+                        <input type="email" name="username" id="username" tabindex="1" class="form-control input-lg" placeholder="Email" data-error="Email inválido" required>
                         <div class="help-block with-errors"></div>
                       </div>
                       <div class="form-group">
-                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Senha">
+                        <input type="password" name="password" id="password" tabindex="2" class="form-control input-lg" placeholder="Senha">
                       </div>
                       <div class="form-group text-center">
                         <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -53,8 +44,8 @@
                       </div>
                       <div class="form-group">
                         <div class="row">
-                          <div class="col-sm-6 col-sm-offset-3">
-                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-primary" value="Entrar">
+                          <div class="">
+                            <button id="btnLogin" class="btn btn-info btn-lg btn-raised">Entrar</button>
                           </div>
                         </div>
                       </div>
@@ -62,33 +53,13 @@
                         <div class="row">
                           <div class="col-lg-12">
                             <div class="text-center">
-                              <a href="#" tabindex="5" class="forgot-password">Esqueceu a senha?</a>
+                              <a href="#" tabindex="5" class="forgot-password forgotPw">Esqueceu a senha?</a>
                             </div>
                           </div>
                         </div>
                       </div>
                     </form>
-                    <form id="register-form" action="../public/reservas.html" method="post" role="form" style="display: none;">
-                      <div class="form-group">
-                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuário" value="">
-                      </div>
-                      <div class="form-group">
-                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-                      </div>
-                      <div class="form-group">
-                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Senha">
-                      </div>
-                      <div class="form-group">
-                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirme a senha">
-                      </div>
-                      <div class="form-group">
-                        <div class="row">
-                          <div class="col-sm-6 col-sm-offset-3">
-                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Cadastrar Agora">
-                          </div>
-                        </div>
-                      </div>
-                    </form>
+
                   </div>
                 </div>
               </div>

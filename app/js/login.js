@@ -13,4 +13,8 @@ $(function() {
     $(this).addClass('active');
     e.preventDefault();
   });
+  $("#btnLogin").click(function(e) {
+    e.preventDefault();
+    window.location.href = "/operacoes";
+  });
 });

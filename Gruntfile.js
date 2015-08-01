@@ -27,13 +27,12 @@ module.exports = function(grunt) {
         sourceMap : true,
         sourceMapIncludeSources : true
       },
-      minVendor: {
-         src:  ['bower_components/dynatable/jquery.dynatable.js',
-                'bower_components/blockui/jquery.blockUI.js',
-                'bower_components/modernizr/modernizr.js',
-                'app/js/lib/*.js'],
-         dest: 'dist/js/vendor.js'
-      }
+      // minVendor: {
+      //    src:  ['bower_components/dynatable/jquery.dynatable.js',
+      //           'bower_components/blockui/jquery.blockUI.js',
+      //           'bower_components/modernizr/modernizr.js'],
+      //    dest: 'dist/js/vendor.js'
+      // }
       // ,
       // minJs: {
       //    src:  ['app/js/*.js'],
@@ -68,7 +67,10 @@ module.exports = function(grunt) {
                 'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
                 'bower_components/moment/min/moment.min.js',
                 'bower_components/sweetalert/dist/sweetalert.min.js',
-                'dist/js/vendor.js'],
+                'bower_components/dynatable/jquery.dynatable.js',
+                'bower_components/blockui/jquery.blockUI.js',
+                'bower_components/modernizr/modernizr.js',
+                'app/js/lib/*.js'],
         dest: 'public/js/vendor.min.js'
       },
       minJs: {

@@ -4,29 +4,28 @@ var app = express();
 
 app.set('port', (process.env.PORT || 5000))
 
-// viewed at http://localhost:8080
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/home.html'));
 });
 
-// viewed at http://localhost:8080
 app.get('/reserva', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/reservas.html'));
 });
 
-// viewed at http://localhost:8080
 app.get('/confirmar-reservas', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/confirmar-reservas.html'));
 });
 
-// viewed at http://localhost:8080
 app.get('/operacoes', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/operacoes.html'));
 });
 
-// viewed at http://localhost:8080
 app.get('/planilha', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/planilha.html'));
+});
+
+app.get('/login', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/login.html'));
 });
 
 app.use('/css', express.static(path.join(__dirname, '/public/css')));

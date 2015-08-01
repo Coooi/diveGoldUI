@@ -1,3 +1,6 @@
+var isFirefox = typeof InstallTrigger !== 'undefined',
+  hasDatePicker = false;
+
 var getAvailableDates = function() { //teste
   $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/0", function(data) {
     var dateArray = [];
@@ -38,42 +41,54 @@ var enabledAddBtn = function() {
   }
 };
 
-var getLongDate = function(stringDate) {
+var getLongDate = function(dateValue) {
   var longDate;
-  if (stringDate) {
-    var dateArray = stringDate.split("/"),
+
+  if (dateValue) {
+    var dateArray,
       dateFormat;
 
-    dateFormat = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+    if (hasDatePicker) {
+      dateArray = dateValue.split("/");
+      dateFormat = new Date(dateArray[2], dateArray[1] - 1, dateArray[0]).getTime();
+    } else {
+      dateArray = dateValue.split("-");
+      dateFormat = new Date(dateArray[0], dateArray[1] - 1, dateArray[2]).getTime();
+    }
+
     longDate = new Date(dateFormat).getTime();
   }
+
   return longDate;
 };
 
 var getDiveDates = function() {
-  $("#dataMergulho").datepicker({
+  if (!Modernizr.touch || isFirefox) {
+    $("#dataMergulho").datepicker({
 
-    dateFormat: 'dd/mm/yy',
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    nextText: 'Próximo',
-    prevText: 'Anterior',
-    beforeShowDay: function(date) {
+      dateFormat: 'dd/mm/yy',
+      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      nextText: 'Próximo',
+      prevText: 'Anterior',
+      beforeShowDay: function(date) {
 
-      var datePattern = "";
-      datePattern += date.getDate() + "-";
-      datePattern += (date.getMonth() + 1) + "-";
-      datePattern += date.getFullYear();
-      if ($.inArray(datePattern, datelist) >= 0) {
-        return [true, ""];
-      } else {
-        return [false, ""];
+        var datePattern = "";
+        datePattern += date.getDate() + "-";
+        datePattern += (date.getMonth() + 1) + "-";
+        datePattern += date.getFullYear();
+        if ($.inArray(datePattern, datelist) >= 0) {
+          return [true, ""];
+        } else {
+          return [false, ""];
+        }
       }
-    }
-  });
+    });
+    hasDatePicker = true;
+  }
 
   $("#dataMergulho").click(function() {
     getAvailableDates();
@@ -487,7 +502,6 @@ var initEvents = function() {
         e.preventDefault();
       }
     }
-
   });
 
   $("#cnpjRadio").click(function(e) {
@@ -615,30 +629,33 @@ var initEvents = function() {
 
   getAvailableDates();
 
-  dataEntradaDP.datepicker({
-    dateFormat: 'dd/mm/yy',
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    nextText: 'Próximo',
-    prevText: 'Anterior',
-    minDate: 0
-  });
+  if (!Modernizr.touch || isFirefox) {
+    dataEntradaDP.datepicker({
+      dateFormat: 'dd/mm/yy',
+      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      nextText: 'Próximo',
+      prevText: 'Anterior',
+      minDate: 0
+    });
 
-  dataSaidaDP.datepicker({
-    dateFormat: 'dd/mm/yy',
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    nextText: 'Próximo',
-    prevText: 'Anterior',
-    minDate: 0,
-    beforeShow: customRange
-  });
+    dataSaidaDP.datepicker({
+      dateFormat: 'dd/mm/yy',
+      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      nextText: 'Próximo',
+      prevText: 'Anterior',
+      minDate: 0,
+      beforeShow: customRange
+    });
+    hasDatePicker = true;
+  }
 
   function customRange(input) {
 
