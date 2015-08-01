@@ -16,7 +16,7 @@ $(function() {
   $("#btnLogin").click(function(e) {
     e.preventDefault();
     if (!$("#username").val() || !$("#password").val()) {
-      configTimeout("Os campos de email e senha da operação são obrigatórios.");
+      configTimeout("Os campos de email e senha são obrigatórios.");
     } else {
       window.location.href = "/operacoes";
     }
