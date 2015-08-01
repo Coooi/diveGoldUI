@@ -1,6 +1,7 @@
 var initOperacoes = function() {
   var isFirefox = typeof InstallTrigger !== 'undefined',
     hasDatePicker = false;
+
   if (!Modernizr.touch || isFirefox) {
     $("#opDate").attr('type', 'text').datepicker({
       dateFormat: 'dd/mm/yy',
@@ -11,6 +12,7 @@ var initOperacoes = function() {
       monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
       nextText: 'Próximo',
       prevText: 'Anterior',
+      beforeShowDay: customRange,
       minDate: 0,
       afterShow: function(input, inst, td) {
         inst.dpDiv.css('width', '400px');
@@ -18,6 +20,15 @@ var initOperacoes = function() {
       }
     });
     hasDatePicker = true;
+  }
+
+  function customRange(date) {
+    var dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    if ($.inArray(dmy, reservedDates) == -1) {
+      return [true, ""];
+    } else {
+      return [false, "", "Unavailable"];
+    }
   }
 
   $.getJSON("http://surerussolutions.com/divegold-webservice/operation", function(data) {
@@ -79,11 +90,24 @@ var initOperacoes = function() {
     }
     operation.desc = $("#opName").val();
     addOperation(operation);
-
     $("#opDate").val("");
     $("#opName").val("");
   });
 
+};
+
+var getReservedDates = function() { //teste
+  $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/0", function(data) {
+    var dateArray = [];
+    $.each(data.operations, function() {
+      var datePattern = new Date(this.date);
+      dateArray.push(datePattern.getDate() + "-" + (datePattern.getMonth() + 1) + "-" + datePattern.getFullYear());
+    });
+    reservedDates = dateArray;
+    $("#opDate").datepicker("refresh");
+  }).fail(function() {
+    configTimeout("Ocorreu um erro ao buscar as datas das operações.");
+  });
 };
 
 var deleteOp = function(buttonTag, e) {
@@ -166,6 +190,7 @@ var saveOperations = function(data) {
       dynatable.settings.dataset.originalRecords.push(callback);
       dynatable.process();
       sweetAlert('Operações salvas com sucesso!', '', 'success');
+      getReservedDates();
     },
     error: function() {
       $.unblockUI();
@@ -177,6 +202,8 @@ var saveOperations = function(data) {
 
 $(document).ready(function() {
   if (window.location.href.indexOf("/operacoes") !== -1) {
+    var reservedDates = [];
+    getReservedDates();
     initOperacoes();
   }
 });

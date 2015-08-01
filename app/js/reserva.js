@@ -4,6 +4,7 @@ var isFirefox = typeof InstallTrigger !== 'undefined',
 var getAvailableDates = function() { //teste
   $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/0", function(data) {
     var dateArray = [];
+    operationsArray = data.operations;
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
       dateArray.push(datePattern.getDate() + "-" + (datePattern.getMonth() + 1) + "-" + datePattern.getFullYear());
@@ -74,6 +75,7 @@ var getDiveDates = function() {
       monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
       nextText: 'Próximo',
       prevText: 'Anterior',
+      minDate: 0,
       beforeShowDay: function(date) {
 
         var datePattern = "";
@@ -378,15 +380,21 @@ var sendPostRequest = function(e) {
   reservation.innInfo = {};
 
   $.each($('.datasReserva input'), function(i, v) {
-    var item = {};
+    var item = {},
+      fieldDate = $(this).val();
 
-    item.date = getLongDate($(this).val());
+    $.each(operationsArray, function(i, v) {
+      var operation = v;
+      if (operation.date === getLongDate(fieldDate)) {
+        item.opId = operation.id;
+      }
+    });
+    item.date = getLongDate(fieldDate);
     reservation.diveDates.push(item);
   });
 
   $.each($('.gasTypesRowSet'), function(i, v) {
     var item = {};
-    item.opId = "1";
     $.each($(this).find('input'), function(i, v) {
       if ($(this).hasClass('dateSet')) {
         item[$(this).attr("name")] = getLongDate($(this).val());
@@ -798,7 +806,8 @@ var initEvents = function() {
 $(document).ready(function() {
   if (window.location.href.indexOf("/reserva") !== -1) {
     var datelist = [],
-      diveDates = [];
+      diveDates = [],
+      operationsArray = [];
     initEvents();
   }
 });
