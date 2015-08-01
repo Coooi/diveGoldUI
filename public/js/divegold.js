@@ -19,7 +19,11 @@ $(function() {
   });
   $("#btnLogin").click(function(e) {
     e.preventDefault();
-    window.location.href = "/operacoes";
+    if (!$("#username").val() || !$("#password").val()) {
+      configTimeout("Os campos de email e senha da operação são obrigatórios.");
+    } else {
+      window.location.href = "/operacoes";
+    }
   });
 });
 
