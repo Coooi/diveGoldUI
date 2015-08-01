@@ -141,6 +141,7 @@ var deleteOp = function(buttonTag, e) {
             return true;
           });
         dynatable.process();
+        getReservedDates();
       },
       error: function(xhr, textStatus, error) {
         configTimeout("Ocorreu um erro ao tentar excluir esta operação.");
