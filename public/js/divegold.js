@@ -283,8 +283,7 @@ var generate = function() {
     $.getJSON("http://surerussolutions.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
       sweetAlert(data.msg, '', 'success');
     }).fail(function(data) {
-      var error = JSON.parse(data.responseText);
-      configTimeout(error.msg);
+      configTimeout(data.responseJSON.msg);
     });
   } else {
     configTimeout("Favor escolha uma operação.");

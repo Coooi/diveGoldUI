@@ -44,6 +44,15 @@
 
 @media only screen and (max-device-width: 500px) {
 
+  .btn.btn-xs {
+    padding: 4px 8px !important;
+  }
+
+  .opContainer {
+    padding-right: 4px !important;
+    padding-left: 4px !important;
+  }
+
 }
 
 .lineOpItem {
