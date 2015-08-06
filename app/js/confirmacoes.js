@@ -12,6 +12,12 @@ CONFIRMATION.dom.subscribeComboEvent = function() {
   });
 };
 
+CONFIRMATION.dom.subscribeSortEvent = function() {
+  $("#cfTable").on("click", "a", function(e) {
+    CONFIRMATION.dom.removeCheckboxPadding();
+  });
+};
+
 CONFIRMATION.showReservationDetails = function(currentTarget, event) {
   if (!currentTarget) {
     return;
@@ -146,6 +152,7 @@ CONFIRMATION.initConfirmacoes = function() {
   CONFIRMATION.getOpenOperations();
   CONFIRMATION.dom.subscribeComboEvent();
   CONFIRMATION.dom.subscribeDetailsEvent();
+  CONFIRMATION.dom.subscribeSortEvent();
 };
 
 $(document).ready(function() {
