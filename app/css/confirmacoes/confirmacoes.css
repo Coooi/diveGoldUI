@@ -1,0 +1,63 @@
+.comboOpenOperations {
+  display: inline-block;
+  width: 310px;
+  font-size: 16px;
+}
+
+td < .checkbox:parent {
+  padding: 0;
+}
+
+@media only screen and (max-device-width: 500px) {
+  .btn.btn-xs {
+    padding: 4px 8px !important;
+  }
+
+  .opContainer {
+    padding-right: 4px !important;
+    padding-left: 4px !important;
+  }
+}
+
+#cfTable>thead {
+  background-color: lightgray;
+}
+
+.cfContainer {
+  margin-top: 20px;
+}
+
+.detailsColumn {
+  width: 70px;
+}
+
+.nameColumn {
+
+}
+
+.dateColumn {
+  width: 134px;
+}
+
+.tankColumn {
+  width: 70px;
+}
+
+.gearColumn {
+  width: 72px;
+}
+
+.innColumn {
+  width: 90px;
+}
+
+.checkboxColumn {
+  width: 68px;
+}
+
+.btnViewDetails {
+  margin: 0 !important;
+  float: right;
+}
+
+

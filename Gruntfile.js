@@ -106,8 +106,8 @@ module.exports = function(grunt) {
           dest: 'public/',
           expand: true
         },{
-          cwd: 'app/views/confirmarReservas/',
-          src: 'confirmar-reservas.html',
+          cwd: 'app/views/confirmacoes/',
+          src: 'confirmacoes.html',
           dest: 'public/',
           expand: true
         },{

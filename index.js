@@ -12,8 +12,8 @@ app.get('/reserva', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/reservas.html'));
 });
 
-app.get('/confirmar-reservas', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/confirmar-reservas.html'));
+app.get('/confirmacoes', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/confirmacoes.html'));
 });
 
 app.get('/operacoes', function(req, res) {

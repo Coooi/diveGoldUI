@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Divegold - Confirmar Reservas</title>
+  <!-- Login CSS -->
+  <link href="css/divegold.min.css" rel="stylesheet">
+  <!-- JS  -->
+  <script src="js/vendor.min.js"></script>
+  <script src="js/divegold.js"></script>
+  <!-- <script type="text/javascript" src="js/reserva.js"></script> -->
+
+  <!-- Logo -->
+  <link rel="icon" type="image/png" href="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png">
+</head>
+
+<body>
+
+  <div class="navbar navbarShadow navbar-material-yellow">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand dgTitle" href="/"><img src="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png" class="dgLogo" width="40" height="40" alt="DiveGold Logo">Divegold</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/operacoes">Operações</a></li>
+        <li class="active"><a href="">Reservas</a></li>
+        <li><a href="/planilha">Planilhas</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="javascript:void(0)">Sair</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="center container text-center">
+    <div class="painelGerarPlanilhas">
+      <div class="">
+        <h3>Confirmação de Reservas</h3>
+      </div>
+      <div>
+        <h5>Operações Abertas</h5>
+      </div>
+      <div class="row">
+        <div>
+          <select class="form-control comboOpenOperations" placeholder="Operações abertas"></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container cfContainer">
+    <div class="panel panel-primary opPanel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Reservas cadastradas</h3>
+      </div>
+
+      <div class="tableContainer">
+        <table id="cfTable" class="table table-bordered">
+          <thead>
+            <th data-dynatable-column="details" class="detailsColumn" data-dynatable-no-sort="status">Detalhes</th>
+            <th data-dynatable-column="name" class="nameColumn">Nome</th>
+            <th data-dynatable-column="date" class="dateColumn" data-dynatable-sorts="parsedDate">Data</th>
+            <th data-dynatable-column="tanks" class="tankColumn">Tanques</th>
+            <th data-dynatable-column="gears" class="gearColumn">Equipamentos</th>
+            <th data-dynatable-column="innNeeded" class="innColumn">Pousada</th>
+            <th data-dynatable-column="approve" class="checkboxColumn" data-dynatable-no-sort="status">Aprovar</th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="cfModal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Detalhes da reserva:</h4>
+        </div>
+        <div class="modal-body">
+          <hr>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-1">Nome: </div>
+              <div class="col-md-11">Felipe Roris Surerus</div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">CPF: </div>
+              <div class="col-md-11">12313123</div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">CNPJ: </div>
+              <div class="col-md-11">12313123</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
