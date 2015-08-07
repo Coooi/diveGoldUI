@@ -66,8 +66,8 @@ var initOperacoes = function() {
         records: data.operations
       }
     });
-  }).fail(function() {
-
+  }).fail(function(e) {
+    console.log(e);
   });
 
   $(".tableContainer").on("click", "button", function(e) {

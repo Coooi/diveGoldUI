@@ -162,7 +162,7 @@ CONFIRMATION.initConfirmacoes = function() {
 $(document).ready(function() {
   if (window.location.href.indexOf("/confirmacoes") !== -1) {
     CONFIRMATION.initConfirmacoes();
-    var dynatable, dynatableData;
+    var dynatableData;
   }
 });
 
@@ -259,8 +259,8 @@ var initOperacoes = function() {
         records: data.operations
       }
     });
-  }).fail(function() {
-
+  }).fail(function(e) {
+    console.log(e);
   });
 
   $(".tableContainer").on("click", "button", function(e) {

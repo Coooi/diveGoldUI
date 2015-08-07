@@ -158,6 +158,6 @@ CONFIRMATION.initConfirmacoes = function() {
 $(document).ready(function() {
   if (window.location.href.indexOf("/confirmacoes") !== -1) {
     CONFIRMATION.initConfirmacoes();
-    var dynatable, dynatableData;
+    var dynatableData;
   }
 });
