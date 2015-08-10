@@ -615,7 +615,7 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = 'http://surerussolutions.com/divegold-webservice/serrinha/apartype',
+  var url = 'http://surerussolutions.com/divegold-webservice/collection/apart/type',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
@@ -658,7 +658,7 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = 'http://surerussolutions.com/divegold-webservice/gastype',
+  var url = 'http://surerussolutions.com/divegold-webservice/collection/gas/type',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
@@ -681,7 +681,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'http://surerussolutions.com/divegold-webservice/tanktype',
+  var url = 'http://surerussolutions.com/divegold-webservice/tank/type',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
@@ -717,7 +717,7 @@ var populateCombos = function() {
     }
   });
 
-  var url = 'http://surerussolutions.com/divegold-webservice/divertype',
+  var url = 'http://surerussolutions.com/divegold-webservice/collection/diver/type',
     templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 

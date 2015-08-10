@@ -112,49 +112,50 @@
               <hr>
           {{/if}}
 
+          {{#if innNeeded}}
+            <h4 class="modal-title b">Pousada:</h4>
+            <div class="container-fluid container-inn">
+              <div class="row">
+                <div class="col-md-2 bold">Data de entrada:</div>
+                <div class="col-md-10">12/12/2012</div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 bold">Data de saída:</div>
+                <div class="col-md-10">12/12/2012</div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 bold">Tipo Apto.:</div>
+                <div class="col-md-10">Duplo casal</div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 bold">Observações:</div>
+                <div class="col-md-10">nada a observar</div>
+              </div>
+            </div>
 
-          <h4 class="modal-title b">Pousada:</h4>
-          <div class="container-fluid container-inn">
-            <div class="row">
-              <div class="col-md-2 bold">Data de entrada:</div>
-              <div class="col-md-10">12/12/2012</div>
+            <div class="container-fluid container-inn">
+              <div class="row text-center">
+                <table class="table table-striped table-hover ">
+                  <thead>
+                    <tr>
+                      <th>Hóspede</th>
+                      <th>Tipo</th>
+                      <th>Mergulhador</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="active">
+                      <td>Felipe Roris Surerus</td>
+                      <td>Responsável</td>
+                      <td>Sim</td>
+                    </tr>
+                    <tr class="active">
+                      <td>Bebel Nascimento</td>
+                      <td>Acompanhante</td>
+                      <td>Não</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="row">
-              <div class="col-md-2 bold">Data de saída:</div>
-              <div class="col-md-10">12/12/2012</div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 bold">Tipo Apto.:</div>
-              <div class="col-md-10">Duplo casal</div>
-            </div>
-            <div class="row">
-              <div class="col-md-2 bold">Observações:</div>
-              <div class="col-md-10">nada a observar</div>
-            </div>
-          </div>
-
-          <div class="container-fluid container-inn">
-            <div class="row text-center">
-              <table class="table table-striped table-hover ">
-                <thead>
-                  <tr>
-                    <th>Hóspede</th>
-                    <th>Tipo</th>
-                    <th>Mergulhador</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="active">
-                    <td>Felipe Roris Surerus</td>
-                    <td>Responsável</td>
-                    <td>Sim</td>
-                  </tr>
-                  <tr class="active">
-                    <td>Bebel Nascimento</td>
-                    <td>Acompanhante</td>
-                    <td>Não</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          {{/if}}
