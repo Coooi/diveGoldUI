@@ -207,7 +207,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'http://surerussolutions.com/divegold-webservice/tank/type',
+  var url = 'http://surerussolutions.com/divegold-webservice/collection/tank/type',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
