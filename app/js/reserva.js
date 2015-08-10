@@ -608,7 +608,7 @@ var initEvents = function() {
       gasId = $('#btnGases').attr('typeId');
 
     if (setDateFim === "Selecione") {
-      setDateFim = "";
+      setDateFim = setDate;
     }
 
     setHtml = gasTanqueSet({

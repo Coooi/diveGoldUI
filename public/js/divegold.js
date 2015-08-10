@@ -27,15 +27,19 @@ CONFIRMATION.showReservationDetails = function(currentTarget, event) {
     return;
   }
 
-  var reservationId = $(currentTarget).data("id");
+  $.get('js/templates/detalhesReserva.hbs', function(hbsTemplate) {
+    var reservationId = $(currentTarget).data("id");
 
-  $.getJSON("http://surerussolutions.com/divegold-webservice/reservation/" + reservationId, function(reservation) {
-    console.log(reservation);
-    $("#cfModal").modal('show');
-  }).fail(function() {
+    $.getJSON("http://surerussolutions.com/divegold-webservice/reservation/" + reservationId, function(reservation) {
+      var detailsTemplate = Handlebars.compile(hbsTemplate);
 
-  });
+      $(".modal-body").html(detailsTemplate(reservation));
+      $("#cfModal").modal('show');
+      $(".dgTitle").focus();
+    }).fail(function() {
 
+    });
+  }, 'html');
 };
 
 CONFIRMATION.dom.subscribeDetailsEvent = function() {
@@ -1078,7 +1082,7 @@ var initEvents = function() {
       gasId = $('#btnGases').attr('typeId');
 
     if (setDateFim === "Selecione") {
-      setDateFim = "";
+      setDateFim = setDate;
     }
 
     setHtml = gasTanqueSet({
