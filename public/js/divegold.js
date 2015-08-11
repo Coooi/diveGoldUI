@@ -147,7 +147,7 @@ CONFIRMATION.loadReservationsOnTable = function() {
           },
           'date': function(record) {
             record.parsedDate = record.reservationDate;
-            return moment(record.reservationDate).format('DD/MM/YYYY - HH:mm');
+            return moment(record.reservationDate).format('DD/MM/YYYY    HH:mm');
           },
           'tanks': function(record) {
             record.tanks = record.tankInfo.length;
