@@ -21,6 +21,17 @@ CONFIRMATION.dom = {
     $(".comboOpenOperations").change(function() {
       CONFIRMATION.loadReservationsOnTable();
     });
+  },
+  subscribeBtnConfirmOperation: function() {
+    $("#btnConfirmOperation").click(function() {
+      CONFIRMATION.confirmOperation();
+    });
+  },
+  init: function() {
+    this.subscribeComboEvent();
+    this.subscribeDetailsEvent();
+    this.subscribeSortEvent();
+    this.subscribeBtnConfirmOperation();
   }
 };
 
@@ -54,6 +65,31 @@ CONFIRMATION.hbs = {
       return formatedString;
     });
   }
+};
+
+CONFIRMATION.confirmOperation = function() {
+  var operationId = $(".comboOpenOperations").val();
+
+  if (!operationId) {
+    return;
+  }
+
+  $.ajax({
+    cache: false,
+    url: "http://surerussolutions.com/divegold-webservice/operation/close/" + operationId,
+    type: "POST",
+    dataType: "json",
+    data: "",
+    success: function(callback) {
+      console.log(callback);
+      sweetAlert('Operação confirmada com sucesso!', '', 'success');
+      CONFIRMATION.getOpenOperations();
+    },
+    error: function() {
+      $.unblockUI();
+      configTimeout("Ocorreu um erro ao enviar ao salvar as operações.");
+    }
+  });
 };
 
 CONFIRMATION.showReservationDetails = function(currentTarget, event) {
@@ -193,11 +229,8 @@ CONFIRMATION.loadReservationsOnTable = function() {
 };
 
 CONFIRMATION.initConfirmacoes = function() {
-  var self = this;
   CONFIRMATION.getOpenOperations();
-  CONFIRMATION.dom.subscribeComboEvent();
-  CONFIRMATION.dom.subscribeDetailsEvent();
-  CONFIRMATION.dom.subscribeSortEvent();
+  CONFIRMATION.dom.init();
   CONFIRMATION.hbs.registerHelpers();
 };
 
@@ -413,8 +446,6 @@ var saveOperations = function(data) {
   operation.date = data.date;
   operation.status = 0;
 
-  console.log(JSON.stringify(operation));
-
   $.ajax({
     cache: false,
     url: "http://surerussolutions.com/divegold-webservice/operation/add",
@@ -422,7 +453,6 @@ var saveOperations = function(data) {
     dataType: "json",
     data: JSON.stringify(operation),
     success: function(callback) {
-      console.log(callback);
       dynatable.settings.dataset.originalRecords.push(callback);
       dynatable.process();
       sweetAlert('Operações salvas com sucesso!', '', 'success');
@@ -962,7 +992,6 @@ var sendPostRequest = function(e) {
     data: JSON.stringify(reservation),
     context: Form,
     success: function(callback) {
-      //console.log(JSON.parse(callback));
       $.unblockUI();
       sweetAlert('Solicitação de reserva realizada com sucesso!', 'Você receberá um email com o resumo da sua solicitação. Lembramos que sua reserva ainda não está confirmada e está sujeita à disponibilidade. Você receberá outro email quando sua reserva forma confirmada pela DIVEGOLD', 'success');
       $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");

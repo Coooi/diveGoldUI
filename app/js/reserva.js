@@ -450,7 +450,6 @@ var sendPostRequest = function(e) {
     data: JSON.stringify(reservation),
     context: Form,
     success: function(callback) {
-      //console.log(JSON.parse(callback));
       $.unblockUI();
       sweetAlert('Solicitação de reserva realizada com sucesso!', 'Você receberá um email com o resumo da sua solicitação. Lembramos que sua reserva ainda não está confirmada e está sujeita à disponibilidade. Você receberá outro email quando sua reserva forma confirmada pela DIVEGOLD', 'success');
       $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");

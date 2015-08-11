@@ -178,8 +178,6 @@ var saveOperations = function(data) {
   operation.date = data.date;
   operation.status = 0;
 
-  console.log(JSON.stringify(operation));
-
   $.ajax({
     cache: false,
     url: "http://surerussolutions.com/divegold-webservice/operation/add",
@@ -187,7 +185,6 @@ var saveOperations = function(data) {
     dataType: "json",
     data: JSON.stringify(operation),
     success: function(callback) {
-      console.log(callback);
       dynatable.settings.dataset.originalRecords.push(callback);
       dynatable.process();
       sweetAlert('Operações salvas com sucesso!', '', 'success');

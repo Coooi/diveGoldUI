@@ -17,6 +17,17 @@ CONFIRMATION.dom = {
     $(".comboOpenOperations").change(function() {
       CONFIRMATION.loadReservationsOnTable();
     });
+  },
+  subscribeBtnConfirmOperation: function() {
+    $("#btnConfirmOperation").click(function() {
+      CONFIRMATION.confirmOperation();
+    });
+  },
+  init: function() {
+    this.subscribeComboEvent();
+    this.subscribeDetailsEvent();
+    this.subscribeSortEvent();
+    this.subscribeBtnConfirmOperation();
   }
 };
 
@@ -50,6 +61,31 @@ CONFIRMATION.hbs = {
       return formatedString;
     });
   }
+};
+
+CONFIRMATION.confirmOperation = function() {
+  var operationId = $(".comboOpenOperations").val();
+
+  if (!operationId) {
+    return;
+  }
+
+  $.ajax({
+    cache: false,
+    url: "http://surerussolutions.com/divegold-webservice/operation/close/" + operationId,
+    type: "POST",
+    dataType: "json",
+    data: "",
+    success: function(callback) {
+      console.log(callback);
+      sweetAlert('Operação confirmada com sucesso!', '', 'success');
+      CONFIRMATION.getOpenOperations();
+    },
+    error: function() {
+      $.unblockUI();
+      configTimeout("Ocorreu um erro ao enviar ao salvar as operações.");
+    }
+  });
 };
 
 CONFIRMATION.showReservationDetails = function(currentTarget, event) {
@@ -189,11 +225,8 @@ CONFIRMATION.loadReservationsOnTable = function() {
 };
 
 CONFIRMATION.initConfirmacoes = function() {
-  var self = this;
   CONFIRMATION.getOpenOperations();
-  CONFIRMATION.dom.subscribeComboEvent();
-  CONFIRMATION.dom.subscribeDetailsEvent();
-  CONFIRMATION.dom.subscribeSortEvent();
+  CONFIRMATION.dom.init();
   CONFIRMATION.hbs.registerHelpers();
 };
 
