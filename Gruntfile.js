@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
 
   var watchFiles = {
-    clientCSS: ['app/css/**/*.css']
+    clientCSS: ['app/css/**/*.css'],
+    clientJS: ['app/js/**/*.js', 'app/js/templates/*.hbs'],
+    clientHTML: ['app/views/**/*.html']
   };
 
   grunt.initConfig({
@@ -9,6 +11,20 @@ module.exports = function(grunt) {
       clientCSS: {
         files: watchFiles.clientCSS,
         tasks: ['cssmin'],
+        options: {
+          livereload: true
+        }
+      },
+      clientJS: {
+        files: watchFiles.clientJS,
+        tasks: ['jshint', 'uglify', 'jsbeautifier', 'concat', 'copy'],
+        options: {
+          livereload: true
+        }
+      },
+      clientHTML: {
+        files: watchFiles.clientHTML,
+        tasks: ['copy'],
         options: {
           livereload: true
         }
@@ -155,7 +171,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsbeautifier');
   grunt.loadNpmTasks('grunt-githooks');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy' ]);
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy', 'watch' ]);
 
 };

@@ -5,6 +5,7 @@ $(document).ready(function() {
 var CONFIRMATION = CONFIRMATION || {};
 
 CONFIRMATION.dom = {};
+CONFIRMATION.hbs = {};
 
 CONFIRMATION.dom.removeCheckboxPadding = function() {
   $(".checkbox").parent().css('padding', '0');
@@ -19,6 +20,36 @@ CONFIRMATION.dom.subscribeComboEvent = function() {
 CONFIRMATION.dom.subscribeSortEvent = function() {
   $("#cfTable").on("click", "a", function(e) {
     CONFIRMATION.dom.removeCheckboxPadding();
+  });
+};
+
+CONFIRMATION.hbs.registerHelpers = function() {
+  Handlebars.registerHelper('formatDate', function(longDate) {
+    return moment(longDate).format('DD/MM/YYYY');
+  });
+
+  Handlebars.registerHelper('formatCpfCnpj', function(cpfCnpj) {
+    var formatedString = "";
+
+    if (cpfCnpj.length == 11) {
+      formatedString = cpfCnpj.substr('0', '3') + '.' + cpfCnpj.substr('3', '3') + '.' + cpfCnpj.substr('6', '3') + '-' + cpfCnpj.substr('9', '2');
+    } else {
+      formatedString = cpfCnpj.substr('0', '2') + '.' + cpfCnpj.substr('2', '3') + '.' + cpfCnpj.substr('5', '3') + '/' + cpfCnpj.substr('8', '4') + '-' + cpfCnpj.substr('12', '2');
+    }
+
+    return formatedString;
+  });
+
+  Handlebars.registerHelper('formatCelTel', function(telCel) {
+    var formatedString = "";
+
+    if (telCel.length == 10) {
+      formatedString = '(' + telCel.substr('0', '2') + ') ' + telCel.substr('2', '4') + '-' + telCel.substr('6', '4');
+    } else {
+      formatedString = '(' + telCel.substr('0', '2') + ') ' + telCel.substr('2', '5') + '-' + telCel.substr('7', '4');
+    }
+
+    return formatedString;
   });
 };
 
@@ -161,6 +192,7 @@ CONFIRMATION.initConfirmacoes = function() {
   CONFIRMATION.dom.subscribeComboEvent();
   CONFIRMATION.dom.subscribeDetailsEvent();
   CONFIRMATION.dom.subscribeSortEvent();
+  CONFIRMATION.hbs.registerHelpers();
 };
 
 $(document).ready(function() {

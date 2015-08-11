@@ -3,7 +3,11 @@
           <div class="container-fluid container-client">
             <div class="row">
               <div class="col-md-2 bold">CPF/CNPJ:</div>
-              <div class="col-md-4">{{client.cpf}}</div>
+              {{#if client.cpf}}
+                <div class="col-md-4">{{formatCpfCnpj client.cpf}}</div>
+              {{else}}
+                <div class="col-md-4">{{formatCpfCnpj client.cnpj}}</div>
+              {{/if}}
               <div class="col-md-2 bold">CEP: </div>
               <div class="col-md-4">{{client.cep}}</div>
             </div>
@@ -15,13 +19,13 @@
             </div>
             <div class="row">
               <div class="col-md-2 bold">Tel. Fixo:</div>
-              <div class="col-md-4">{{client.tel}}</div>
+              <div class="col-md-4">{{formatCelTel client.tel}}</div>
               <div class="col-md-2 bold">Número:</div>
               <div class="col-md-4">{{client.number}}</div>
             </div>
             <div class="row">
               <div class="col-md-2 bold">Celular:</div>
-              <div class="col-md-4">{{client.cel}}</div>
+              <div class="col-md-4">{{formatCelTel client.cel}}</div>
               <div class="col-md-2 bold">Complemento: </div>
               <div class="col-md-4">{{client.comp}}</div>
             </div>
@@ -46,15 +50,17 @@
           </div>
 
           <hr>
-
-          <h4 class="modal-title b">Observações da reserva:</h4>
-          <div class="container-fluid container-inn">
-            <div class="row">
-              <div class="col-md-12">{{reservationComments}}</div>
+          {{#if reservationComments}}
+            <h4 class="modal-title b">Observações da reserva:</h4>
+            <div class="container-fluid container-inn">
+              <div class="row">
+                <div class="col-md-12">{{reservationComments}}</div>
+              </div>
             </div>
-          </div>
 
-          <hr>
+            <hr>
+          {{/if}}
+          
 
           <h4 class="modal-title b">Tanques:</h4>
           <div class="container-fluid container-tanks">
@@ -73,8 +79,8 @@
                   <tr class="active">
                     <td>{{this.tankType.type}}</td>
                     <td>{{this.gasType.type}}</td>
-                    <td>{{this.dateIni}}</td>
-                    <td>{{this.dateIni}}</td>
+                    <td>{{formatDate this.dateIni}}</td>
+                    <td>{{formatDate this.dateIni}}</td>
                   </tr>
                 {{/each}}
                 </tbody>
@@ -110,7 +116,7 @@
               </div>
 
               <hr>
-          {{/if}}
+          {{/if}} 
 
           {{#if innNeeded}}
             <h4 class="modal-title b">Pousada:</h4>

@@ -17,6 +17,16 @@ td < .checkbox:parent {
     padding-right: 4px !important;
     padding-left: 4px !important;
   }
+
+  .dateColumn {
+    width: 88px;
+  }
+  .detailsColumn {
+    width: 60px;
+  }
+  .checkboxColumn {
+    width: 60px;
+  }
 }
 
 #cfTable>thead {
