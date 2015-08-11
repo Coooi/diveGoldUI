@@ -36,6 +36,9 @@ td < .checkbox:parent {
   .paddingRight {
     padding-right: 15px !important;
   }
+  #dynatable-query-search-cfTable {
+    width: 110px;
+  }
 }
 
 #cfTable>thead {

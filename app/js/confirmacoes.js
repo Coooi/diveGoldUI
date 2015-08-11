@@ -1,57 +1,55 @@
 var CONFIRMATION = CONFIRMATION || {};
 
-CONFIRMATION.dom = {};
-CONFIRMATION.hbs = {};
-
-CONFIRMATION.dom.removeCheckboxPadding = function() {
-  $(".checkbox").parent().css('padding', '0');
+CONFIRMATION.dom = {
+  removeCheckboxPadding: function() {
+    $(".checkbox").parent().css('padding', '0');
+  },
+  centralizeDetailsBtn: function() {
+    $(".btnViewDetails").parent().addClass('paddingRight');
+  },
+  subscribeSortEvent: function() {
+    $("#cfTable").on("click", "a", function(e) {
+      removeCheckboxPadding();
+      centralizeDetailsBtn();
+    });
+  },
+  subscribeComboEvent: function() {
+    $(".comboOpenOperations").change(function() {
+      CONFIRMATION.loadReservationsOnTable();
+    });
+  }
 };
 
-CONFIRMATION.dom.centralizeDetailsBtn = function() {
-  $(".btnViewDetails").parent().addClass('paddingRight');
-};
+CONFIRMATION.hbs = {
+  registerHelpers: function() {
+    Handlebars.registerHelper('formatDate', function(longDate) {
+      return moment(longDate).format('DD/MM/YYYY');
+    });
 
-CONFIRMATION.dom.subscribeComboEvent = function() {
-  $(".comboOpenOperations").change(function() {
-    CONFIRMATION.loadReservationsOnTable();
-  });
-};
+    Handlebars.registerHelper('formatCpfCnpj', function(cpfCnpj) {
+      var formatedString = "";
 
-CONFIRMATION.dom.subscribeSortEvent = function() {
-  $("#cfTable").on("click", "a", function(e) {
-    CONFIRMATION.dom.removeCheckboxPadding();
-    CONFIRMATION.dom.centralizeDetailsBtn();
-  });
-};
+      if (cpfCnpj.length == 11) {
+        formatedString = cpfCnpj.substr('0', '3') + '.' + cpfCnpj.substr('3', '3') + '.' + cpfCnpj.substr('6', '3') + '-' + cpfCnpj.substr('9', '2');
+      } else {
+        formatedString = cpfCnpj.substr('0', '2') + '.' + cpfCnpj.substr('2', '3') + '.' + cpfCnpj.substr('5', '3') + '/' + cpfCnpj.substr('8', '4') + '-' + cpfCnpj.substr('12', '2');
+      }
 
-CONFIRMATION.hbs.registerHelpers = function() {
-  Handlebars.registerHelper('formatDate', function(longDate) {
-    return moment(longDate).format('DD/MM/YYYY');
-  });
+      return formatedString;
+    });
 
-  Handlebars.registerHelper('formatCpfCnpj', function(cpfCnpj) {
-    var formatedString = "";
+    Handlebars.registerHelper('formatCelTel', function(telCel) {
+      var formatedString = "";
 
-    if (cpfCnpj.length == 11) {
-      formatedString = cpfCnpj.substr('0', '3') + '.' + cpfCnpj.substr('3', '3') + '.' + cpfCnpj.substr('6', '3') + '-' + cpfCnpj.substr('9', '2');
-    } else {
-      formatedString = cpfCnpj.substr('0', '2') + '.' + cpfCnpj.substr('2', '3') + '.' + cpfCnpj.substr('5', '3') + '/' + cpfCnpj.substr('8', '4') + '-' + cpfCnpj.substr('12', '2');
-    }
+      if (telCel.length == 10) {
+        formatedString = '(' + telCel.substr('0', '2') + ') ' + telCel.substr('2', '4') + '-' + telCel.substr('6', '4');
+      } else {
+        formatedString = '(' + telCel.substr('0', '2') + ') ' + telCel.substr('2', '5') + '-' + telCel.substr('7', '4');
+      }
 
-    return formatedString;
-  });
-
-  Handlebars.registerHelper('formatCelTel', function(telCel) {
-    var formatedString = "";
-
-    if (telCel.length == 10) {
-      formatedString = '(' + telCel.substr('0', '2') + ') ' + telCel.substr('2', '4') + '-' + telCel.substr('6', '4');
-    } else {
-      formatedString = '(' + telCel.substr('0', '2') + ') ' + telCel.substr('2', '5') + '-' + telCel.substr('7', '4');
-    }
-
-    return formatedString;
-  });
+      return formatedString;
+    });
+  }
 };
 
 CONFIRMATION.showReservationDetails = function(currentTarget, event) {
@@ -145,9 +143,10 @@ CONFIRMATION.loadReservationsOnTable = function() {
           },
           'date': function(record) {
             record.parsedDate = record.reservationDate;
-            return moment(record.date).format('DD/MM/YYYY');
+            return moment(record.reservationDate).format('DD/MM/YYYY - HH:mm');
           },
           'tanks': function(record) {
+            record.tanks = record.tankInfo.length;
             return record.tankInfo ? record.tankInfo.length : "";
           },
           'gears': function(record) {

@@ -53,6 +53,10 @@
     padding-left: 4px !important;
   }
 
+  #dynatable-query-search-opTable {
+    width: 110px;
+  }
+
 }
 
 .lineOpItem {
