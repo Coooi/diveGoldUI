@@ -141,6 +141,7 @@ CONFIRMATION.getOpenOperations = function() {
       templateItem = "<option value='{{id}}'>{{date}} - {{desc}}</option>",
       opTemplate = Handlebars.compile(templateItem);
 
+    $(".comboOpenOperations").html("");
     $.each(data.operations, function() {
       var comboString = "",
         opItem = {};

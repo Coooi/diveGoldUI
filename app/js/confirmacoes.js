@@ -137,6 +137,7 @@ CONFIRMATION.getOpenOperations = function() {
       templateItem = "<option value='{{id}}'>{{date}} - {{desc}}</option>",
       opTemplate = Handlebars.compile(templateItem);
 
+    $(".comboOpenOperations").html("");
     $.each(data.operations, function() {
       var comboString = "",
         opItem = {};
@@ -145,7 +146,7 @@ CONFIRMATION.getOpenOperations = function() {
       opItem.desc = this.desc;
       opItem.date = datePattern.getDate() + "/" + (datePattern.getMonth() + 1) + "/" + datePattern.getFullYear();
       var itemHtml = opTemplate(opItem);
-      $(".comboOpenOperations").html(itemHtml);
+      $(".comboOpenOperations").append(itemHtml);
     });
     $.unblockUI();
     CONFIRMATION.loadReservationsOnTable();
