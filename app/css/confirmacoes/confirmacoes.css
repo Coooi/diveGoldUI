@@ -19,13 +19,22 @@ td < .checkbox:parent {
   }
 
   .dateColumn {
-    width: 88px;
+    width: 88px !important;
   }
   .detailsColumn {
     width: 60px;
   }
   .checkboxColumn {
     width: 60px;
+  }
+  .cfTable {
+    margin-top: 8px;
+  }
+  .cfContainer {
+    padding: 2px;
+  }
+  .paddingRight {
+    padding-right: 15px !important;
   }
 }
 
@@ -76,4 +85,8 @@ td < .checkbox:parent {
 
 .container-inn {
   padding-top: 5px;
+}
+
+.paddingRight {
+
 }

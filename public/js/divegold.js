@@ -11,6 +11,10 @@ CONFIRMATION.dom.removeCheckboxPadding = function() {
   $(".checkbox").parent().css('padding', '0');
 };
 
+CONFIRMATION.dom.centralizeDetailsBtn = function() {
+  $(".btnViewDetails").parent().addClass('paddingRight');
+};
+
 CONFIRMATION.dom.subscribeComboEvent = function() {
   $(".comboOpenOperations").change(function() {
     CONFIRMATION.loadReservationsOnTable();
@@ -20,6 +24,7 @@ CONFIRMATION.dom.subscribeComboEvent = function() {
 CONFIRMATION.dom.subscribeSortEvent = function() {
   $("#cfTable").on("click", "a", function(e) {
     CONFIRMATION.dom.removeCheckboxPadding();
+    CONFIRMATION.dom.centralizeDetailsBtn();
   });
 };
 
@@ -132,6 +137,7 @@ CONFIRMATION.loadReservationsOnTable = function() {
       dynatableData.settings.dataset.originalRecords = "";
       dynatableData.process();
       CONFIRMATION.dom.removeCheckboxPadding();
+      CONFIRMATION.dom.centralizeDetailsBtn();
     } else {
       dynatableData = $('#cfTable').dynatable({
         writers: {
@@ -180,6 +186,7 @@ CONFIRMATION.loadReservationsOnTable = function() {
       dynatableData.settings.dataset.originalRecords = data.reservations;
       dynatableData.process();
       CONFIRMATION.dom.removeCheckboxPadding();
+      CONFIRMATION.dom.centralizeDetailsBtn();
     }
   }).fail(function() {
 
