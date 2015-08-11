@@ -145,7 +145,7 @@ CONFIRMATION.getOpenOperations = function() {
       opItem.desc = this.desc;
       opItem.date = datePattern.getDate() + "/" + (datePattern.getMonth() + 1) + "/" + datePattern.getFullYear();
       var itemHtml = opTemplate(opItem);
-      $(".comboOpenOperations").append(itemHtml);
+      $(".comboOpenOperations").html(itemHtml);
     });
     $.unblockUI();
     CONFIRMATION.loadReservationsOnTable();
