@@ -120,3 +120,11 @@ td < .checkbox:parent {
 .sumaryRow {
   max-width: 400px;
 }
+
+.pdLeftXs {
+  padding-left: 1px;
+}
+
+.pdRightXs {
+  padding-right: 1px;
+}
