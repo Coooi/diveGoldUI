@@ -219,3 +219,16 @@
 .btn-group, .btn-group-vertical {
   margin: 5px 1px !important;
 }
+
+.calIcon {
+  padding-top: 8px;
+  color: #03A9F4;
+}
+
+.addDateButtonDiv {
+  margin-top: 8px;
+}
+
+.datasReserva {
+  width: 500px;
+}

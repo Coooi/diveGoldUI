@@ -93,3 +93,30 @@ td < .checkbox:parent {
 .paddingRight {
 
 }
+
+.summaryDiv {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.container-summary {
+  padding: 15px;
+  margin: auto; max-width: 450px;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.summarySeparator {
+  background-color: lightgrey;
+}
+
+.h5margin {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.sumaryRow {
+  max-width: 400px;
+}
