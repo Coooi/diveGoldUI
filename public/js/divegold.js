@@ -198,7 +198,10 @@ CONFIRMATION.loadReservationsOnTable = function() {
             return record.innNeeded ? "Sim" : "Não";
           },
           'status': function(record) {
-            return "<div class='togglebutton'><label><input type='checkbox' checked=''><span class='toggle approveToggle'></span>Aprovada</label></div>";
+            var approvedText = record.reservationStatus ? "Aprovada" : "Pendente",
+              checked = record.reservationStatus ? "checked" : "";
+
+            return "<div class='togglebutton'><label><input type='checkbox' " + checked + "><span class='toggle approveToggle'></span>" + approvedText + "</label></div>";
           },
           'details': function(record) {
             return "<button data-id='" + record.id + "' class='btn btn-info btn-xs btn-raised btn-fab btnViewDetails'><span class='mdi-action-info-outline'></span></button>";

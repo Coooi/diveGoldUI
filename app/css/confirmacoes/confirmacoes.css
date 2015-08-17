@@ -159,3 +159,8 @@ td < .checkbox:parent {
 .summaryContainer {
   padding: 2px;
 }
+
+.confirmOpBtnDiv {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
