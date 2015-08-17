@@ -8,13 +8,13 @@ CONFIRMATION.dom = {
   removeCheckboxPadding: function() {
     $(".checkbox").parent().css('padding', '0');
   },
-  centralizeDetailsBtn: function() {
-    $(".btnViewDetails").parent().addClass('paddingRight');
+  centralizeTableCells: function() {
+    $('#cfTable td').css('vertical-align', 'middle');
   },
   subscribeSortEvent: function() {
     $("#cfTable").on("click", "a", function(e) {
       removeCheckboxPadding();
-      centralizeDetailsBtn();
+      centralizeTableCells();
     });
   },
   subscribeComboEvent: function() {
@@ -32,6 +32,7 @@ CONFIRMATION.dom = {
     this.subscribeDetailsEvent();
     this.subscribeSortEvent();
     this.subscribeBtnConfirmOperation();
+    this.centralizeTableCells();
   }
 };
 
@@ -172,12 +173,12 @@ CONFIRMATION.loadReservationsOnTable = function() {
       dynatableData.settings.dataset.originalRecords = "";
       dynatableData.process();
       CONFIRMATION.dom.removeCheckboxPadding();
-      CONFIRMATION.dom.centralizeDetailsBtn();
+      CONFIRMATION.dom.centralizeTableCells();
     } else {
       dynatableData = $('#cfTable').dynatable({
         writers: {
-          'details': function(record) {
-            return "<button data-id='" + record.id + "' class='btn btn-info btn-xs btn-raised btnViewDetails'><span class='mdi-action-info-outline'></span></button>";
+          'check': function(record) {
+            return "<div class='checkbox'><label><input data-id='" + record.id + "' type='checkbox'><span class='checkbox-material'><span class='check'></span></span></label></div>";
           },
           'name': function(record) {
             return record.client.name;
@@ -196,9 +197,13 @@ CONFIRMATION.loadReservationsOnTable = function() {
           'innNeeded': function(record) {
             return record.innNeeded ? "Sim" : "Não";
           },
-          'approve': function(record) {
-            return "<div class='checkbox'><label><input data-id='" + record.id + "' type='checkbox'><span class='checkbox-material'><span class='check'></span></span></label></div>";
+          'status': function(record) {
+            return "<div class='togglebutton'><label><input type='checkbox' checked=''><span class='toggle approveToggle'></span>Aprovada</label></div>";
+          },
+          'details': function(record) {
+            return "<button data-id='" + record.id + "' class='btn btn-info btn-xs btn-raised btn-fab btnViewDetails'><span class='mdi-action-info-outline'></span></button>";
           }
+
         },
         inputs: {
           recordCountPageBoundTemplate: '{pageLowerBound} a {pageUpperBound} de',
@@ -222,7 +227,7 @@ CONFIRMATION.loadReservationsOnTable = function() {
       dynatableData.settings.dataset.originalRecords = data.reservations;
       dynatableData.process();
       CONFIRMATION.dom.removeCheckboxPadding();
-      CONFIRMATION.dom.centralizeDetailsBtn();
+      CONFIRMATION.dom.centralizeTableCells();
     }
   }).fail(function() {
 

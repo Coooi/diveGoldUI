@@ -8,6 +8,52 @@ td < .checkbox:parent {
   padding: 0;
 }
 
+@media only screen and (min-device-width: 500px) {
+  .btnViewDetails {
+    margin: 0 !important;
+    float: right;
+    padding: 3px !important;
+    font-size: 3px !important;
+    width: 35px !important;
+    height: 35px !important;
+    margin-right: 11px!important;
+  }
+  .pdLeftXs {
+    padding-left: 1px;
+  }
+
+  .pdRightXs {
+    padding-right: 1px;
+  }
+  .detailsColumn {
+    width: 70px;
+  }
+
+  .approveColumn {
+    width: 68px;
+  }
+
+  .dateColumn {
+    width: 134px;
+  }
+
+  .tankColumn {
+    width: 94px;
+  }
+
+  .gearColumn {
+    width: 128px;
+  }
+
+  .innColumn {
+    width: 90px;
+  }
+
+  .checkboxColumn {
+    width: 68px;
+  }
+}
+
 @media only screen and (max-device-width: 500px) {
   .btn.btn-xs {
     padding: 4px 8px !important;
@@ -24,8 +70,11 @@ td < .checkbox:parent {
   .detailsColumn {
     width: 60px;
   }
-  .checkboxColumn {
+  .approveColumn {
     width: 60px;
+  }
+  .checkboxColumn {
+    width: 34px;
   }
   .cfTable {
     margin-top: 8px;
@@ -39,6 +88,17 @@ td < .checkbox:parent {
   #dynatable-query-search-cfTable {
     width: 110px;
   }
+  .btnViewDetails {
+    margin: 0 9px 0 0!important;
+    float: right;
+    font-size: 6px!important;
+    width: 39px!important;
+    height: 38px!important;
+  }
+  .summaryDiv {
+    width: 100% !important;
+    margin: 0 auto;
+  }
 }
 
 #cfTable>thead {
@@ -47,39 +107,6 @@ td < .checkbox:parent {
 
 .cfContainer {
   margin-top: 20px;
-}
-
-.detailsColumn {
-  width: 70px;
-}
-
-.nameColumn {
-
-}
-
-.dateColumn {
-  width: 134px;
-}
-
-.tankColumn {
-  width: 94px;
-}
-
-.gearColumn {
-  width: 128px;
-}
-
-.innColumn {
-  width: 90px;
-}
-
-.checkboxColumn {
-  width: 68px;
-}
-
-.btnViewDetails {
-  margin: 0 !important;
-  float: right;
 }
 
 .container-client {
@@ -121,10 +148,14 @@ td < .checkbox:parent {
   max-width: 400px;
 }
 
-.pdLeftXs {
-  padding-left: 1px;
+.togglebutton label input[type=checkbox]:checked+.toggle, .togglebutton-default label input[type=checkbox]:checked+.toggle {
+    background-color: #73B576!important
 }
 
-.pdRightXs {
-  padding-right: 1px;
+.togglebutton label input[type=checkbox]:checked+.toggle:after, .togglebutton-default label input[type=checkbox]:checked+.toggle:after {
+    background-color: #4CAF50 !important;
+}
+
+.summaryContainer {
+  padding: 2px;
 }
