@@ -44,7 +44,7 @@ var initOperacoes = function() {
           return (record.status) ? "Confirmada" : "Em aberto";
         },
         'delete': function(record) {
-          return "<button data-id='" + record.id + "' class='btn btn-danger btn-xs btn-raised btnRemoveOp'><span class='mdi-content-clear'></span></button>";
+          return "<button data-id='" + record.id + "' class='btn btn-danger btn-xs btn-raised btnRemoveOp'><span class='mdi-action-delete'></span></button>";
         }
       },
       inputs: {

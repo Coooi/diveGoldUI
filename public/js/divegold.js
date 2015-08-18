@@ -9,7 +9,7 @@ CONFIRMATION.dom = {
     $(".checkbox").parent().css('padding', '0');
   },
   centralizeTableCells: function() {
-    $('#cfTable td').css('vertical-align', 'middle');
+    $("#cfTable td").css('vertical-align', 'middle');
   },
   subscribeSortEvent: function() {
     $("#cfTable").on("click", "a", function(e) {
@@ -18,8 +18,13 @@ CONFIRMATION.dom = {
     });
   },
   subscribeComboEvent: function() {
-    $(".comboOpenOperations").change(function() {
+    $(".comboOpenOperations").change(function(e) {
       CONFIRMATION.loadReservationsOnTable();
+    });
+  },
+  subscribeCheckApproveEvent: function() {
+    $(".checkApprove").change(function(e) {
+      CONFIRMATION.changeReservationStatus(e);
     });
   },
   subscribeBtnConfirmOperation: function() {
@@ -27,10 +32,32 @@ CONFIRMATION.dom = {
       CONFIRMATION.confirmOperation();
     });
   },
+  subscribeCheckDeleteReservation: function() {
+    $('.checkDelete').each(function() {
+      $(this).change(function() {
+        if ($('.checkDelete:checked').length) {
+          $('.btnDeleteReservation').removeAttr('disabled');
+        } else {
+          $('.btnDeleteReservation').attr('disabled', '');
+        }
+      });
+    });
+  },
+  subscribeDeleteReservationBtn: function() {
+
+    $('.btnDeleteReservation').click(function() {
+
+    });
+
+  },
+  addDeleteButton: function() {
+    if (!$(".btnDeleteReservation").length) {
+      $(".dynatable-per-page").append("<button class='btn btn-danger btn-xs btn-raised btnDeleteReservation' disabled><span class='mdi-action-delete'></span></button>");
+    }
+  },
   init: function() {
     this.subscribeComboEvent();
     this.subscribeDetailsEvent();
-    this.subscribeSortEvent();
     this.subscribeBtnConfirmOperation();
     this.centralizeTableCells();
   }
@@ -66,6 +93,65 @@ CONFIRMATION.hbs = {
       return formatedString;
     });
   }
+};
+
+CONFIRMATION.changeReservationStatus = function(option) {
+
+  if (!option || !option.currentTarget) {
+    return;
+  }
+
+  var checked = $(option.currentTarget).prop('checked');
+
+  if (checked) {
+    // $.blockUI({
+    //   message: 'Aprovando reserva...',
+    //   css: {
+    //     border: 'none',
+    //     padding: '15px',
+    //     backgroundColor: '#000',
+    //     '-webkit-border-radius': '10px',
+    //     '-moz-border-radius': '10px',
+    //     opacity: 0.5,
+    //     color: '#fff'
+    //   }
+    // });
+
+    $(option.currentTarget).siblings(".statusText").text("Aprovada");
+
+  } else {
+    // $.blockUI({
+    //   message: 'Cancelando reserva...',
+    //   css: {
+    //     border: 'none',
+    //     padding: '15px',
+    //     backgroundColor: '#000',
+    //     '-webkit-border-radius': '10px',
+    //     '-moz-border-radius': '10px',
+    //     opacity: 0.5,
+    //     color: '#fff'
+    //   }
+    // });
+
+    $(option.currentTarget).siblings(".statusText").text("Pendente");
+  }
+
+  // $.ajax({
+  //   cache: false,
+  //   url: "http://surerussolutions.com/divegold-webservice/operation/close/" + operationId,
+  //   type: "POST",
+  //   dataType: "json",
+  //   data: "",
+  //   success: function(callback) {
+  //     console.log(callback);
+  //     sweetAlert('Operação confirmada com sucesso!', '', 'success');
+  //     CONFIRMATION.getOpenOperations();
+  //   },
+  //   error: function() {
+  //     $.unblockUI();
+  //     configTimeout("Ocorreu um erro ao enviar ao salvar as operações.");
+  //   }
+  // });
 };
 
 CONFIRMATION.confirmOperation = function() {
@@ -172,13 +258,12 @@ CONFIRMATION.loadReservationsOnTable = function() {
     if (!data.reservations || !data.reservations.length) {
       dynatableData.settings.dataset.originalRecords = "";
       dynatableData.process();
-      CONFIRMATION.dom.removeCheckboxPadding();
-      CONFIRMATION.dom.centralizeTableCells();
+      CONFIRMATION.tableAfterLoad();
     } else {
       dynatableData = $('#cfTable').dynatable({
         writers: {
           'check': function(record) {
-            return "<div class='checkbox'><label><input data-id='" + record.id + "' type='checkbox'><span class='checkbox-material'><span class='check'></span></span></label></div>";
+            return "<div class='checkbox'><label><input data-id='" + record.id + "' class='checkDelete' type='checkbox'><span class='checkbox-material'><span class='check'></span></span></label></div>";
           },
           'name': function(record) {
             return record.client.name;
@@ -201,7 +286,7 @@ CONFIRMATION.loadReservationsOnTable = function() {
             var approvedText = record.reservationStatus ? "Aprovada" : "Pendente",
               checked = record.reservationStatus ? "checked" : "";
 
-            return "<div class='togglebutton'><label><input type='checkbox' " + checked + "><span class='toggle approveToggle'></span>" + approvedText + "</label></div>";
+            return "<div class='togglebutton'><label><input type='checkbox' " + checked + " class='checkApprove'><span class='toggle approveToggle'></span><span class='statusText'>" + approvedText + "</span></label></div>";
           },
           'details': function(record) {
             return "<button data-id='" + record.id + "' class='btn btn-info btn-xs btn-raised btn-fab btnViewDetails'><span class='mdi-action-info-outline'></span></button>";
@@ -229,12 +314,19 @@ CONFIRMATION.loadReservationsOnTable = function() {
       }).data('dynatable');
       dynatableData.settings.dataset.originalRecords = data.reservations;
       dynatableData.process();
-      CONFIRMATION.dom.removeCheckboxPadding();
-      CONFIRMATION.dom.centralizeTableCells();
+      CONFIRMATION.tableAfterLoad();
     }
   }).fail(function() {
 
   });
+};
+
+CONFIRMATION.tableAfterLoad = function() {
+  CONFIRMATION.dom.removeCheckboxPadding();
+  CONFIRMATION.dom.centralizeTableCells();
+  CONFIRMATION.dom.subscribeCheckApproveEvent();
+  CONFIRMATION.dom.addDeleteButton();
+  CONFIRMATION.dom.subscribeCheckDeleteReservation();
 };
 
 CONFIRMATION.initConfirmacoes = function() {
@@ -321,7 +413,7 @@ var initOperacoes = function() {
           return (record.status) ? "Confirmada" : "Em aberto";
         },
         'delete': function(record) {
-          return "<button data-id='" + record.id + "' class='btn btn-danger btn-xs btn-raised btnRemoveOp'><span class='mdi-content-clear'></span></button>";
+          return "<button data-id='" + record.id + "' class='btn btn-danger btn-xs btn-raised btnRemoveOp'><span class='mdi-action-delete'></span></button>";
         }
       },
       inputs: {
@@ -971,6 +1063,7 @@ var sendPostRequest = function(e) {
     reservation.innInfo.dateOut = getLongDate($("#dataSaida").val());
     reservation.innInfo.apType = ($("#btnTipoAp").text() !== "Selecione") ? $("#btnTipoAp").text() : "";
     reservation.innInfo.reservationName = $("#nomeReserva").val();
+    reservation.innInfo.reservationDiver = $("#respDiverYes").is(":checked");
     reservation.innInfo.guests = [];
     if ($("#acomp1").val() && $("#acomp1").is(":visible")) {
       var acomp = {};

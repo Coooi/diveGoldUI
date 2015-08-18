@@ -52,6 +52,10 @@ td < .checkbox:parent {
   .checkboxColumn {
     width: 68px;
   }
+
+  .btnDeleteReservation {
+    margin: 0 0 0 15px !important;
+  }
 }
 
 @media only screen and (max-device-width: 500px) {
@@ -98,6 +102,9 @@ td < .checkbox:parent {
   .summaryDiv {
     width: 100% !important;
     margin: 0 auto;
+  }
+  .btnDeleteReservation {
+    margin: 0 0 0 7px !important;
   }
 }
 
@@ -164,3 +171,4 @@ td < .checkbox:parent {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+

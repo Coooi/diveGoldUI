@@ -420,6 +420,7 @@ var sendPostRequest = function(e) {
     reservation.innInfo.dateOut = getLongDate($("#dataSaida").val());
     reservation.innInfo.apType = ($("#btnTipoAp").text() !== "Selecione") ? $("#btnTipoAp").text() : "";
     reservation.innInfo.reservationName = $("#nomeReserva").val();
+    reservation.innInfo.reservationDiver = $("#respDiverYes").is(":checked");
     reservation.innInfo.guests = [];
     if ($("#acomp1").val() && $("#acomp1").is(":visible")) {
       var acomp = {};
