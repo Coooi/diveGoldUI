@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  <div class="center container">
+  <div class="center container reservaContainer">
     <div class="reserva">
 
       <!-- Dados Pessoais -->
@@ -27,9 +27,9 @@
 
         <div class="outerCadastro">
 
-          <div class="panel panel-default divCadastro">
+          <div class="panel panel-primary divCadastro">
 
-            <div class="panel-heading header">
+            <div class="panel-heading">
               <div class="headerContent">
                 <img src="https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png" width="35" height="35" alt="DiveGold Logo">
                 <h3 class="panel-title">Reserva Divegold</h3>
@@ -173,10 +173,10 @@
                     </h3>
                   </div>
 
-                  <div class="panel-body">
+                  <div class="panel-body diveDatesPanel">
                     <div class="form-group row">
-                      <label class="col-md-1 col-xs-2 control-label">Data</label>
-                      <div class="col-md-3 col-xs-6">
+                      <label class="col-md-1 col-xs-12 control-label dateLabel">Data</label>
+                      <div class="col-md-4 col-xs-12">
                         <input id="dataMergulho" type="text" name="regular" class="form-control">
                       </div>
                       <div class="col-md-1 col-xs-12 btnAddDate">
@@ -185,7 +185,7 @@
                         </button>
                       </div>
                     </div>
-                    <div class="col-md-12 col-xs-12 datasReserva">
+                    <div class="col-md-12 col-xs-12 datasReserva text-center">
                     </div>
                   </div>
 
@@ -302,9 +302,13 @@
                           </div>
                         </div> -->
 
-                    <div class="form-group">
-                      <label class="col-md-2 col-xs-12 control-label">Observações da reserva <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Preencha com informações complementares e observações sobre sua reserva, como por exemplo: horário de chegada, necessidades especiais, locais desejados para mergulho, etc. A DIVEGOLD fará o possível para atender suas solicitações."></i></label>
 
+                    <div class="headerSection">
+                      <h3 class="panel-title">
+                          <i class="glyphicon glyphicon glyphicon-align-justify"></i> Observações da reserva <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="top" title="Preencha com informações complementares e observações sobre sua reserva, como por exemplo: horário de chegada, necessidades especiais, locais desejados para mergulho, etc. A DIVEGOLD fará o possível para atender suas solicitações."></i>
+                        </h3>
+                    </div>
+                    <div class="form-group">
                       <div class="col-md-10 col-xs-12">
                         <textarea id="obsReserva" class="form-control floating-label" data-hint="Oberservações sobre a reserva" placeholder="Observações" rows="3"></textarea>
                         <div class="help-block with-errors"></div>

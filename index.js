@@ -31,6 +31,7 @@ app.get('/login', function(req, res) {
 app.use('/css', express.static(path.join(__dirname, '/public/css')));
 app.use('/js', express.static(path.join(__dirname, '/public/js')));
 app.use('/fonts', express.static(path.join(__dirname, '/public/fonts')));
+app.use('/images', express.static(path.join(__dirname, '/public/images')));
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))

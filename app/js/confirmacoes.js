@@ -40,15 +40,14 @@ CONFIRMATION.dom = {
     });
   },
   subscribeDeleteReservationBtn: function() {
-
     $('.btnDeleteReservation').click(function() {
-
+      CONFIRMATION.deleteReservations();
     });
-
   },
   addDeleteButton: function() {
     if (!$(".btnDeleteReservation").length) {
       $(".dynatable-per-page").append("<button class='btn btn-danger btn-xs btn-raised btnDeleteReservation' disabled><span class='mdi-action-delete'></span></button>");
+      this.subscribeDeleteReservationBtn();
     }
   },
   init: function() {
@@ -91,63 +90,112 @@ CONFIRMATION.hbs = {
   }
 };
 
-CONFIRMATION.changeReservationStatus = function(option) {
+CONFIRMATION.deleteReservations = function() {
+  swal({
+    title: "Tem certeza que deseja remover esta(s) reserva(s)?",
+    text: "Ao remover uma reserva, ela será exluída permanentemente.",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "rgb(44, 161, 44)",
+    confirmButtonText: "Sim"
+  }, function() {
+    var reservations = [];
 
-  if (!option || !option.currentTarget) {
+    $('.checkDelete:checked').each(function() {
+      var id = $(this).data('id');
+      reservations.push(id);
+    });
+
+    CONFIRMATION.fireAjaxDeleteReservations(reservations);
+  });
+};
+
+CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
+  $.blockUI({
+    message: "Excluindo reservas...",
+    css: {
+      border: 'none',
+      padding: '15px',
+      backgroundColor: '#000',
+      '-webkit-border-radius': '10px',
+      '-moz-border-radius': '10px',
+      opacity: 0.5,
+      color: '#fff'
+    }
+  });
+
+  $.ajax({
+    cache: false,
+    url: "http://surerussolutions.com/divegold-webservice/reservation/delete",
+    type: "POST",
+    dataType: "string",
+    data: reservations.toString(),
+    success: function(callback) {
+      $.unblockUI();
+      sweetAlert('Reservas excluídas com sucesso!', '', 'success');
+      CONFIRMATION.loadReservationsOnTable();
+    },
+    error: function(error) {
+      $.unblockUI();
+      configTimeout("Ocorreu um erro ao deletar uma reserva");
+    }
+  });
+
+};
+
+CONFIRMATION.changeReservationStatus = function(e) {
+
+  if (!e || !e.currentTarget) {
     return;
   }
 
-  var checked = $(option.currentTarget).prop('checked');
-
-  if (checked) {
-    // $.blockUI({
-    //   message: 'Aprovando reserva...',
-    //   css: {
-    //     border: 'none',
-    //     padding: '15px',
-    //     backgroundColor: '#000',
-    //     '-webkit-border-radius': '10px',
-    //     '-moz-border-radius': '10px',
-    //     opacity: 0.5,
-    //     color: '#fff'
-    //   }
-    // });
-
-    $(option.currentTarget).siblings(".statusText").text("Aprovada");
-
+  if ($(e.currentTarget).prop('checked')) {
+    CONFIRMATION.fireAjaxChangeStatus(true, $(e.currentTarget).data('id'), e);
   } else {
-    // $.blockUI({
-    //   message: 'Cancelando reserva...',
-    //   css: {
-    //     border: 'none',
-    //     padding: '15px',
-    //     backgroundColor: '#000',
-    //     '-webkit-border-radius': '10px',
-    //     '-moz-border-radius': '10px',
-    //     opacity: 0.5,
-    //     color: '#fff'
-    //   }
-    // });
-
-    $(option.currentTarget).siblings(".statusText").text("Pendente");
+    CONFIRMATION.fireAjaxChangeStatus(false, $(e.currentTarget).data('id'), e);
   }
 
-  // $.ajax({
-  //   cache: false,
-  //   url: "http://surerussolutions.com/divegold-webservice/operation/close/" + operationId,
-  //   type: "POST",
-  //   dataType: "json",
-  //   data: "",
-  //   success: function(callback) {
-  //     console.log(callback);
-  //     sweetAlert('Operação confirmada com sucesso!', '', 'success');
-  //     CONFIRMATION.getOpenOperations();
-  //   },
-  //   error: function() {
-  //     $.unblockUI();
-  //     configTimeout("Ocorreu um erro ao enviar ao salvar as operações.");
-  //   }
-  // });
+};
+
+CONFIRMATION.fireAjaxChangeStatus = function(status, reservationId, e) {
+  var blockMsg = "Aprovando reserva...",
+    approve = "approve",
+    toggleText = "Aprovada";
+
+  if (!status) {
+    blockMsg = "Cancelando reserva...";
+    approve = "deny";
+    toggleText = "Pendente";
+  }
+
+  $.blockUI({
+    message: blockMsg,
+    css: {
+      border: 'none',
+      padding: '15px',
+      backgroundColor: '#000',
+      '-webkit-border-radius': '10px',
+      '-moz-border-radius': '10px',
+      opacity: 0.5,
+      color: '#fff'
+    }
+  });
+  $.ajax({
+    cache: false,
+    url: "http://surerussolutions.com/divegold-webservice/reservation/" + reservationId + "/" + approve,
+    type: "POST",
+    dataType: "json",
+    data: "",
+    success: function(callback) {
+      $.unblockUI();
+      $(e.currentTarget).siblings(".statusText").text(toggleText);
+    },
+    error: function() {
+      $.unblockUI();
+      e.preventDefault();
+      configTimeout("Ocorreu um erro ao modificar o status de uma reserva");
+    }
+  });
 };
 
 CONFIRMATION.confirmOperation = function() {
@@ -251,7 +299,7 @@ CONFIRMATION.loadReservationsOnTable = function() {
 
   $.getJSON("http://surerussolutions.com/divegold-webservice/reservation/operation/" + reservationId, function(data) {
     dynatableData = $('#cfTable').data('dynatable');
-    if (!data.reservations || !data.reservations.length) {
+    if (dynatableData && (!data.reservations || !data.reservations.length)) {
       dynatableData.settings.dataset.originalRecords = "";
       dynatableData.process();
       CONFIRMATION.tableAfterLoad();
@@ -282,7 +330,7 @@ CONFIRMATION.loadReservationsOnTable = function() {
             var approvedText = record.reservationStatus ? "Aprovada" : "Pendente",
               checked = record.reservationStatus ? "checked" : "";
 
-            return "<div class='togglebutton'><label><input type='checkbox' " + checked + " class='checkApprove'><span class='toggle approveToggle'></span><span class='statusText'>" + approvedText + "</span></label></div>";
+            return "<div class='togglebutton'><label><input type='checkbox' data-id='" + record.id + "' " + checked + " class='checkApprove'><span class='toggle approveToggle'></span><span class='statusText'>" + approvedText + "</span></label></div>";
           },
           'details': function(record) {
             return "<button data-id='" + record.id + "' class='btn btn-info btn-xs btn-raised btn-fab btnViewDetails'><span class='mdi-action-info-outline'></span></button>";
@@ -321,8 +369,8 @@ CONFIRMATION.tableAfterLoad = function() {
   CONFIRMATION.dom.removeCheckboxPadding();
   CONFIRMATION.dom.centralizeTableCells();
   CONFIRMATION.dom.subscribeCheckApproveEvent();
-  CONFIRMATION.dom.addDeleteButton();
   CONFIRMATION.dom.subscribeCheckDeleteReservation();
+  CONFIRMATION.dom.addDeleteButton();
 };
 
 CONFIRMATION.initConfirmacoes = function() {

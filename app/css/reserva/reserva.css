@@ -3,8 +3,13 @@
   -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
   -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
   box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-  padding: 0;
+  padding: 0 !important;
   margin: 10px;
+}
+
+.reservaContainer {
+  padding: 0 !important;
+  margin: 0 auto !important;
 }
 
 .divCadastro {
@@ -37,7 +42,7 @@
 }
 
 .headerContent {
-  display: inline-block;
+  display: -webkit-inline-box;
   width: 200px;
 }
 
@@ -62,11 +67,17 @@
       padding-left: 0px;
       padding-right: 0px;
     }
-
     .divRemoveTank {
       padding-left: 0;
       float: right;
       width: 45px;
+    }
+    .diveDatesPanel {
+      width: 650px;
+      margin: 0 auto;
+    }
+    .datasReserva {
+      width: 600px;
     }
 }
 
@@ -75,7 +86,6 @@
       padding-left: 0px;
       padding-right: 0px;
   }
-
   .reserva {
     border-color: #ccc;
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
@@ -84,42 +94,47 @@
     padding: 0;
     margin: 0px;
   }
-
   .btnAddTanque {
     margin-top: 3px;
   }
-
   .btnAddDate{
     text-align: center;
   }
-
   .gasTypesRowSet {
     padding-left: 13px !important;
   }
-
   .btnRemoveTanque {
     margin-top: 10px !important;
     width: 50px !important;
     height: 50px !important;
     font-size: 25px !important;
   }
-
   .divRemoveTank {
     text-align: center !important;
   }
-
   .gasTypesRow {
+    text-align: center;
+  }
+  .diveDatesPanel {
+    width: 180px;
+    margin: 0 auto;
+  }
+  .datasReserva {
+    width: 200px;
+  }
+  .dateLabel {
     text-align: center;
   }
 }
 
 .headerSection {
   padding: 8px 2px 8px 10px;
-  border: 1px solid #ECECEC;
-  border-radius: 22px;
+  border: 1px solid black;
+  border-radius: 3px;
   margin: 1px 0 12px;
-  background-color: #E9E9E9;
+  background-color: black;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,.12),0 4px 6px 0 rgba(0,0,0,.12);
+  color: white;
 }
 
 .headerContent h3{
@@ -227,8 +242,4 @@
 
 .addDateButtonDiv {
   margin-top: 8px;
-}
-
-.datasReserva {
-  width: 500px;
 }
