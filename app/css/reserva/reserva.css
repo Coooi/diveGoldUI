@@ -44,6 +44,7 @@
 .headerContent {
   display: -webkit-inline-box;
   width: 200px;
+  color: white;
 }
 
 .center {

@@ -90,12 +90,13 @@ var getDiveDates = function() {
       }
     });
     hasDatePicker = true;
+
+    $("#dataMergulho").click(function() {
+      getAvailableDates();
+    });
+  } else {
+    $("#dataMergulho").attr('type', 'date');
   }
-
-  $("#dataMergulho").click(function() {
-    getAvailableDates();
-  });
-
 };
 
 var applyPhoneMask = function(element) {
@@ -455,8 +456,8 @@ var sendPostRequest = function(e) {
       sweetAlert('Solicitação de reserva realizada com sucesso!', 'Você receberá um email com o resumo da sua solicitação. Lembramos que sua reserva ainda não está confirmada e está sujeita à disponibilidade. Você receberá outro email quando sua reserva forma confirmada pela DIVEGOLD', 'success');
       $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
     },
-    error: function() {
-      configTimeout("Ocorreu um erro ao enviar a reserva.");
+    error: function(error) {
+      configTimeout(error.responseJSON.msg);
     }
   });
 };
@@ -663,6 +664,9 @@ var initEvents = function() {
       beforeShow: customRange
     });
     hasDatePicker = true;
+  } else {
+    dataEntradaDP.attr('type', 'date');
+    dataSaidaDP.attr('type', 'date');
   }
 
   function customRange(input) {

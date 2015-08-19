@@ -137,7 +137,7 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
     },
     error: function(error) {
       $.unblockUI();
-      configTimeout("Ocorreu um erro ao deletar uma reserva");
+      configTimeout(error.responseJSON.msg);
     }
   });
 
