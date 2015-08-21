@@ -132,23 +132,27 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
     cache: false,
     url: "http://surerussolutions.com/divegold-webservice/reservation/delete",
     type: "POST",
-    dataType: "string",
-    data: reservations.toString(),
+    dataType: "text",
+    contentType: "text/plain",
+    data: "[" + reservations.toString() + "]",
     success: function(callback) {
       $.unblockUI();
-      sweetAlert('Reservas excluídas com sucesso!', '', 'success');
+      sweetAlert(callback.responseJSON.msg, '', 'success');
       CONFIRMATION.loadReservationsOnTable();
     },
     error: function(error) {
       $.unblockUI();
-      configTimeout(error.responseJSON.msg);
+      if (error.responseJSON && error.responseJSON.msg) {
+        configTimeout(error.responseJSON.msg);
+      } else {
+        configTimeout("Ocorreu um erro ao tentar remover uma reserva.");
+      }
     }
   });
 
 };
 
 CONFIRMATION.changeReservationStatus = function(e) {
-
   if (!e || !e.currentTarget) {
     return;
   }
