@@ -1072,7 +1072,7 @@ var sendPostRequest = function(e) {
   reservation.diveDates = [];
   reservation.tankInfo = [];
   reservation.reservationComments = $("#obsReserva").val();
-  reservation.gearInfo = {};
+  reservation.gearInfo = [];
   reservation.innInfo = {};
 
   $.each($('.datasReserva input'), function(i, v) {
@@ -1105,8 +1105,12 @@ var sendPostRequest = function(e) {
 
   if (reservation.gearInfo.needed) {
     $.each($('.equipment'), function(i, v) {
-      if ($(this).val())
-        reservation.gearInfo[$(this).attr("name")] = $(this).val();
+      if ($(this).val()) {
+        var item = {};
+        item.desc = $(this).attr("name");
+        item.qty = $(this).val();
+        reservation.gearInfo.push(item);
+      }
     });
   }
 
