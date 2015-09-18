@@ -749,39 +749,35 @@ var getLongDate = function(dateValue) {
 };
 
 var getDiveDates = function() {
-  if (!Modernizr.touch || isFirefox) {
-    $("#dataMergulho").datepicker({
 
-      dateFormat: 'dd/mm/yy',
-      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      nextText: 'Próximo',
-      prevText: 'Anterior',
-      minDate: 0,
-      beforeShowDay: function(date) {
+  $("#dataMergulho").datepicker({
+    dateFormat: 'dd/mm/yy',
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    nextText: 'Próximo',
+    prevText: 'Anterior',
+    minDate: 0,
+    beforeShowDay: function(date) {
 
-        var datePattern = "";
-        datePattern += date.getDate() + "-";
-        datePattern += (date.getMonth() + 1) + "-";
-        datePattern += date.getFullYear();
-        if ($.inArray(datePattern, datelist) >= 0) {
-          return [true, ""];
-        } else {
-          return [false, ""];
-        }
+      var datePattern = "";
+      datePattern += date.getDate() + "-";
+      datePattern += (date.getMonth() + 1) + "-";
+      datePattern += date.getFullYear();
+      if ($.inArray(datePattern, datelist) >= 0) {
+        return [true, ""];
+      } else {
+        return [false, ""];
       }
-    });
-    hasDatePicker = true;
+    }
+  });
+  hasDatePicker = true;
 
-    $("#dataMergulho").click(function() {
-      getAvailableDates();
-    });
-  } else {
-    $("#dataMergulho").attr('type', 'date');
-  }
+  $("#dataMergulho").click(function() {
+    getAvailableDates();
+  });
 };
 
 var applyPhoneMask = function(element) {
@@ -1225,7 +1221,7 @@ var initEvents = function() {
       return;
     }
 
-    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 control-label'></label><div class='col-md-3 col-xs-7'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-raised btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
+    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 hidden-xs control-label'></label><div class='col-md-3 col-xs-7'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-raised btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
     var template2 = "<li><a href='#' value={{date}}>{{date}}</a></li>";
 
     var dataMergulhoTemplate = Handlebars.compile(template1);
@@ -1328,36 +1324,31 @@ var initEvents = function() {
 
   getAvailableDates();
 
-  if (!Modernizr.touch || isFirefox) {
-    dataEntradaDP.datepicker({
-      dateFormat: 'dd/mm/yy',
-      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      nextText: 'Próximo',
-      prevText: 'Anterior',
-      minDate: 0
-    });
+  dataEntradaDP.datepicker({
+    dateFormat: 'dd/mm/yy',
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    nextText: 'Próximo',
+    prevText: 'Anterior',
+    minDate: 0
+  });
 
-    dataSaidaDP.datepicker({
-      dateFormat: 'dd/mm/yy',
-      dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-      nextText: 'Próximo',
-      prevText: 'Anterior',
-      minDate: 0,
-      beforeShow: customRange
-    });
-    hasDatePicker = true;
-  } else {
-    dataEntradaDP.attr('type', 'date');
-    dataSaidaDP.attr('type', 'date');
-  }
+  dataSaidaDP.datepicker({
+    dateFormat: 'dd/mm/yy',
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    nextText: 'Próximo',
+    prevText: 'Anterior',
+    minDate: 0,
+    beforeShow: customRange
+  });
+  hasDatePicker = true;
 
   function customRange(input) {
 
