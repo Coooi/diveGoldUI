@@ -713,17 +713,7 @@ var getAvailableDates = function() { //teste
 };
 
 var clearUserInfo = function() {
-  $("#userName").val("");
-  $("#cep").val("");
-  $("#rua").val("");
-  $("#numero").val("");
-  $("#comp").val("");
-  $("#bairro").val();
-  $("#cidade").val("");
-  $("#uf").val("");
-  $("#tel").val("");
-  $("#cel").val("");
-  $("#email").val("");
+  $('#formReserva').find('input[type=text]').val("");
   $("#btnNivelMergulho").text("Selecione");
 };
 
@@ -1104,6 +1094,7 @@ var sendPostRequest = function(e) {
   reservation.gearInfo.needed = $("#checkEquipamentos").is(':checked');
 
   if (reservation.gearInfo.needed) {
+
     $.each($('.equipment'), function(i, v) {
       if ($(this).val()) {
         var item = {};
