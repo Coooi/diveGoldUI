@@ -133,7 +133,7 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
     data: "[" + reservations.toString() + "]",
     success: function(callback) {
       $.unblockUI();
-      sweetAlert(callback.responseJSON.msg, '', 'success');
+      sweetAlert("Reservas deletadas com sucesso!", '', 'success');
       CONFIRMATION.loadReservationsOnTable();
     },
     error: function(error) {
