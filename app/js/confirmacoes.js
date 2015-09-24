@@ -19,7 +19,7 @@ CONFIRMATION.dom = {
     });
   },
   subscribeCheckApproveEvent: function() {
-    $(".checkApprove").change(function(e) {
+    $("#cfTable").on("click", ".checkApprove", function(e) {
       CONFIRMATION.changeReservationStatus(e);
     });
   },
@@ -29,7 +29,7 @@ CONFIRMATION.dom = {
     });
   },
   subscribeCheckDeleteReservation: function() {
-    $('.checkDelete').each(function() {
+    $("#cfTable").on("click", '.checkDelete').each(function() {
       $(this).change(function() {
         if ($('.checkDelete:checked').length) {
           $('.btnDeleteReservation').removeAttr('disabled');
@@ -62,6 +62,10 @@ CONFIRMATION.hbs = {
   registerHelpers: function() {
     Handlebars.registerHelper('formatDate', function(longDate) {
       return moment(longDate).format('DD/MM/YYYY');
+    });
+
+    Handlebars.registerHelper('formatDiver', function(isDiver) {
+      return (isDiver) ? "Sim" : "Não";
     });
 
     Handlebars.registerHelper('formatCpfCnpj', function(cpfCnpj) {
@@ -135,6 +139,7 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
       $.unblockUI();
       sweetAlert("Reservas deletadas com sucesso!", '', 'success');
       CONFIRMATION.loadReservationsOnTable();
+      CONFIRMATION.tableAfterLoad();
     },
     error: function(error) {
       $.unblockUI();

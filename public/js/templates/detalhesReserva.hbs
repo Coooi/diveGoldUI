@@ -50,11 +50,11 @@
           </div>
 
           <hr>
-          {{#if reservationComments}}
+          {{#if reservationObs}}
             <h4 class="modal-title b">Observações da reserva:</h4>
             <div class="container-fluid container-inn">
               <div class="row">
-                <div class="col-md-12">{{reservationComments}}</div>
+                <div class="col-md-12">{{reservationObs}}</div>
               </div>
             </div>
 
@@ -102,11 +102,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      {{#each gearInfo}}
+                      {{#each gearInfo.items}}
                         <tr class="active">
                           <tr class="active">
                             <td>{{this.desc}}</td>
-                            <td>{{this.quantity}}</td>
+                            <td>{{this.qty}}</td>
                           </tr>
                         </tr>
                       {{/each}}
@@ -123,19 +123,19 @@
             <div class="container-fluid container-inn">
               <div class="row">
                 <div class="col-md-2 bold">Data de entrada:</div>
-                <div class="col-md-10">12/12/2012</div>
+                <div class="col-md-10">{{formatDate innInfo.dateIn}}</div>
               </div>
               <div class="row">
                 <div class="col-md-2 bold">Data de saída:</div>
-                <div class="col-md-10">12/12/2012</div>
+                <div class="col-md-10">{{formatDate innInfo.dateOut}}</div>
               </div>
               <div class="row">
                 <div class="col-md-2 bold">Tipo Apto.:</div>
-                <div class="col-md-10">Duplo casal</div>
+                <div class="col-md-10">{{innInfo.apType.type}}</div>
               </div>
               <div class="row">
                 <div class="col-md-2 bold">Observações:</div>
-                <div class="col-md-10">nada a observar</div>
+                <div class="col-md-10">{{innInfo.comments}}</div>
               </div>
             </div>
 
@@ -145,21 +145,23 @@
                   <thead>
                     <tr>
                       <th>Hóspede</th>
-                      <th>Tipo</th>
+                      <th>Responsável</th>
                       <th>Mergulhador</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="active">
-                      <td>Felipe Roris Surerus</td>
-                      <td>Responsável</td>
+                      <td>{{innInfo.reservationName}}</td>
                       <td>Sim</td>
+                      <td>{{formatDiver innInfo.reservationDiver}}</td>
                     </tr>
-                    <tr class="active">
-                      <td>Bebel Nascimento</td>
-                      <td>Acompanhante</td>
-                      <td>Não</td>
-                    </tr>
+                    {{#each innInfo.guests}}
+                      <tr class="active">
+                        <td>{{this.name}}</td>
+                        <td>Não</td>
+                        <td>{{formatDiver this.diver}}</td>
+                      </tr>
+                    {{/each}}
                   </tbody>
                 </table>
               </div>
