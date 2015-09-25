@@ -211,6 +211,7 @@
   white-space:pre-wrap;
   max-width: 300px;
   width: 200px; 
+  text-align: left;
 }
 
 .sweet-alert button:hover {
