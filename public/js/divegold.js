@@ -1487,7 +1487,9 @@ var initEvents = function() {
   });
 
   //ativar tooltips
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip({
+    html: true
+  });
 
   populateCombos();
   beforePost();
