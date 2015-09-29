@@ -86,6 +86,7 @@ module.exports = function(grunt) {
                 'bower_components/dynatable/jquery.dynatable.js',
                 'bower_components/blockui/jquery.blockUI.js',
                 'bower_components/modernizr/modernizr.js',
+                
                 'app/js/lib/*.js'],
         dest: 'public/js/vendor.min.js'
       },
