@@ -4,6 +4,9 @@ module.exports = function(app, passport) {
     // =====================================
     // show the login form
     var path = require('path');
+
+    // app.set('case sensitive routing', true);
+
     app.get('/login', function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'login.html'));
     });
@@ -16,7 +19,7 @@ module.exports = function(app, passport) {
         res.sendFile(path.join(__dirname, '../public', 'reservas.html'));
     });
 
-    app.get('/confirmacoes', isLoggedIn, function(req, res) {
+    app.get('/confirmacoes', function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'confirmacoes.html'));
     });
 

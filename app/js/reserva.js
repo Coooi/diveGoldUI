@@ -796,7 +796,8 @@ var initEvents = function() {
 };
 
 $(document).ready(function() {
-  if (window.location.href.indexOf("/reserva") !== -1) {
+  if (window.location.href.indexOf("/reserva") !== -1 ||
+    window.location.href.indexOf("/RESERVA") !== -1) {
     var datelist = [],
       diveDates = [],
       operationsArray = [];

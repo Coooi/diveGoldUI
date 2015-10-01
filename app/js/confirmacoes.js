@@ -252,6 +252,24 @@ CONFIRMATION.showReservationDetails = function(currentTarget, event) {
   }, 'html');
 };
 
+CONFIRMATION.showSummary = function(currentTarget, event) {
+  // if (!currentTarget) {
+  //   return;
+  // }
+
+  $.get('js/templates/sumarioReservas.hbs', function(hbsTemplate) {
+    var summaryDiv = document.getElementById('summary');
+    // var reservationId = $(currentTarget).data("id");
+
+    $.getJSON("http://surerussolutions.com/divegold-webservice/operation/83/summary", function(summary) {
+      var summaryTemplate = Handlebars.compile(hbsTemplate);
+      $(summaryDiv).html(summaryTemplate(summary));
+    }).fail(function() {
+
+    });
+  }, 'html');
+};
+
 CONFIRMATION.dom.subscribeDetailsEvent = function() {
   $("#cfTable").on("click", "button", function(e) {
     CONFIRMATION.showReservationDetails(e.currentTarget, e);
@@ -386,6 +404,7 @@ CONFIRMATION.initConfirmacoes = function() {
   CONFIRMATION.getOpenOperations();
   CONFIRMATION.dom.init();
   CONFIRMATION.hbs.registerHelpers();
+  CONFIRMATION.showSummary(null, null);
 };
 
 $(document).ready(function() {
