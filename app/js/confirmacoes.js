@@ -29,7 +29,17 @@ CONFIRMATION.dom = {
     });
   },
   subscribeCheckDeleteReservation: function() {
-    $("#cfTable").on("click", '.checkDelete').each(function() {
+    // $("#cfTable").on("click", '.checkDelete').each(function() {
+    //   $(this).change(function() {
+    //     if ($('.checkDelete:checked').length) {
+    //       $('.btnDeleteReservation').removeAttr('disabled');
+    //     } else {
+    //       $('.btnDeleteReservation').attr('disabled', '');
+    //     }
+    //   });
+    // });
+
+    $(".checkDelete").on("click").each(function() {
       $(this).change(function() {
         if ($('.checkDelete:checked').length) {
           $('.btnDeleteReservation').removeAttr('disabled');
@@ -38,6 +48,7 @@ CONFIRMATION.dom = {
         }
       });
     });
+
   },
   subscribeDeleteReservationBtn: function() {
     $('.btnDeleteReservation').click(function() {
@@ -189,6 +200,7 @@ CONFIRMATION.fireAjaxChangeStatus = function(status, reservationId, e) {
       color: '#fff'
     }
   });
+
   $.ajax({
     cache: false,
     url: "http://surerussolutions.com/divegold-webservice/reservation/" + reservationId + "/" + approve,
@@ -198,6 +210,7 @@ CONFIRMATION.fireAjaxChangeStatus = function(status, reservationId, e) {
     success: function(callback) {
       $.unblockUI();
       $(e.currentTarget).siblings(".statusText").text(toggleText);
+      e.preventDefault();
     },
     error: function() {
       $.unblockUI();

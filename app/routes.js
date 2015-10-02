@@ -19,7 +19,7 @@ module.exports = function(app, passport) {
         res.sendFile(path.join(__dirname, '../public', 'reservas.html'));
     });
 
-    app.get('/confirmacoes', isLoggedIn, function(req, res) {
+    app.get('/confirmacoes', function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'confirmacoes.html'));
     });
 
