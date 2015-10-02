@@ -15,11 +15,11 @@ module.exports = function(app, passport) {
         res.sendFile(path.join(__dirname, '../public', 'home.html'));
     });
 
-    app.get('/reserva', isLoggedIn, function(req, res) {
+    app.get('/reserva', function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'reservas.html'));
     });
 
-    app.get('/confirmacoes', function(req, res) {
+    app.get('/confirmacoes', isLoggedIn, function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'confirmacoes.html'));
     });
 
