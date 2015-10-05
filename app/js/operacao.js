@@ -114,7 +114,7 @@ var deleteOp = function(buttonTag, e) {
 
   swal({
     title: "Tem certeza que deseja remover esta operação?",
-    text: "Ao remover uma operação, todas as reservas feitas por clientes serão removidas.",
+    text: "Todas as reservas feitas para esta operação serão excluídas e seus responsáveis notificados por email.",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "rgb(44, 161, 44)",

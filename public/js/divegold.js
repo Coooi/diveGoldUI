@@ -59,6 +59,11 @@ CONFIRMATION.dom = {
       CONFIRMATION.deleteReservations();
     });
   },
+  subscribeRefreshSummaryBtn: function() {
+    $('#btnRefreshSummary').click(function() {
+      CONFIRMATION.showSummary();
+    });
+  },
   addDeleteButton: function() {
     if (!$(".btnDeleteReservation").length) {
       $(".dynatable-per-page").append("<button class='btn btn-danger btn-xs btn-raised btnDeleteReservation' disabled><span class='mdi-action-delete'></span></button>");
@@ -70,6 +75,7 @@ CONFIRMATION.dom = {
     this.subscribeDetailsEvent();
     this.subscribeBtnConfirmOperation();
     this.centralizeTableCells();
+    this.subscribeRefreshSummaryBtn();
   }
 };
 
@@ -112,7 +118,7 @@ CONFIRMATION.hbs = {
 CONFIRMATION.deleteReservations = function() {
   swal({
     title: "Tem certeza que deseja remover esta(s) reserva(s)?",
-    text: "Ao remover uma reserva, ela será exluída permanentemente.",
+    text: "Ao remover uma reserva, ela será exluída permanentemente. O responsável pela reserva será notificado sobre a reprovação da mesma.",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "rgb(44, 161, 44)",
@@ -169,16 +175,26 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
 };
 
 CONFIRMATION.changeReservationStatus = function(e) {
-  if (!e || !e.currentTarget) {
-    return;
-  }
+  swal({
+    title: "Tem certeza que deseja alterar o status desta reserva?",
+    text: "Modificações no status da reserva acarretam em envio de e-mails para o responsável da reserva informando a sua alteração.",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "rgb(44, 161, 44)",
+    confirmButtonText: "Sim"
+  }, function() {
+    if (!e || !e.currentTarget) {
+      return;
+    }
 
-  if ($(e.currentTarget).prop('checked')) {
-    CONFIRMATION.fireAjaxChangeStatus(true, $(e.currentTarget).data('id'), e);
-  } else {
-    CONFIRMATION.fireAjaxChangeStatus(false, $(e.currentTarget).data('id'), e);
-  }
-
+    if ($(e.currentTarget).prop('checked')) {
+      CONFIRMATION.fireAjaxChangeStatus(false, $(e.currentTarget).data('id'), e);
+    } else {
+      CONFIRMATION.fireAjaxChangeStatus(true, $(e.currentTarget).data('id'), e);
+    }
+    return false;
+  });
+  e.preventDefault();
 };
 
 CONFIRMATION.fireAjaxChangeStatus = function(status, reservationId, e) {
@@ -214,6 +230,11 @@ CONFIRMATION.fireAjaxChangeStatus = function(status, reservationId, e) {
     success: function(callback) {
       $.unblockUI();
       $(e.currentTarget).siblings(".statusText").text(toggleText);
+      if (toggleText === "Aprovada") {
+        $(e.currentTarget).prop('checked', 'true');
+      } else {
+        $(e.currentTarget).removeAttr('checked');
+      }
       e.preventDefault();
     },
     error: function() {
@@ -269,16 +290,17 @@ CONFIRMATION.showReservationDetails = function(currentTarget, event) {
   }, 'html');
 };
 
-CONFIRMATION.showSummary = function(currentTarget, event) {
+CONFIRMATION.showSummary = function() {
   // if (!currentTarget) {
   //   return;
   // }
 
   $.get('js/templates/sumarioReservas.hbs', function(hbsTemplate) {
-    var summaryDiv = document.getElementById('summary');
+    var summaryDiv = document.getElementById('summary'),
+      reservationId = $(".comboOpenOperations").val();
     // var reservationId = $(currentTarget).data("id");
 
-    $.getJSON("http://surerussolutions.com/divegold-webservice/operation/83/summary", function(summary) {
+    $.getJSON("http://surerussolutions.com/divegold-webservice/operation/" + reservationId + "/summary", function(summary) {
       var summaryTemplate = Handlebars.compile(hbsTemplate);
       $(summaryDiv).html(summaryTemplate(summary));
     }).fail(function() {
@@ -415,13 +437,13 @@ CONFIRMATION.tableAfterLoad = function() {
   CONFIRMATION.dom.subscribeCheckApproveEvent();
   CONFIRMATION.dom.subscribeCheckDeleteReservation();
   CONFIRMATION.dom.addDeleteButton();
+  CONFIRMATION.showSummary();
 };
 
 CONFIRMATION.initConfirmacoes = function() {
   CONFIRMATION.getOpenOperations();
   CONFIRMATION.dom.init();
   CONFIRMATION.hbs.registerHelpers();
-  CONFIRMATION.showSummary(null, null);
 };
 
 $(document).ready(function() {
@@ -572,7 +594,7 @@ var deleteOp = function(buttonTag, e) {
 
   swal({
     title: "Tem certeza que deseja remover esta operação?",
-    text: "Ao remover uma operação, todas as reservas feitas por clientes serão removidas.",
+    text: "Todas as reservas feitas para esta operação serão excluídas e seus responsáveis notificados por email.",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "rgb(44, 161, 44)",
