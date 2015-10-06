@@ -421,13 +421,15 @@ var sendPostRequest = function(e) {
       acomp.diver = $("#firstDiverYes").is(":checked");
       reservation.innInfo.guests.push(acomp);
       if ($("#acomp2").val() && $("#acomp2").is(":visible")) {
-        acomp.name = $("#acomp2").val();
-        acomp.diver = $("#secondDiverYes").is(":checked");
-        reservation.innInfo.guests.push(acomp);
+        var acomp2 = {};
+        acomp2.name = $("#acomp2").val();
+        acomp2.diver = $("#secondDiverYes").is(":checked");
+        reservation.innInfo.guests.push(acomp2);
         if ($("#acomp3").val() && $("#acomp3").is(":visible")) {
-          acomp.name = $("#acomp3").val();
-          acomp.diver = $("#thirdDiverYes").is(":checked");
-          reservation.innInfo.guests.push(acomp);
+          var acomp3 = {};
+          acomp3.name = $("#acomp3").val();
+          acomp3.diver = $("#thirdDiverYes").is(":checked");
+          reservation.innInfo.guests.push(acomp3);
         }
       }
     }
