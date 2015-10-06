@@ -493,30 +493,43 @@ var initEvents = function() {
       $("#cpf").focus();
       $("#firstAccess").text("false");
     } else {
-      var r = confirm("Tem certeza que deseja alterar o tipo do cadastro?");
-      if (r === true) {
+      e.preventDefault();
+      swal({
+        title: "Tem certeza que deseja alterar o tipo do cadastro?",
+        text: "Os dados preenchidos abaixo serão apagados.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "rgb(44, 161, 44)",
+        confirmButtonText: "Sim"
+      }, function() {
         clearUserInfo();
         $("#cpf").removeAttr('disabled', '');
         $("#cnpj").attr('disabled', '');
         $("#cnpj").val('');
+        $("#cpfRadio").prop("checked", true);
         $("#cpf").focus();
-      } else {
-        e.preventDefault();
-      }
+      });
     }
   });
 
   $("#cnpjRadio").click(function(e) {
-    var r = confirm("Tem certeza que deseja alterar o tipo do cadastro?");
-    if (r === true) {
+    e.preventDefault();
+
+    swal({
+      title: "Tem certeza que deseja alterar o tipo do cadastro?",
+      text: "Os dados preenchidos abaixo serão apagados.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgb(44, 161, 44)",
+      confirmButtonText: "Sim"
+    }, function() {
       clearUserInfo();
       $("#cnpj").removeAttr('disabled', '');
       $("#cpf").attr('disabled', '');
       $("#cpf").val('');
+      $("#cnpjRadio").prop("checked", true);
       $("#cnpj").focus();
-    } else {
-      e.preventDefault();
-    }
+    });
   });
 
   $("#cpfRadio").click();

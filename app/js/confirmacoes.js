@@ -25,7 +25,16 @@ CONFIRMATION.dom = {
   },
   subscribeBtnConfirmOperation: function() {
     $("#btnConfirmOperation").click(function() {
-      CONFIRMATION.confirmOperation();
+      swal({
+        title: "Deseja confirmar e fechar a operação " + $(".comboOpenOperations option:selected").text().split("-")[1] + "?",
+        text: "Ao confirmar uma operação, todos os clientes com reservas aprovadas serão notificados da aprovação via email. Clientes com reservas pendentes serão notificados sobre o cancelamento de suas reservas.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "rgb(44, 161, 44)",
+        confirmButtonText: "Sim"
+      }, function() {
+        CONFIRMATION.confirmOperation();
+      });
     });
   },
   subscribeCheckDeleteReservation: function() {

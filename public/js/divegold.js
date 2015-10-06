@@ -29,7 +29,16 @@ CONFIRMATION.dom = {
   },
   subscribeBtnConfirmOperation: function() {
     $("#btnConfirmOperation").click(function() {
-      CONFIRMATION.confirmOperation();
+      swal({
+        title: "Deseja confirmar e fechar a operação " + $(".comboOpenOperations option:selected").text().split("-")[1] + "?",
+        text: "Ao confirmar uma operação, todos os clientes com reservas aprovadas serão notificados da aprovação via email. Clientes com reservas pendentes serão notificados sobre o cancelamento de suas reservas.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "rgb(44, 161, 44)",
+        confirmButtonText: "Sim"
+      }, function() {
+        CONFIRMATION.confirmOperation();
+      });
     });
   },
   subscribeCheckDeleteReservation: function() {
@@ -726,7 +735,7 @@ var getOperations = function() {
 };
 
 var generate = function() {
-  var operationId = $(".comboOperacoes").val();
+  var operationId = $(".comboOperacoes option:selected").val();
   if (operationId) {
     $.getJSON("http://surerussolutions.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
       sweetAlert(data.msg, '', 'success');
@@ -741,7 +750,16 @@ var generate = function() {
 var initPlanilha = function() {
   var self = this;
   $("#btnGenerate").click(function() {
-    self.generate();
+    swal({
+      title: "Deseja criar as Planilhas para a o Operação" + $(".comboOperacoes option:selected").text().split('-')[1] + "?",
+      text: "Ao confirmar, as planilhas serão encaminhadas em formato excel para o email reservas.divegold@gmail.com",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgb(44, 161, 44)",
+      confirmButtonText: "Sim"
+    }, function() {
+      self.generate();
+    });
   });
 };
 
@@ -1247,30 +1265,43 @@ var initEvents = function() {
       $("#cpf").focus();
       $("#firstAccess").text("false");
     } else {
-      var r = confirm("Tem certeza que deseja alterar o tipo do cadastro?");
-      if (r === true) {
+      e.preventDefault();
+      swal({
+        title: "Tem certeza que deseja alterar o tipo do cadastro?",
+        text: "Os dados preenchidos abaixo serão apagados.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "rgb(44, 161, 44)",
+        confirmButtonText: "Sim"
+      }, function() {
         clearUserInfo();
         $("#cpf").removeAttr('disabled', '');
         $("#cnpj").attr('disabled', '');
         $("#cnpj").val('');
+        $("#cpfRadio").prop("checked", true);
         $("#cpf").focus();
-      } else {
-        e.preventDefault();
-      }
+      });
     }
   });
 
   $("#cnpjRadio").click(function(e) {
-    var r = confirm("Tem certeza que deseja alterar o tipo do cadastro?");
-    if (r === true) {
+    e.preventDefault();
+
+    swal({
+      title: "Tem certeza que deseja alterar o tipo do cadastro?",
+      text: "Os dados preenchidos abaixo serão apagados.",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgb(44, 161, 44)",
+      confirmButtonText: "Sim"
+    }, function() {
       clearUserInfo();
       $("#cnpj").removeAttr('disabled', '');
       $("#cpf").attr('disabled', '');
       $("#cpf").val('');
+      $("#cnpjRadio").prop("checked", true);
       $("#cnpj").focus();
-    } else {
-      e.preventDefault();
-    }
+    });
   });
 
   $("#cpfRadio").click();
