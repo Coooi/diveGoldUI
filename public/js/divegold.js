@@ -737,9 +737,23 @@ var getOperations = function() {
 var generate = function() {
   var operationId = $(".comboOperacoes option:selected").val();
   if (operationId) {
+    $.blockUI({
+      message: 'Processando...',
+      css: {
+        border: 'none',
+        padding: '15px',
+        backgroundColor: '#000',
+        '-webkit-border-radius': '10px',
+        '-moz-border-radius': '10px',
+        opacity: 0.5,
+        color: '#fff'
+      }
+    });
     $.getJSON("http://surerussolutions.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
+      $.unblockUI();
       sweetAlert(data.msg, '', 'success');
     }).fail(function(data) {
+      $.unblockUI();
       configTimeout(data.responseJSON.msg);
     });
   } else {
@@ -751,7 +765,7 @@ var initPlanilha = function() {
   var self = this;
   $("#btnGenerate").click(function() {
     swal({
-      title: "Deseja criar as Planilhas para a o Operação" + $(".comboOperacoes option:selected").text().split('-')[1] + "?",
+      title: "Deseja criar as Planilhas para a operação: " + $(".comboOperacoes option:selected").text().split('-')[1] + "?",
       text: "Ao confirmar, as planilhas serão encaminhadas em formato excel para o email reservas.divegold@gmail.com",
       type: "warning",
       showCancelButton: true,

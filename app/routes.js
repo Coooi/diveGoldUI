@@ -19,15 +19,15 @@ module.exports = function(app, passport) {
         res.sendFile(path.join(__dirname, '../public', 'reservas.html'));
     });
 
-    app.get('/confirmacoes', isLoggedIn, function(req, res) {
+    app.get('/confirmacoes', function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'confirmacoes.html'));
     });
 
-    app.get('/operacoes', isLoggedIn, function(req, res) {
+    app.get('/operacoes', function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'operacoes.html'));
     });
 
-    app.get('/planilha', isLoggedIn, function(req, res) {
+    app.get('/planilha', function(req, res) {
         res.sendFile(path.join(__dirname, '../public', 'planilha.html'));
     });
 
