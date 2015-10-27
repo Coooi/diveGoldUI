@@ -788,7 +788,7 @@ var isFirefox = typeof InstallTrigger !== 'undefined',
   hasDatePicker = false;
 
 var getAvailableDates = function() { //teste
-  $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON("https://surerussolutions.com:8443/divegold-webservice/operation/status/0", function(data) {
     var dateArray = [];
     operationsArray = data.operations;
     $.each(data.operations, function() {
@@ -798,7 +798,8 @@ var getAvailableDates = function() { //teste
     datelist = dateArray;
     $("#datepicker").datepicker("refresh");
     $.unblockUI();
-  }).fail(function() {
+  }).fail(function(e) {
+    console.log(e);
     configTimeout("Ocorreu um erro ao buscar as datas de mergulho.");
   });
 };
@@ -914,7 +915,7 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = 'http://surerussolutions.com/divegold-webservice/collection/apart/type',
+  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/apart/type',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
@@ -957,7 +958,7 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = 'http://surerussolutions.com/divegold-webservice/collection/gas/type',
+  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/gas/type',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
@@ -980,7 +981,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'http://surerussolutions.com/divegold-webservice/collection/tank/type',
+  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/tank/type',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
@@ -1016,7 +1017,7 @@ var populateCombos = function() {
     }
   });
 
-  var url = 'http://surerussolutions.com/divegold-webservice/collection/diver/type',
+  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/diver/type',
     templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 
@@ -1225,7 +1226,7 @@ var sendPostRequest = function(e) {
   console.log(JSON.stringify(reservation));
   $.ajax({
     cache: false,
-    url: "http://surerussolutions.com/divegold-webservice/reservation/add",
+    url: "https://surerussolutions.com:8443/divegold-webservice/reservation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(reservation),
@@ -1233,7 +1234,7 @@ var sendPostRequest = function(e) {
     success: function(callback) {
       $.unblockUI();
       sweetAlert('Solicitação de reserva realizada com sucesso!', 'Você receberá um email com o resumo da sua solicitação. Lembramos que sua reserva ainda não está confirmada e está sujeita à disponibilidade. Você receberá outro email quando sua reserva forma confirmada pela DIVEGOLD', 'success');
-      $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
+      $('.center').html("<div class='text-center'><img src='httpss://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
     },
     error: function(error) {
       configTimeout(error.responseJSON.msg);
@@ -1507,7 +1508,7 @@ var initEvents = function() {
     var cepValue = $(this).val().replace('.', '').replace('-', '');
 
     if (cepValue) {
-      var url = 'http://cep.correiocontrol.com.br/' + cepValue + '.json';
+      var url = 'https://cep.correiocontrol.com.br/' + cepValue + '.json';
 
       $.getJSON(url, function(data) {
         $("#rua").val(data.logradouro);
@@ -1565,7 +1566,7 @@ var initEvents = function() {
     var cpfValue = $(this).val().replace('.', '').replace('-', '').replace('.', '');
 
     if (cpfValue) {
-      var url = 'http://surerussolutions.com/divegold-webservice/client/type=0&value=' + cpfValue;
+      var url = 'https://surerussolutions.com:8443/divegold-webservice/client/type=0&value=' + cpfValue;
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {
@@ -1578,7 +1579,7 @@ var initEvents = function() {
     var cnpjValue = $(this).val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
 
     if (cnpjValue) {
-      var url = 'http://surerussolutions.com/divegold-webservice/client/type=1&value=' + cnpjValue;
+      var url = 'https://surerussolutions.com:8443/divegold-webservice/client/type=1&value=' + cnpjValue;
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {

@@ -7,6 +7,7 @@ module.exports = function(grunt) {
   };
 
   grunt.initConfig({
+    clean: ["public"],
     watch: {
       clientCSS: {
         files: watchFiles.clientCSS,
@@ -153,6 +154,44 @@ module.exports = function(grunt) {
           dest: 'public',
           expand: true
         }]
+    },
+    prod: {
+      files: [{
+          cwd: 'bower_components/bootstrap/dist/fonts/',
+          src: '**',
+          dest: 'public/fonts',
+          expand: true
+        },{
+          cwd: 'bower_components/bootstrap-material-design/dist/fonts/',
+          src: '**',
+          dest: 'public/fonts',
+          expand: true
+        },{
+          cwd: 'bower_components/jquery-ui/themes/base/images',
+          src: '**',
+          dest: 'public/css/images',
+          expand: true
+        },{
+          cwd: 'app/views/reserva/',
+          src: 'reservas.html',
+          dest: 'public/',
+          expand: true
+        },{
+          cwd: 'dist/js/',
+          src: 'vendor.js.map',
+          dest: 'public/js',
+          expand: true
+        },{
+          cwd: 'app/js/templates',
+          src: '**',
+          dest: 'public/js/templates',
+          expand: true
+        },{
+          cwd: 'app/',
+          src: 'login.html',
+          dest: 'public',
+          expand: true
+        }]
     }
   },
   jsbeautifier : {
@@ -173,7 +212,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-githooks');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy', 'watch' ]);
+
+  grunt.registerTask('default', ['clean', 'jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy', 'watch' ]);
+  grunt.registerTask('prod', ['clean', 'jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy:prod' ]);
+
 
 };
