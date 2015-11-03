@@ -7,7 +7,10 @@ module.exports = function(grunt) {
   };
 
   grunt.initConfig({
-    clean: ["public"],
+    clean: {
+      reserva : ["public"],
+      admin: ["public-admin"]
+    },
     watch: {
       clientCSS: {
         files: watchFiles.clientCSS,
@@ -40,27 +43,58 @@ module.exports = function(grunt) {
       }
     },
     uglify : {
-      options : {
-        sourceMap : true,
-        sourceMapIncludeSources : true
+      // options : {
+      //   sourceMap : true,
+      //   sourceMapIncludeSources : true
+      // },
+      minJs: {
+         src:  ['app/js/*.js'],
+         dest: 'public/js/divegold.js'
       },
-      // minVendor: {
-      //    src:  ['bower_components/dynatable/jquery.dynatable.js',
-      //           'bower_components/blockui/jquery.blockUI.js',
-      //           'bower_components/modernizr/modernizr.js'],
-      //    dest: 'dist/js/vendor.js'
-      // }
-      // ,
-      // minJs: {
-      //    src:  ['app/js/*.js'],
-      //    dest: 'public/js/divegold.js'
-      // }
+      minJsVendor: {
+          src  : ['bower_components/jquery/dist/jquery.min.js',
+                'bower_components/jquery-ui/jquery-ui.min.js',
+                'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                'bower_components/handlebars/handlebars.min.js',
+                'bower_components/bootstrap-material-design/dist/js/material.min.js',
+                'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
+                'bower_components/moment/min/moment.min.js',
+                'bower_components/sweetalert/dist/sweetalert.min.js',
+                'bower_components/dynatable/jquery.dynatable.js',
+                'bower_components/blockui/jquery.blockUI.js',
+                'bower_components/modernizr/modernizr.js',
+                'app/js/lib/*.js'],
+         dest: 'public/js/vendor.min.js'
+      },
+      minJsVendorAdmin: {
+          src  : ['bower_components/jquery/dist/jquery.min.js',
+                'bower_components/jquery-ui/jquery-ui.min.js',
+                'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                'bower_components/handlebars/handlebars.min.js',
+                'bower_components/bootstrap-material-design/dist/js/material.min.js',
+                'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
+                'bower_components/moment/min/moment.min.js',
+                'bower_components/sweetalert/dist/sweetalert.min.js',
+                'bower_components/dynatable/jquery.dynatable.js',
+                'bower_components/blockui/jquery.blockUI.js',
+                'bower_components/modernizr/modernizr.js',
+                'app/js/lib/*.js'],
+         dest: 'public-admin/js/vendor.min.js'
+      },
+      reserva: {
+         src:  ['app/js/reserva/reserva.js'],
+         dest: 'public/js/divegold.js'
+      },
+      admin: {
+         src:  ['app/js/admin/*.js'],
+         dest: 'public-admin/js/divegold.js'
+      }
     },
     cssmin: {
       options: {
-        rebase: false,
-        sourceMap : true,
-        sourceMapIncludeSources : true
+        // rebase: false,
+        // sourceMap : true,
+        // sourceMapIncludeSources : true
       },
       dist : {
         src  : ['bower_components/bootstrap/dist/**/*.css',
@@ -72,6 +106,17 @@ module.exports = function(grunt) {
                 'bower_components/dynatable/jquery.dynatable.css',
                 'bower_components/sweetalert/dist/sweetalert.css'],
         dest : 'public/css/divegold.min.css'
+      },
+      admin : {
+        src  : ['bower_components/bootstrap/dist/**/*.css',
+                'app/css/**/*.css',
+                '/node_modules/**/*.css',
+                'bower_components/bootstrap-material-design/dist/css/material.min.css',
+                'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+                'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+                'bower_components/dynatable/jquery.dynatable.css',
+                'bower_components/sweetalert/dist/sweetalert.css'],
+        dest : 'public-admin/css/divegold.min.css'
       }
     },
     concat: {
@@ -87,7 +132,6 @@ module.exports = function(grunt) {
                 'bower_components/dynatable/jquery.dynatable.js',
                 'bower_components/blockui/jquery.blockUI.js',
                 'bower_components/modernizr/modernizr.js',
-                
                 'app/js/lib/*.js'],
         dest: 'public/js/vendor.min.js'
       },
@@ -155,7 +199,7 @@ module.exports = function(grunt) {
           expand: true
         }]
     },
-    prod: {
+    reserva: {
       files: [{
           cwd: 'bower_components/bootstrap/dist/fonts/',
           src: '**',
@@ -186,13 +230,61 @@ module.exports = function(grunt) {
           src: '**',
           dest: 'public/js/templates',
           expand: true
+        }]
+    },
+    admin: {
+        files: [{
+          cwd: 'bower_components/bootstrap/dist/fonts/',
+          src: '**',
+          dest: 'public-admin/fonts',
+          expand: true
+        },{
+          cwd: 'bower_components/bootstrap-material-design/dist/fonts/',
+          src: '**',
+          dest: 'public-admin/fonts',
+          expand: true
+        },{
+          cwd: 'bower_components/jquery-ui/themes/base/images',
+          src: '**',
+          dest: 'public-admin/css/images',
+          expand: true
+        },{
+          cwd: 'app/views/planilha/',
+          src: 'planilha.html',
+          dest: 'public-admin/',
+          expand: true
+        },{
+          cwd: 'app/views/confirmacoes/',
+          src: 'confirmacoes.html',
+          dest: 'public-admin/',
+          expand: true
+        },{
+          cwd: 'app/views/operacoes/',
+          src: 'operacoes.html',
+          dest: 'public-admin/',
+          expand: true
+        },{
+          cwd: 'app/views/',
+          src: 'home.html',
+          dest: 'public-admin/',
+          expand: true
+        },{
+          cwd: 'dist/js/',
+          src: 'vendor.js.map',
+          dest: 'public-admin/js',
+          expand: true
+        },{
+          cwd: 'app/js/templates',
+          src: '**',
+          dest: 'public-admin/js/templates',
+          expand: true
         },{
           cwd: 'app/',
           src: 'login.html',
-          dest: 'public',
+          dest: 'public-admin',
           expand: true
         }]
-    }
+    },
   },
   jsbeautifier : {
       default: {
@@ -215,8 +307,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
 
 
-  grunt.registerTask('default', ['clean', 'jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy', 'watch' ]);
-  grunt.registerTask('prod', ['clean', 'jshint', 'uglify', 'cssmin', 'jsbeautifier', 'concat', 'copy:prod' ]);
-
+  grunt.registerTask('default', ['clean', 'jshint', 'cssmin:dist', 'jsbeautifier', 'concat', 'copy:main', 'watch' ]);
+  grunt.registerTask('reserva', ['clean:reserva', 'jshint', 'uglify:minJsVendor', 'uglify:reserva', 'cssmin:dist', 'copy:reserva' ]);
+  grunt.registerTask('admin', ['clean:admin', 'jshint', 'uglify:minJsVendorAdmin', 'uglify:admin', 'cssmin:admin', 'copy:admin' ]);
 
 };

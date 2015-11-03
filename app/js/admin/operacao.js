@@ -31,7 +31,7 @@ var initOperacoes = function() {
     }
   }
 
-  $.getJSON("http://surerussolutions.com/divegold-webservice/operation", function(data) {
+  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation", function(data) {
 
     $('#opTable').dynatable({
       writers: {
@@ -97,7 +97,7 @@ var initOperacoes = function() {
 };
 
 var getReservedDates = function() { //teste
-  $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
     var dateArray = [];
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
@@ -127,7 +127,7 @@ var deleteOp = function(buttonTag, e) {
     operation.id = $(buttonTag).data("id");
     $.ajax({
       cache: false,
-      url: "http://surerussolutions.com/divegold-webservice/operation/delete/" + operation.id,
+      url: "https://reservasdivegold.com/divegold-webservice/operation/delete/" + operation.id,
       type: "POST",
       dataType: "json",
       data: JSON.stringify(operation),
@@ -180,7 +180,7 @@ var saveOperations = function(data) {
 
   $.ajax({
     cache: false,
-    url: "http://surerussolutions.com/divegold-webservice/operation/add",
+    url: "https://reservasdivegold.com/divegold-webservice/operation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(operation),

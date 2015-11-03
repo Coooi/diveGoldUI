@@ -11,7 +11,7 @@ var getOperations = function() {
       color: '#fff'
     }
   });
-  $.getJSON("http://surerussolutions.com/divegold-webservice/operation/status/1", function(data) {
+  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/1", function(data) {
     if (!data.operations) {
       configTimeout("Não existem operações para geração de planilhas.");
       return;
@@ -52,7 +52,7 @@ var generate = function() {
         color: '#fff'
       }
     });
-    $.getJSON("http://surerussolutions.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
+    $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
       $.unblockUI();
       sweetAlert(data.msg, '', 'success');
     }).fail(function(data) {

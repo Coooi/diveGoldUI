@@ -2,7 +2,7 @@ var isFirefox = typeof InstallTrigger !== 'undefined',
   hasDatePicker = false;
 
 var getAvailableDates = function() { //teste
-  $.getJSON("https://surerussolutions.com:8443/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
     var dateArray = [];
     operationsArray = data.operations;
     $.each(data.operations, function() {
@@ -129,7 +129,7 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/apart/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/apart/type',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
@@ -172,7 +172,7 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/gas/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/gas/type',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
@@ -195,7 +195,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/tank/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/tank/type',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
@@ -231,7 +231,7 @@ var populateCombos = function() {
     }
   });
 
-  var url = 'https://surerussolutions.com:8443/divegold-webservice/collection/diver/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/diver/type',
     templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 
@@ -440,7 +440,7 @@ var sendPostRequest = function(e) {
   console.log(JSON.stringify(reservation));
   $.ajax({
     cache: false,
-    url: "https://surerussolutions.com:8443/divegold-webservice/reservation/add",
+    url: "https://reservasdivegold.com/divegold-webservice/reservation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(reservation),
@@ -780,7 +780,7 @@ var initEvents = function() {
     var cpfValue = $(this).val().replace('.', '').replace('-', '').replace('.', '');
 
     if (cpfValue) {
-      var url = 'https://surerussolutions.com:8443/divegold-webservice/client/type=0&value=' + cpfValue;
+      var url = 'https://reservasdivegold.com/divegold-webservice/client/type=0&value=' + cpfValue;
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {
@@ -793,7 +793,7 @@ var initEvents = function() {
     var cnpjValue = $(this).val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
 
     if (cnpjValue) {
-      var url = 'https://surerussolutions.com:8443/divegold-webservice/client/type=1&value=' + cnpjValue;
+      var url = 'https://reservasdivegold.com/divegold-webservice/client/type=1&value=' + cnpjValue;
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function() {
