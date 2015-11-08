@@ -55,9 +55,15 @@ var generate = function() {
     $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
       $.unblockUI();
       sweetAlert(data.msg, '', 'success');
-    }).fail(function(data) {
+    }).fail(function(error) {
       $.unblockUI();
-      configTimeout(data.responseJSON.msg);
+      if (error.responseJSON && error.responseJSON.msg) {
+        configTimeout(error.responseJSON.msg);
+      } else {
+        configTimeout('Ocorreu um erro interno do servidor.');
+        console.log(error);
+      }
+
     });
   } else {
     configTimeout("Favor escolha uma operação.");
