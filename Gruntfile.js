@@ -66,6 +66,20 @@ module.exports = function(grunt) {
                 'app/js/lib/*.js'],
          dest: 'public/js/vendor.min.js'
       },
+      minJsVendorReserva: {
+          src  : ['bower_components/jquery/dist/jquery.min.js',
+                'bower_components/jquery-ui/jquery-ui.min.js',
+                'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                'bower_components/handlebars/handlebars.min.js',
+                'bower_components/bootstrap-material-design/dist/js/material.min.js',
+                'bower_components/bootstrap-material-design/dist/js/ripples.min.js',
+                'bower_components/moment/min/moment.min.js',
+                'bower_components/sweetalert/dist/sweetalert.min.js',
+                'bower_components/blockui/jquery.blockUI.js',
+                'bower_components/modernizr/modernizr.js',
+                'app/js/lib/*.js'],
+         dest: 'public/js/vendor.min.js'
+      },
       minJsVendorAdmin: {
           src  : ['bower_components/jquery/dist/jquery.min.js',
                 'bower_components/jquery-ui/jquery-ui.min.js',
@@ -99,7 +113,6 @@ module.exports = function(grunt) {
       dist : {
         src  : ['bower_components/bootstrap/dist/**/*.css',
                 'app/css/**/*.css',
-                '/node_modules/**/*.css',
                 'bower_components/bootstrap-material-design/dist/css/material.min.css',
                 'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
                 'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
@@ -107,10 +120,18 @@ module.exports = function(grunt) {
                 'bower_components/sweetalert/dist/sweetalert.css'],
         dest : 'public/css/divegold.min.css'
       },
+      reserva : {
+        src  : ['bower_components/bootstrap/dist/**/*.css',
+                'app/css/**/*.css',
+                'bower_components/bootstrap-material-design/dist/css/material.min.css',
+                'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
+                'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
+                'bower_components/sweetalert/dist/sweetalert.css'],
+        dest : 'public/css/divegold.min.css'
+      },
       admin : {
         src  : ['bower_components/bootstrap/dist/**/*.css',
                 'app/css/**/*.css',
-                '/node_modules/**/*.css',
                 'bower_components/bootstrap-material-design/dist/css/material.min.css',
                 'bower_components/bootstrap-material-design/dist/css/ripples.min.css',
                 'bower_components/bootstrap-material-design/dist/css/roboto.min.css',
@@ -225,11 +246,6 @@ module.exports = function(grunt) {
           src: 'vendor.js.map',
           dest: 'public/js',
           expand: true
-        },{
-          cwd: 'app/js/templates',
-          src: '**',
-          dest: 'public/js/templates',
-          expand: true
         }]
     },
     admin: {
@@ -308,7 +324,7 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('default', ['clean', 'jshint', 'cssmin:dist', 'jsbeautifier', 'concat', 'copy:main', 'watch' ]);
-  grunt.registerTask('reserva', ['clean:reserva', 'jshint', 'uglify:minJsVendor', 'uglify:reserva', 'cssmin:dist', 'copy:reserva' ]);
+  grunt.registerTask('reserva', ['clean:reserva', 'jshint', 'uglify:minJsVendorReserva', 'uglify:reserva', 'cssmin:reserva', 'copy:reserva' ]);
   grunt.registerTask('admin', ['clean:admin', 'jshint', 'uglify:minJsVendorAdmin', 'uglify:admin', 'cssmin:admin', 'copy:admin' ]);
 
 };
