@@ -118,7 +118,7 @@ var getDiveDates = function() {
 };
 
 var applyPhoneMask = function(element) {
-  var estados = ["SP", "RJ", "ES", "AM", "PA", "MA", "RR", "AP"];
+  var estados = ["SP", "RJ", "ES", "AM", "PA", "MA", "RR", "AP", "MG", "BA", "PI", "SE", "AL", "PE", "PB", "RN", "CE"];
   if (element.val() && estados.indexOf(element.val()) > -1) {
     $(".cel").mask("(99) 99999-9999");
   } else {
@@ -287,8 +287,15 @@ var beforePost = function() {
 
     e.preventDefault();
 
-    if (!$('#cpf').val().replace('.', '').replace('-', '').replace('.', '').trim() && !$('#cnpj').val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '').trim()) {
+    var cpfValue = $('#cpf').val().replace('.', '').replace('-', '').replace('.', '').trim();
+
+    if (!cpfValue && !$('#cnpj').val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '').trim()) {
       configTimeout("Favor informar pelo menos o CPF ou CNPJ");
+      return;
+    }
+
+    if (cpfValue && !isValidCPF(cpfValue)) {
+      configTimeout("CPF digitado é inválido.");
       return;
     }
 
@@ -479,7 +486,7 @@ var sendPostRequest = function(e) {
     success: function(callback) {
       $.unblockUI();
       sweetAlert('Solicitação de reserva realizada com sucesso!', 'Você receberá um email com o resumo da sua solicitação. Lembramos que sua reserva ainda não está confirmada e está sujeita à disponibilidade. Você receberá outro email quando sua reserva forma confirmada pela DIVEGOLD', 'success');
-      $('.center').html("<div class='text-center'><img src='httpss://s3-sa-east-1.amazonaws.com/felipemedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
+      $('.center').html("<div class='text-center'><img src='https://s3-sa-east-1.amazonaws.com/divegoldmedia/divegold_logo.png' width='35' height='35' alt='DiveGold Logo'>Reserva efetuada com sucesso!</div>");
     },
     error: function(error) {
       configTimeout(error.responseJSON.msg);
@@ -810,16 +817,16 @@ var initEvents = function() {
   $("#cpf").blur(function() {
     var cpfValue = $(this).val().replace('.', '').replace('-', '').replace('.', '');
 
-    if (!cpfValue || !isValidCPF(cpfValue)) {
-      configTimeout("CPF digitado é inválido.");
+    if (!cpfValue) {
       return;
     }
 
-    var url = 'https://reservasdivegold.com/divegold-webservice/client/type=0&value=' + cpfValue;
+    var url = 'https://reservasdivegold.com/divegold-webservice/client/type=0&value=' + cpfValue + '&token=e7ad3799610e535452711cef857ac7ce';
     $.getJSON(url, function(data) {
       populateUserInfo(data);
-    }).fail(function() {
+    }).fail(function(e) {
       console.log('CPF sem dados cadastrais');
+      console.log(e);
     });
   });
 
@@ -827,11 +834,12 @@ var initEvents = function() {
     var cnpjValue = $(this).val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
 
     if (cnpjValue) {
-      var url = 'https://reservasdivegold.com/divegold-webservice/client/type=1&value=' + cnpjValue;
+      var url = 'https://reservasdivegold.com/divegold-webservice/client/type=1&value=' + cnpjValue + '&token=e7ad3799610e535452711cef857ac7ce';
       $.getJSON(url, function(data) {
         populateUserInfo(data);
-      }).fail(function() {
+      }).fail(function(e) {
         console.log('CNPJ sem dados cadastrais');
+        console.log(e);
       });
     }
   });

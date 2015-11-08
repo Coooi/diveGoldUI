@@ -228,7 +228,7 @@ module.exports = function(grunt) {
           expand: true
         },{
           cwd: 'bower_components/bootstrap-material-design/dist/fonts/',
-          src: '**',
+          src: ['**', '!**.txt'],
           dest: 'public/fonts',
           expand: true
         },{
