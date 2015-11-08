@@ -48,7 +48,7 @@ module.exports = function(grunt) {
       //   sourceMapIncludeSources : true
       // },
       minJs: {
-         src:  ['app/js/*.js'],
+         src:  ['app/js/**/*.js', '!app/js/lib/*.js'],
          dest: 'public/js/divegold.js'
       },
       minJsVendor: {
@@ -136,7 +136,7 @@ module.exports = function(grunt) {
         dest: 'public/js/vendor.min.js'
       },
       minJs: {
-         src:  ['app/js/*.js'],
+         src:  ['app/js/**/*.js', '!app/js/lib/*.js'],
          dest: 'public/js/divegold.js'
       }
     },

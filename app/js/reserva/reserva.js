@@ -33,6 +33,37 @@ var enabledAddBtn = function() {
   }
 };
 
+var isValidCPF = function valida_cpf(cpf) {
+  var numeros, digitos, soma, i, resultado, digitos_iguais;
+  digitos_iguais = 1;
+  if (cpf.length < 11)
+    return false;
+  for (i = 0; i < cpf.length - 1; i++)
+    if (cpf.charAt(i) != cpf.charAt(i + 1)) {
+      digitos_iguais = 0;
+      break;
+    }
+  if (!digitos_iguais) {
+    numeros = cpf.substring(0, 9);
+    digitos = cpf.substring(9);
+    soma = 0;
+    for (i = 10; i > 1; i--)
+      soma += numeros.charAt(10 - i) * i;
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(0))
+      return false;
+    numeros = cpf.substring(0, 10);
+    soma = 0;
+    for (i = 11; i > 1; i--)
+      soma += numeros.charAt(11 - i) * i;
+    resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+    if (resultado != digitos.charAt(1))
+      return false;
+    return true;
+  } else
+    return false;
+}
+
 var getLongDate = function(dateValue) {
   var longDate;
 
@@ -129,7 +160,7 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/apart/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/apart/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
@@ -172,7 +203,7 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/gas/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/gas/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
@@ -195,7 +226,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/tank/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/tank/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
@@ -231,7 +262,7 @@ var populateCombos = function() {
     }
   });
 
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/diver/type',
+  var url = 'https://reservasdivegold.com/divegold-webservice/collection/diver/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 
@@ -722,7 +753,7 @@ var initEvents = function() {
     var cepValue = $(this).val().replace('.', '').replace('-', '');
 
     if (cepValue) {
-      var url = 'https://cep.correiocontrol.com.br/' + cepValue + '.json';
+      var url = 'http://cep.correiocontrol.com.br/' + cepValue + '.json';
 
       $.getJSON(url, function(data) {
         $("#rua").val(data.logradouro);
@@ -763,7 +794,7 @@ var initEvents = function() {
       placeholder: " ",
       clearOnLostFocus: false
     });
-    var estados = ["SP", "RJ", "ES", "AM", "PA", "MA", "RR", "AP"];
+    var estados = ["SP", "RJ", "ES", "AM", "PA", "MA", "RR", "AP", "MG", "BA", "PI", "SE", "AL", "PE", "PB", "RN", "CE"];
     if ($("#uf").val() && estados.indexOf($("#uf").val()) > -1) {
       $(".cel").mask("(99) 99999-9999", {
         clearOnLostFocus: false
@@ -779,14 +810,17 @@ var initEvents = function() {
   $("#cpf").blur(function() {
     var cpfValue = $(this).val().replace('.', '').replace('-', '').replace('.', '');
 
-    if (cpfValue) {
-      var url = 'https://reservasdivegold.com/divegold-webservice/client/type=0&value=' + cpfValue;
-      $.getJSON(url, function(data) {
-        populateUserInfo(data);
-      }).fail(function() {
-        console.log('CPF sem dados cadastrais');
-      });
+    if (!cpfValue || !isValidCPF(cpfValue)) {
+      configTimeout("CPF digitado é inválido.");
+      return;
     }
+
+    var url = 'https://reservasdivegold.com/divegold-webservice/client/type=0&value=' + cpfValue;
+    $.getJSON(url, function(data) {
+      populateUserInfo(data);
+    }).fail(function() {
+      console.log('CPF sem dados cadastrais');
+    });
   });
 
   $("#cnpj").blur(function() {
