@@ -1,3 +1,9 @@
+var configTimeout = function(msg) {
+  console.log(msg);
+  $.unblockUI();
+  sweetAlert("Ops...", msg, "error");
+};
+
 var initOperacoes = function() {
   var isFirefox = typeof InstallTrigger !== 'undefined',
     hasDatePicker = false;
@@ -118,35 +124,61 @@ var deleteOp = function(buttonTag, e) {
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "rgb(44, 161, 44)",
-    confirmButtonText: "Sim"
-  }, function() {
-    e.preventDefault();
-    var operation = {},
-      dynatable = $('#opTable').data('dynatable');
+    confirmButtonText: "Sim",
+    cancelButtonText: 'Cancelar'
+  }, function(yes) {
 
-    operation.id = $(buttonTag).data("id");
-    $.ajax({
-      cache: false,
-      url: "https://reservasdivegold.com/divegold-webservice/operation/delete/" + operation.id,
-      type: "POST",
-      dataType: "json",
-      data: JSON.stringify(operation),
-      success: function(callback) {
-        sweetAlert('Operação removida com sucesso!', '', 'success');
-        dynatable.settings.dataset.originalRecords = $.grep(dynatable.settings.dataset.originalRecords,
-          function(op, index) {
-            if (op.id === operation.id) {
-              return false;
-            }
-            return true;
-          });
-        dynatable.process();
-        getReservedDates();
-      },
-      error: function(xhr, textStatus, error) {
-        configTimeout("Ocorreu um erro ao tentar excluir esta operação.");
-      }
-    });
+    e.preventDefault();
+    if (yes) {
+      $.blockUI({
+        message: 'Excluindo operação...',
+        css: {
+          border: 'none',
+          padding: '15px',
+          backgroundColor: '#000',
+          '-webkit-border-radius': '10px',
+          '-moz-border-radius': '10px',
+          opacity: 0.5,
+          color: '#fff'
+        }
+      });
+      var operation = {},
+        dynatable = $('#opTable').data('dynatable');
+
+      operation.id = $(buttonTag).data("id");
+      $.ajax({
+        cache: false,
+        url: "https://reservasdivegold.com/divegold-webservice/operation/delete/" + operation.id,
+        type: "POST",
+        dataType: "json",
+        data: JSON.stringify(operation),
+        success: function(callback) {
+          $.unblockUI();
+          setTimeout(function() {
+            swal({
+              title: "Pronto!",
+              text: "Operação removida com sucesso!",
+              type: "success",
+              timer: 3000
+            }, function() {
+              dynatable.settings.dataset.originalRecords = $.grep(dynatable.settings.dataset.originalRecords,
+                function(op, index) {
+                  if (op.id === operation.id) {
+                    return false;
+                  }
+                  return true;
+                });
+              dynatable.process();
+              getReservedDates();
+            });
+          }, 300);
+        },
+        error: function(xhr, textStatus, error) {
+          configTimeout("Ocorreu um erro ao tentar excluir esta operação.");
+        }
+      });
+    }
+    
   });
 };
 

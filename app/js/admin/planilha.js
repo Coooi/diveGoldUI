@@ -79,9 +79,12 @@ var initPlanilha = function() {
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "rgb(44, 161, 44)",
-      confirmButtonText: "Sim"
-    }, function() {
-      self.generate();
+      confirmButtonText: "Sim",
+      cancelButtonText: 'Cancelar'
+    }, function(yes) {
+      if (yes){
+        self.generate();
+      }
     });
   });
 };

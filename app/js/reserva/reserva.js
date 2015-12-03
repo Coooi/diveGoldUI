@@ -143,7 +143,11 @@ var applyMasks = function() {
     placeholder: " ",
     clearOnLostFocus: false
   });
-  $(".cel").mask("(99) 9999-9999", {
+  $(".cel").mask("(99) 99999-9999", {
+    placeholder: " ",
+    clearOnLostFocus: false
+  });
+  $("#tel").mask("(99) 9999-9999", {
     placeholder: " ",
     clearOnLostFocus: false
   });
@@ -359,7 +363,8 @@ var beforePost = function() {
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "rgb(44, 161, 44)",
-      confirmButtonText: "Sim!"
+      confirmButtonText: "Sim!",
+      cancelButtonText: 'Cancelar'
     }, function() {
       sendPostRequest(e);
     });
@@ -404,6 +409,7 @@ var sendPostRequest = function(e) {
   reservation.reservationComments = $("#obsReserva").val();
   reservation.gearInfo = [];
   reservation.innInfo = {};
+  reservation.utcOffset = new Date().getTimezoneOffset();
 
   $.each($('.datasReserva input'), function(i, v) {
     var item = {},
@@ -539,7 +545,8 @@ var initEvents = function() {
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "rgb(44, 161, 44)",
-        confirmButtonText: "Sim"
+        confirmButtonText: "Sim",
+        cancelButtonText: 'Cancelar'
       }, function() {
         clearUserInfo();
         $("#cpf").removeAttr('disabled', '');
@@ -560,7 +567,8 @@ var initEvents = function() {
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "rgb(44, 161, 44)",
-      confirmButtonText: "Sim"
+      confirmButtonText: "Sim",
+      cancelButtonText: 'Cancelar'
     }, function() {
       clearUserInfo();
       $("#cnpj").removeAttr('disabled', '');

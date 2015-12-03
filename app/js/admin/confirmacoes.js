@@ -23,6 +23,15 @@ CONFIRMATION.dom = {
       CONFIRMATION.changeReservationStatus(e);
     });
   },
+  subscribeSerachBoxEvent: function() {
+    $('#dynatable-query-search-cfTable').keyup(function(){
+      setTimeout(function(){
+        $('.btnDeleteReservation').attr('disabled', '');
+        CONFIRMATION.dom.subscribeCheckDeleteReservation();
+        CONFIRMATION.dom.subscribeCheckboxes();
+      }, 200);
+    });
+  },
   subscribeBtnConfirmOperation: function() {
     $("#btnConfirmOperation").click(function() {
       swal({
@@ -31,23 +40,27 @@ CONFIRMATION.dom = {
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "rgb(44, 161, 44)",
-        confirmButtonText: "Sim"
-      }, function() {
-        CONFIRMATION.confirmOperation();
+        confirmButtonText: "Sim",
+        cancelButtonText: 'Cancelar'
+      }, function(yes, callback) {
+        if (yes) {
+          setTimeout(function() {
+            CONFIRMATION.confirmOperation();
+          }, 500);
+        }
       });
     });
   },
+  subscribeCheckboxes: function(){
+    $("#dynatable-pagination-links-cfTable").click(function(){
+      setTimeout(function(){
+        $('.btnDeleteReservation').attr('disabled', '');
+        CONFIRMATION.dom.subscribeCheckDeleteReservation();
+        CONFIRMATION.dom.subscribeCheckboxes();
+      }, 200);
+    });
+  },
   subscribeCheckDeleteReservation: function() {
-    // $("#cfTable").on("click", '.checkDelete').each(function() {
-    //   $(this).change(function() {
-    //     if ($('.checkDelete:checked').length) {
-    //       $('.btnDeleteReservation').removeAttr('disabled');
-    //     } else {
-    //       $('.btnDeleteReservation').attr('disabled', '');
-    //     }
-    //   });
-    // });
-
     $(".checkDelete").on("click").each(function() {
       $(this).change(function() {
         if ($('.checkDelete:checked').length) {
@@ -81,6 +94,8 @@ CONFIRMATION.dom = {
     this.subscribeBtnConfirmOperation();
     this.centralizeTableCells();
     this.subscribeRefreshSummaryBtn();
+    this.subscribeCheckboxes();
+    this.subscribeSerachBoxEvent();
   }
 };
 
@@ -123,20 +138,23 @@ CONFIRMATION.hbs = {
 CONFIRMATION.deleteReservations = function() {
   swal({
     title: "Tem certeza que deseja remover esta(s) reserva(s)?",
-    text: "Ao remover uma reserva, ela será exluída permanentemente. O responsável pela reserva será notificado sobre a reprovação da mesma.",
+    text: "Ao remover uma reserva, ela será excluída permanentemente. O responsável pela reserva será notificado sobre a reprovação da mesma.",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "rgb(44, 161, 44)",
-    confirmButtonText: "Sim"
-  }, function() {
-    var reservations = [];
+    confirmButtonText: "Sim",
+    cancelButtonText: 'Cancelar'
+  }, function(yes) {
+    if (yes) {
+      var reservations = [];
 
-    $('.checkDelete:checked').each(function() {
-      var id = $(this).data('id');
-      reservations.push(id);
-    });
+      $('.checkDelete:checked').each(function() {
+        var id = $(this).data('id');
+        reservations.push(id);
+      });
 
-    CONFIRMATION.fireAjaxDeleteReservations(reservations);
+      CONFIRMATION.fireAjaxDeleteReservations(reservations);
+    }
   });
 };
 
@@ -162,10 +180,18 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
     contentType: "text/plain",
     data: "[" + reservations.toString() + "]",
     success: function(callback) {
-      $.unblockUI();
-      sweetAlert("Reservas deletadas com sucesso!", '', 'success');
-      CONFIRMATION.loadReservationsOnTable();
-      CONFIRMATION.tableAfterLoad();
+        $.unblockUI();
+        setTimeout(function() {
+          swal({
+            title: "Pronto!",
+            text: "Reserva(s) deletada(s) com sucesso!",
+            type: "success",
+            timer: 3000
+          }, function() {
+            CONFIRMATION.loadReservationsOnTable();
+            CONFIRMATION.tableAfterLoad();
+          });
+        }, 300);
     },
     error: function(error) {
       $.unblockUI();
@@ -265,8 +291,19 @@ CONFIRMATION.confirmOperation = function() {
     data: "",
     success: function(callback) {
       console.log(callback);
-      sweetAlert('Operação confirmada com sucesso!', '', 'success');
-      CONFIRMATION.getOpenOperations();
+      swal({
+        title: "Confirmada!",
+        text: "Operação confirmada com sucesso!",
+        type: "success",
+        timer: 3000
+      }, function() {
+        setTimeout(function() {
+          CONFIRMATION.getOpenOperations();
+        }, 300);
+      });
+
+      // sweetAlert('Operação confirmada com sucesso!', '', 'success');
+
     },
     error: function() {
       $.unblockUI();
@@ -292,6 +329,14 @@ CONFIRMATION.showReservationDetails = function(currentTarget, event) {
     }).fail(function() {
 
     });
+  }, 'html');
+};
+
+CONFIRMATION.clearSummary = function() {
+  $.get('js/templates/sumarioReservas.hbs', function(hbsTemplate) {
+    var summaryDiv = document.getElementById('summary');
+    var summaryTemplate = Handlebars.compile(hbsTemplate);
+    $(summaryDiv).html(summaryTemplate({}));
   }, 'html');
 };
 
@@ -334,8 +379,14 @@ CONFIRMATION.getOpenOperations = function() {
     }
   });
   $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
-    if (!data.operations) {
-      configTimeout("Não existem operações para geração de planilhas.");
+    if (!data.operations || !data.operations.length) {
+      dynatableData = $('#cfTable').data('dynatable');
+      if (dynatableData && dynatableData.settings && dynatableData.settings.dataset) {
+        dynatableData.settings.dataset.originalRecords = "";
+        dynatableData.process();
+        CONFIRMATION.clearSummary();
+      }
+      configTimeout("Não existem operações a serem aprovadas.");
       return;
     }
 
@@ -367,8 +418,10 @@ CONFIRMATION.loadReservationsOnTable = function() {
   if (!reservationId) {
     //configTimeout("Não há operações cadastradas.");
   }
-
+  $('.btnDeleteReservation').attr('disabled', '');
   $.getJSON("https://reservasdivegold.com/divegold-webservice/reservation/operation/" + reservationId, function(data) {
+    //serachbox fix
+    data.reservations.forEach(function(reserva,index){console.log(reserva.name = reserva.client.name)});
     dynatableData = $('#cfTable').data('dynatable');
     if (dynatableData && (!data.reservations || !data.reservations.length)) {
       dynatableData.settings.dataset.originalRecords = "";
@@ -421,13 +474,15 @@ CONFIRMATION.loadReservationsOnTable = function() {
           recordCountText: 'Exibindo '
         },
         features: {
-          paginate: true
+          paginate: true,
+          search: true
         },
         dataset: {
           records: data.reservations
         }
       }).data('dynatable');
       dynatableData.settings.dataset.originalRecords = data.reservations;
+      dynatableData.paginationPage.set(1);
       dynatableData.process();
       CONFIRMATION.tableAfterLoad();
     }
@@ -443,6 +498,8 @@ CONFIRMATION.tableAfterLoad = function() {
   CONFIRMATION.dom.subscribeCheckDeleteReservation();
   CONFIRMATION.dom.addDeleteButton();
   CONFIRMATION.showSummary();
+  CONFIRMATION.dom.subscribeCheckboxes();
+  CONFIRMATION.dom.subscribeSerachBoxEvent();
 };
 
 CONFIRMATION.initConfirmacoes = function() {

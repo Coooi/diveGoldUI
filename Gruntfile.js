@@ -21,7 +21,7 @@ module.exports = function(grunt) {
       },
       clientJS: {
         files: watchFiles.clientJS,
-        tasks: ['jshint', 'uglify', 'jsbeautifier', 'concat', 'copy'],
+        tasks: ['jshint', 'concat:minJs', 'copy'],
         options: {
           livereload: true
         }
