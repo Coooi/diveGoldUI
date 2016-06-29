@@ -1,5 +1,12 @@
 var CONFIRMATION = CONFIRMATION || {};
 
+var ENV = {
+  prodURL: "https://reservasdivegold.com/divegold-webservice",
+  devURL: "https://reservasdivegold.com/divegold-dev"
+};
+
+var BASE_URL = ENV.devURL;
+
 CONFIRMATION.dom = {
   removeCheckboxPadding: function() {
     $(".checkbox").parent().css('padding', '0');
@@ -24,8 +31,8 @@ CONFIRMATION.dom = {
     });
   },
   subscribeSerachBoxEvent: function() {
-    $('#dynatable-query-search-cfTable').keyup(function(){
-      setTimeout(function(){
+    $('#dynatable-query-search-cfTable').keyup(function() {
+      setTimeout(function() {
         $('.btnDeleteReservation').attr('disabled', '');
         CONFIRMATION.dom.subscribeCheckDeleteReservation();
         CONFIRMATION.dom.subscribeCheckboxes();
@@ -51,9 +58,9 @@ CONFIRMATION.dom = {
       });
     });
   },
-  subscribeCheckboxes: function(){
-    $("#dynatable-pagination-links-cfTable").click(function(){
-      setTimeout(function(){
+  subscribeCheckboxes: function() {
+    $("#dynatable-pagination-links-cfTable").click(function() {
+      setTimeout(function() {
         $('.btnDeleteReservation').attr('disabled', '');
         CONFIRMATION.dom.subscribeCheckDeleteReservation();
         CONFIRMATION.dom.subscribeCheckboxes();
@@ -174,24 +181,24 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/reservation/delete",
+    url: BASE_URL + "/reservation/delete",
     type: "POST",
     dataType: "text",
     contentType: "text/plain",
     data: "[" + reservations.toString() + "]",
     success: function(callback) {
-        $.unblockUI();
-        setTimeout(function() {
-          swal({
-            title: "Pronto!",
-            text: "Reserva(s) deletada(s) com sucesso!",
-            type: "success",
-            timer: 3000
-          }, function() {
-            CONFIRMATION.loadReservationsOnTable();
-            CONFIRMATION.tableAfterLoad();
-          });
-        }, 300);
+      $.unblockUI();
+      setTimeout(function() {
+        swal({
+          title: "Pronto!",
+          text: "Reserva(s) deletada(s) com sucesso!",
+          type: "success",
+          timer: 3000
+        }, function() {
+          CONFIRMATION.loadReservationsOnTable();
+          CONFIRMATION.tableAfterLoad();
+        });
+      }, 300);
     },
     error: function(error) {
       $.unblockUI();
@@ -254,7 +261,7 @@ CONFIRMATION.fireAjaxChangeStatus = function(status, reservationId, e) {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/reservation/" + reservationId + "/" + approve,
+    url: BASE_URL + "/reservation/" + reservationId + "/" + approve,
     type: "POST",
     dataType: "json",
     data: "",
@@ -285,7 +292,7 @@ CONFIRMATION.confirmOperation = function() {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/operation/close/" + operationId,
+    url: BASE_URL + "/operation/close/" + operationId,
     type: "POST",
     dataType: "json",
     data: "",
@@ -320,7 +327,7 @@ CONFIRMATION.showReservationDetails = function(currentTarget, event) {
   $.get('js/templates/detalhesReserva.hbs', function(hbsTemplate) {
     var reservationId = $(currentTarget).data("id");
 
-    $.getJSON("https://reservasdivegold.com/divegold-webservice/reservation/" + reservationId, function(reservation) {
+    $.getJSON(BASE_URL + "/reservation/" + reservationId, function(reservation) {
       var detailsTemplate = Handlebars.compile(hbsTemplate);
 
       $(".modal-body").html(detailsTemplate(reservation));
@@ -350,7 +357,7 @@ CONFIRMATION.showSummary = function() {
       reservationId = $(".comboOpenOperations").val();
     // var reservationId = $(currentTarget).data("id");
 
-    $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/" + reservationId + "/summary", function(summary) {
+    $.getJSON(BASE_URL + "/operation/" + reservationId + "/summary", function(summary) {
       var summaryTemplate = Handlebars.compile(hbsTemplate);
       $(summaryDiv).html(summaryTemplate(summary));
     }).fail(function() {
@@ -378,7 +385,7 @@ CONFIRMATION.getOpenOperations = function() {
       color: '#fff'
     }
   });
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON(BASE_URL + "/operation/status/0", function(data) {
     if (!data.operations || !data.operations.length) {
       dynatableData = $('#cfTable').data('dynatable');
       if (dynatableData && dynatableData.settings && dynatableData.settings.dataset) {
@@ -419,9 +426,11 @@ CONFIRMATION.loadReservationsOnTable = function() {
     //configTimeout("Não há operações cadastradas.");
   }
   $('.btnDeleteReservation').attr('disabled', '');
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/reservation/operation/" + reservationId, function(data) {
+  $.getJSON(BASE_URL + "/reservation/operation/" + reservationId, function(data) {
     //serachbox fix
-    data.reservations.forEach(function(reserva,index){console.log(reserva.name = reserva.client.name)});
+    data.reservations.forEach(function(reserva, index) {
+      console.log(reserva.name = reserva.client.name)
+    });
     dynatableData = $('#cfTable').data('dynatable');
     if (dynatableData && (!data.reservations || !data.reservations.length)) {
       dynatableData.settings.dataset.originalRecords = "";
@@ -515,6 +524,13 @@ $(document).ready(function() {
   }
 });
 
+var ENV = {
+  prodURL: "https://reservasdivegold.com/divegold-webservice",
+  devURL: "https://reservasdivegold.com/divegold-dev"
+};
+
+var BASE_URL = ENV.devURL;
+
 var configTimeout = function(msg) {
   console.log(msg);
   $.unblockUI();
@@ -554,7 +570,7 @@ var initOperacoes = function() {
     }
   }
 
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation", function(data) {
+  $.getJSON(BASE_URL + "/operation", function(data) {
 
     $('#opTable').dynatable({
       writers: {
@@ -620,7 +636,7 @@ var initOperacoes = function() {
 };
 
 var getReservedDates = function() { //teste
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON(BASE_URL + "/operation/status/0", function(data) {
     var dateArray = [];
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
@@ -665,7 +681,7 @@ var deleteOp = function(buttonTag, e) {
       operation.id = $(buttonTag).data("id");
       $.ajax({
         cache: false,
-        url: "https://reservasdivegold.com/divegold-webservice/operation/delete/" + operation.id,
+        url: BASE_URL + "/operation/delete/" + operation.id,
         type: "POST",
         dataType: "json",
         data: JSON.stringify(operation),
@@ -695,7 +711,7 @@ var deleteOp = function(buttonTag, e) {
         }
       });
     }
-    
+
   });
 };
 
@@ -729,7 +745,7 @@ var saveOperations = function(data) {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/operation/add",
+    url: BASE_URL + "/operation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(operation),
@@ -755,6 +771,13 @@ $(document).ready(function() {
   }
 });
 
+var ENV = {
+  prodURL: "https://reservasdivegold.com/divegold-webservice",
+  devURL: "https://reservasdivegold.com/divegold-dev"
+};
+
+var BASE_URL = ENV.devURL;
+
 var getOperations = function() {
   $.blockUI({
     message: 'Carregando lista de operações...',
@@ -768,7 +791,7 @@ var getOperations = function() {
       color: '#fff'
     }
   });
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/1", function(data) {
+  $.getJSON(BASE_URL + "/operation/status/1", function(data) {
     if (!data.operations) {
       configTimeout("Não existem operações para geração de planilhas.");
       return;
@@ -809,7 +832,7 @@ var generate = function() {
         color: '#fff'
       }
     });
-    $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
+    $.getJSON(BASE_URL + "/operation/artifacts/" + operationId, function(data) {
       $.unblockUI();
       sweetAlert(data.msg, '', 'success');
     }).fail(function(error) {
@@ -839,7 +862,7 @@ var initPlanilha = function() {
       confirmButtonText: "Sim",
       cancelButtonText: 'Cancelar'
     }, function(yes) {
-      if (yes){
+      if (yes) {
         self.generate();
       }
     });
@@ -856,8 +879,15 @@ $(document).ready(function() {
 var isFirefox = typeof InstallTrigger !== 'undefined',
   hasDatePicker = false;
 
+var ENV = {
+  prodURL: "https://reservasdivegold.com/divegold-webservice",
+  devURL: "https://reservasdivegold.com/divegold-dev"
+};
+
+var BASE_URL = ENV.devURL;
+
 var getAvailableDates = function() { //teste
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON(BASE_URL + "/operation/status/0", function(data) {
     var dateArray = [];
     operationsArray = data.operations;
     $.each(data.operations, function() {
@@ -926,7 +956,7 @@ var getLongDate = function(dateValue) {
     var dateArray,
       dateFormat;
 
-    if (hasDatePicker) {
+    if (hasDatePicker || dateValue.indexOf("/") >= 0) {
       dateArray = dateValue.split("/");
       dateFormat = new Date(dateArray[2], dateArray[1] - 1, dateArray[0]).getTime();
     } else {
@@ -1019,7 +1049,7 @@ var configTimeout = function(msg) {
 };
 
 var populateAparts = function() {
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/apart/type&token=e7ad3799610e535452711cef857ac7ce',
+  var url = BASE_URL + '/collection/apart/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{type}}>{{type}}</a></li>";
   apItemTemplate = Handlebars.compile(templateItem);
 
@@ -1062,7 +1092,7 @@ var populateAparts = function() {
 };
 
 var populateGases = function() {
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/gas/type&token=e7ad3799610e535452711cef857ac7ce',
+  var url = BASE_URL + '/collection/gas/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   gasItemTemplate = Handlebars.compile(templateItem);
 
@@ -1085,7 +1115,7 @@ var populateGases = function() {
 };
 
 var populateTanks = function() {
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/tank/type&token=e7ad3799610e535452711cef857ac7ce',
+  var url = BASE_URL + '/collection/tank/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{id}}>{{type}}</a></li>";
   tankItemTemplate = Handlebars.compile(templateItem);
 
@@ -1121,7 +1151,7 @@ var populateCombos = function() {
     }
   });
 
-  var url = 'https://reservasdivegold.com/divegold-webservice/collection/diver/type&token=e7ad3799610e535452711cef857ac7ce',
+  var url = BASE_URL + '/collection/diver/type&token=e7ad3799610e535452711cef857ac7ce',
     templateItem = "<li><a href='#' value={{id}}>{{desc}}</a></li>";
   dataMergulhoTemplate = Handlebars.compile(templateItem);
 
@@ -1186,7 +1216,38 @@ var beforePost = function() {
       configTimeout("Favor escolher pelo menos uma data de mergulho");
       return;
     }
-    if ($('.gasTypesRowSet').length === 0) {
+
+    function hasOneTankPerDate() {
+      var datesMatch = true;
+
+      var datas = document.getElementsByClassName('item-data-mergulho'),
+        tanques = document.getElementsByClassName('gasTypesRowSet');
+
+      for (var i = 0; i < datas.length; ++i) {
+        var currentDateMatch = false;
+        var currentDate = getLongDate(datas[i].value);
+
+        for (var j = 0; j < tanques.length; ++j) {
+          var tanque = $(tanques[j]);
+          var dataInicio = getLongDate(tanque.find('.diveDateStart').val()),
+            dataFim = getLongDate(tanque.find('.diveDateEnd').val());
+
+          if (currentDate <= dataFim && currentDate >= dataInicio) {
+            currentDateMatch = true;
+            break;
+          }
+        }
+
+        if (!currentDateMatch) {
+          datesMatch = false;
+          break;
+        }
+      }
+
+      return datesMatch;
+    }
+
+    if (!hasOneTankPerDate()) {
       configTimeout("Favor escolher pelo menos um tanque e um gas por data");
       return;
     }
@@ -1339,7 +1400,7 @@ var sendPostRequest = function(e) {
   console.log(JSON.stringify(reservation));
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/reservation/add",
+    url: BASE_URL + "/reservation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(reservation),
@@ -1443,7 +1504,16 @@ var initEvents = function() {
       return;
     }
 
-    var template1 = "<div class='form-group row'><label class='col-md-1 col-xs-2 hidden-xs control-label'></label><div class='col-md-3 col-xs-7'><input id='dataMergulho' type='text' name='regular' class='form-control' value='{{date}}' disabled></div><div class='col-md-1 col-xs-1 btnRemoveDate'><button type='button' class='btn btn-danger btn-raised btn-xs'><span class='glyphicon glyphicon-remove-sign'></span> Remover</button></div></div>";
+    var template1 = "<div class='form-group row'>" +
+      "<label class='col-md-1 col-xs-2 hidden-xs control-label'></label>" +
+      "<div class='col-md-3 col-xs-7'>" +
+      "<input id='dataMergulho' type='text' name='regular' class='form-control item-data-mergulho' value='{{date}}' disabled>" +
+      "</div>" +
+      "<div class='col-md-1 col-xs-1 btnRemoveDate'>" +
+      "<button type='button' class='btn btn-danger btn-raised btn-xs'>" +
+      "<span class='glyphicon glyphicon-remove-sign'></span> Remover</button>" +
+      "</div></div>";
+
     var template2 = "<li><a href='#' value={{date}}>{{date}}</a></li>";
 
     var dataMergulhoTemplate = Handlebars.compile(template1);
@@ -1506,7 +1576,21 @@ var initEvents = function() {
   });
 
   btnAddTanque.click(function(e) {
-    var template = "<div class='form-group row gasTypesRowSet well'><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data inicial de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateIn' class='form-control dateSet' value='{{date}}' disabled></div><label class='col-md-2  col-xs-12 control-label'>Cilindro</label><div class='col-md-2 col-xs-11'><input type='text' name='tankType' typeId='{{cilindroId}}' class='form-control' value='{{cilindro}}' disabled></div></div><div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data final de uso</label><div class='col-md-2 col-xs-11'><input type='text' name='diveDateOut' class='form-control dateSet' value='{{dateFim}}' disabled></div><label class='col-md-2 col-xs-12 control-label'>Gases</label><div class='col-md-2  col-xs-11'><input type='text' name='gasType' class='form-control' typeId='{{gasId}}' value='{{gas}}' disabled></div><div class='col-md-1 col-xs-12 divRemoveTank'><button type='button' class='btn btn-danger btn-raised btnRemoveTanque btn-xs btn-fab mdi-navigation-close'></button></div></div></div>";
+    var template = "<div class='form-group row gasTypesRowSet well'>" +
+      "<div class='row bottom'>" +
+      "<label class='col-md-2 col-xs-12 control-label'>Data inicial de uso</label>" +
+      "<div class='col-md-2 col-xs-11'>" +
+      "<input type='text' name='diveDateIn' class='form-control dateSet diveDateStart' value='{{date}}' disabled></div>" +
+      "<label class='col-md-2  col-xs-12 control-label'>Cilindro</label>" +
+      "<div class='col-md-2 col-xs-11'>" +
+      "<input type='text' name='tankType' typeId='{{cilindroId}}' class='form-control' value='{{cilindro}}' disabled></div></div>" +
+      "<div class='row bottom'><label class='col-md-2 col-xs-12 control-label'>Data final de uso</label>" +
+      "<div class='col-md-2 col-xs-11'><input type='text' name='diveDateOut' class='form-control dateSet diveDateEnd' value='{{dateFim}}' disabled></div>" +
+      "<label class='col-md-2 col-xs-12 control-label'>Gases</label><div class='col-md-2  col-xs-11'>" +
+      "<input type='text' name='gasType' class='form-control' typeId='{{gasId}}' value='{{gas}}' disabled></div>" +
+      "<div class='col-md-1 col-xs-12 divRemoveTank'>" +
+      "<button type='button' class='btn btn-danger btn-raised btnRemoveTanque btn-xs btn-fab mdi-navigation-close'></button>" +
+      "</div></div></div>";
     var gasTanqueSet = Handlebars.compile(template);
     var setHtml,
       setDate = $('#btnDatas').text(),
@@ -1684,7 +1768,7 @@ var initEvents = function() {
       return;
     }
 
-    var url = 'https://reservasdivegold.com/divegold-webservice/client/type=0&value=' + cpfValue + '&token=e7ad3799610e535452711cef857ac7ce';
+    var url = BASE_URL + '/client/type=0&value=' + cpfValue + '&token=e7ad3799610e535452711cef857ac7ce';
     $.getJSON(url, function(data) {
       populateUserInfo(data);
     }).fail(function(e) {
@@ -1697,7 +1781,7 @@ var initEvents = function() {
     var cnpjValue = $(this).val().replace('.', '').replace('-', '').replace('/', '').replace('_', '').replace('.', '');
 
     if (cnpjValue) {
-      var url = 'https://reservasdivegold.com/divegold-webservice/client/type=1&value=' + cnpjValue + '&token=e7ad3799610e535452711cef857ac7ce';
+      var url = BASE_URL + '/client/type=1&value=' + cnpjValue + '&token=e7ad3799610e535452711cef857ac7ce';
       $.getJSON(url, function(data) {
         populateUserInfo(data);
       }).fail(function(e) {

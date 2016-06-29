@@ -1,3 +1,10 @@
+var ENV = {
+  prodURL: "https://reservasdivegold.com/divegold-webservice",
+  devURL: "https://reservasdivegold.com/divegold-dev"
+};
+
+var BASE_URL = ENV.devURL;
+
 var configTimeout = function(msg) {
   console.log(msg);
   $.unblockUI();
@@ -37,7 +44,7 @@ var initOperacoes = function() {
     }
   }
 
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation", function(data) {
+  $.getJSON(BASE_URL + "/operation", function(data) {
 
     $('#opTable').dynatable({
       writers: {
@@ -103,7 +110,7 @@ var initOperacoes = function() {
 };
 
 var getReservedDates = function() { //teste
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON(BASE_URL + "/operation/status/0", function(data) {
     var dateArray = [];
     $.each(data.operations, function() {
       var datePattern = new Date(this.date);
@@ -148,7 +155,7 @@ var deleteOp = function(buttonTag, e) {
       operation.id = $(buttonTag).data("id");
       $.ajax({
         cache: false,
-        url: "https://reservasdivegold.com/divegold-webservice/operation/delete/" + operation.id,
+        url: BASE_URL + "/operation/delete/" + operation.id,
         type: "POST",
         dataType: "json",
         data: JSON.stringify(operation),
@@ -178,7 +185,7 @@ var deleteOp = function(buttonTag, e) {
         }
       });
     }
-    
+
   });
 };
 
@@ -212,7 +219,7 @@ var saveOperations = function(data) {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/operation/add",
+    url: BASE_URL + "/operation/add",
     type: "POST",
     dataType: "json",
     data: JSON.stringify(operation),

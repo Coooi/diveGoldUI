@@ -1,5 +1,12 @@
 var CONFIRMATION = CONFIRMATION || {};
 
+var ENV = {
+  prodURL: "https://reservasdivegold.com/divegold-webservice",
+  devURL: "https://reservasdivegold.com/divegold-dev"
+};
+
+var BASE_URL = ENV.devURL;
+
 CONFIRMATION.dom = {
   removeCheckboxPadding: function() {
     $(".checkbox").parent().css('padding', '0');
@@ -24,8 +31,8 @@ CONFIRMATION.dom = {
     });
   },
   subscribeSerachBoxEvent: function() {
-    $('#dynatable-query-search-cfTable').keyup(function(){
-      setTimeout(function(){
+    $('#dynatable-query-search-cfTable').keyup(function() {
+      setTimeout(function() {
         $('.btnDeleteReservation').attr('disabled', '');
         CONFIRMATION.dom.subscribeCheckDeleteReservation();
         CONFIRMATION.dom.subscribeCheckboxes();
@@ -51,9 +58,9 @@ CONFIRMATION.dom = {
       });
     });
   },
-  subscribeCheckboxes: function(){
-    $("#dynatable-pagination-links-cfTable").click(function(){
-      setTimeout(function(){
+  subscribeCheckboxes: function() {
+    $("#dynatable-pagination-links-cfTable").click(function() {
+      setTimeout(function() {
         $('.btnDeleteReservation').attr('disabled', '');
         CONFIRMATION.dom.subscribeCheckDeleteReservation();
         CONFIRMATION.dom.subscribeCheckboxes();
@@ -174,24 +181,24 @@ CONFIRMATION.fireAjaxDeleteReservations = function(reservations) {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/reservation/delete",
+    url: BASE_URL + "/reservation/delete",
     type: "POST",
     dataType: "text",
     contentType: "text/plain",
     data: "[" + reservations.toString() + "]",
     success: function(callback) {
-        $.unblockUI();
-        setTimeout(function() {
-          swal({
-            title: "Pronto!",
-            text: "Reserva(s) deletada(s) com sucesso!",
-            type: "success",
-            timer: 3000
-          }, function() {
-            CONFIRMATION.loadReservationsOnTable();
-            CONFIRMATION.tableAfterLoad();
-          });
-        }, 300);
+      $.unblockUI();
+      setTimeout(function() {
+        swal({
+          title: "Pronto!",
+          text: "Reserva(s) deletada(s) com sucesso!",
+          type: "success",
+          timer: 3000
+        }, function() {
+          CONFIRMATION.loadReservationsOnTable();
+          CONFIRMATION.tableAfterLoad();
+        });
+      }, 300);
     },
     error: function(error) {
       $.unblockUI();
@@ -254,7 +261,7 @@ CONFIRMATION.fireAjaxChangeStatus = function(status, reservationId, e) {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/reservation/" + reservationId + "/" + approve,
+    url: BASE_URL + "/reservation/" + reservationId + "/" + approve,
     type: "POST",
     dataType: "json",
     data: "",
@@ -285,7 +292,7 @@ CONFIRMATION.confirmOperation = function() {
 
   $.ajax({
     cache: false,
-    url: "https://reservasdivegold.com/divegold-webservice/operation/close/" + operationId,
+    url: BASE_URL + "/operation/close/" + operationId,
     type: "POST",
     dataType: "json",
     data: "",
@@ -320,7 +327,7 @@ CONFIRMATION.showReservationDetails = function(currentTarget, event) {
   $.get('js/templates/detalhesReserva.hbs', function(hbsTemplate) {
     var reservationId = $(currentTarget).data("id");
 
-    $.getJSON("https://reservasdivegold.com/divegold-webservice/reservation/" + reservationId, function(reservation) {
+    $.getJSON(BASE_URL + "/reservation/" + reservationId, function(reservation) {
       var detailsTemplate = Handlebars.compile(hbsTemplate);
 
       $(".modal-body").html(detailsTemplate(reservation));
@@ -350,7 +357,7 @@ CONFIRMATION.showSummary = function() {
       reservationId = $(".comboOpenOperations").val();
     // var reservationId = $(currentTarget).data("id");
 
-    $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/" + reservationId + "/summary", function(summary) {
+    $.getJSON(BASE_URL + "/operation/" + reservationId + "/summary", function(summary) {
       var summaryTemplate = Handlebars.compile(hbsTemplate);
       $(summaryDiv).html(summaryTemplate(summary));
     }).fail(function() {
@@ -378,7 +385,7 @@ CONFIRMATION.getOpenOperations = function() {
       color: '#fff'
     }
   });
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/0", function(data) {
+  $.getJSON(BASE_URL + "/operation/status/0", function(data) {
     if (!data.operations || !data.operations.length) {
       dynatableData = $('#cfTable').data('dynatable');
       if (dynatableData && dynatableData.settings && dynatableData.settings.dataset) {
@@ -419,9 +426,11 @@ CONFIRMATION.loadReservationsOnTable = function() {
     //configTimeout("Não há operações cadastradas.");
   }
   $('.btnDeleteReservation').attr('disabled', '');
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/reservation/operation/" + reservationId, function(data) {
+  $.getJSON(BASE_URL + "/reservation/operation/" + reservationId, function(data) {
     //serachbox fix
-    data.reservations.forEach(function(reserva,index){console.log(reserva.name = reserva.client.name)});
+    data.reservations.forEach(function(reserva, index) {
+      console.log(reserva.name = reserva.client.name)
+    });
     dynatableData = $('#cfTable').data('dynatable');
     if (dynatableData && (!data.reservations || !data.reservations.length)) {
       dynatableData.settings.dataset.originalRecords = "";

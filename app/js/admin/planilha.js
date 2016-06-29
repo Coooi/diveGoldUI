@@ -1,3 +1,10 @@
+var ENV = {
+  prodURL: "https://reservasdivegold.com/divegold-webservice",
+  devURL: "https://reservasdivegold.com/divegold-dev"
+};
+
+var BASE_URL = ENV.devURL;
+
 var getOperations = function() {
   $.blockUI({
     message: 'Carregando lista de operações...',
@@ -11,7 +18,7 @@ var getOperations = function() {
       color: '#fff'
     }
   });
-  $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/status/1", function(data) {
+  $.getJSON(BASE_URL + "/operation/status/1", function(data) {
     if (!data.operations) {
       configTimeout("Não existem operações para geração de planilhas.");
       return;
@@ -52,7 +59,7 @@ var generate = function() {
         color: '#fff'
       }
     });
-    $.getJSON("https://reservasdivegold.com/divegold-webservice/operation/artifacts/" + operationId, function(data) {
+    $.getJSON(BASE_URL + "/operation/artifacts/" + operationId, function(data) {
       $.unblockUI();
       sweetAlert(data.msg, '', 'success');
     }).fail(function(error) {
@@ -82,7 +89,7 @@ var initPlanilha = function() {
       confirmButtonText: "Sim",
       cancelButtonText: 'Cancelar'
     }, function(yes) {
-      if (yes){
+      if (yes) {
         self.generate();
       }
     });
